@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8afedf331772cd24b9af48b397f95cb0
+timeCreated: 1510768027
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 85928
+  packageName: OpenCV plus Unity
+  packageVersion: 1.7
+  assetPath: Assets/OpenCV+Unity/Demo/Grayscale/GrayscaleScene.unity
+  uploadId: 213478

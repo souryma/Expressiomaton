@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 64d6d3bcebc92f14495f16f82bc3841e
+timeCreated: 1510768027
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 85928
+  packageName: OpenCV plus Unity
+  packageVersion: 1.7
+  assetPath: Assets/OpenCV+Unity/Demo/Face_Recognizer/FaceRecognizer.unity
+  uploadId: 213478

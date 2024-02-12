@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c273656cfabeda743b708f09ee7be34f
+timeCreated: 1499946998
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 85928
+  packageName: OpenCV plus Unity
+  packageVersion: 1.7
+  assetPath: Assets/OpenCV+Unity/Demo/Document_Scanner/DocumentScannerScene.unity
+  uploadId: 213478

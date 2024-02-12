@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a1203bc8d0ab3b5469c52993e6874d7a
+timeCreated: 1510768051
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 85928
+  packageName: OpenCV plus Unity
+  packageVersion: 1.7
+  assetPath: Assets/OpenCV+Unity/Demo/Face_Detector/haarcascade_eye.xml
+  uploadId: 213478

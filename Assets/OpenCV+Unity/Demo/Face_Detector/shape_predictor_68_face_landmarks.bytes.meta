@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8141d4a0988291c4f9e5fba2a3e448f1
+timeCreated: 1510768051
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 85928
+  packageName: OpenCV plus Unity
+  packageVersion: 1.7
+  assetPath: Assets/OpenCV+Unity/Demo/Face_Detector/shape_predictor_68_face_landmarks.bytes
+  uploadId: 213478

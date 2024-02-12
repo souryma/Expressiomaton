@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d0f70e1287fbd6047ac361ee8077b3d6
+timeCreated: 1510768028
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 85928
+  packageName: OpenCV plus Unity
+  packageVersion: 1.7
+  assetPath: Assets/OpenCV+Unity/Demo/OCR.Alphabet/AlphabetOCR.unity
+  uploadId: 213478
