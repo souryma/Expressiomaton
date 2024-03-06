@@ -24,17 +24,8 @@ public class WebcamManager : MonoBehaviour
     private RenderTexture _webcam1Texture;
     private RenderTexture _webcam2Texture;
 
-    public RenderTexture Webcam1Texture
-    {
-        get => _webcam1Texture;
-        set => _webcam1Texture = value;
-    }
-
-    public RenderTexture Webcam2Texture
-    {
-        get => _webcam2Texture;
-        set => _webcam2Texture = value;
-    }
+    public RenderTexture Webcam1Texture => _webcam1Texture;
+    public RenderTexture Webcam2Texture => _webcam2Texture;
 
     void Start()
     {
@@ -81,8 +72,8 @@ public class WebcamManager : MonoBehaviour
         var offset = new Vector2(scale.x / 2, 0);
         Graphics.Blit(_webcam1, _webcam1Texture, scale, offset);
         
-        scale = new Vector2((float) _webcam2.height / _webcam2.width, 1);
-        offset = new Vector2(scale.x / 2, 0);
-        Graphics.Blit(_webcam2, _webcam2Texture, scale, offset);
+        var scale2 = new Vector2((float) _webcam2.height / _webcam2.width, 1);
+        var offset2 = new Vector2(scale.x / 2, 0);
+        Graphics.Blit(_webcam2, _webcam2Texture, scale2, offset2);
     }
 }
