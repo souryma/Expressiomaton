@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics;
 using UnityEngine;
 using Unity.Barracuda;
 using System.Linq;
@@ -33,18 +31,6 @@ namespace EmotionFerPlus
             "Neutral", "Happiness", "Surprise", "Sadness",
             "Anger", "Disgust", "Fear", "Contempt"
         };
-
-        enum EMOTION
-        {
-            Neutral = 0,
-            Happy = 1,
-            Surprise = 2,
-            Sadness = 3,
-            Anger = 4,
-            Disgust = 5,
-            Fear = 6,
-            Contempt = 7
-        }
 
         #endregion
 
@@ -107,7 +93,7 @@ namespace EmotionFerPlus
 
             int emotionNb = 0;
             float maxValue = 0;
-            EMOTION maxEmotion = 0;
+            EmotionManager.EMOTION maxEmotion = 0;
             // Ignore first value (neutral)
             foreach (var emotion in emotionValues)
             {
@@ -117,7 +103,7 @@ namespace EmotionFerPlus
                     if (emotionValue > maxValue)
                     {
                         maxValue = emotionValue;
-                        maxEmotion = (EMOTION) emotionNb;
+                        maxEmotion = (EmotionManager.EMOTION) emotionNb;
                     }
                 }
 
@@ -126,28 +112,28 @@ namespace EmotionFerPlus
 
             switch (maxEmotion)
             {
-                case EMOTION.Anger:
+                case EmotionManager.EMOTION.Anger:
                     _emotionLabel.text = "Anger";
                     break;
-                case EMOTION.Contempt:
+                case EmotionManager.EMOTION.Contempt:
                     _emotionLabel.text = "Contempt";
                     break;
-                case EMOTION.Disgust:
+                case EmotionManager.EMOTION.Disgust:
                     _emotionLabel.text = "Disgust";
                     break;
-                case EMOTION.Fear:
+                case EmotionManager.EMOTION.Fear:
                     _emotionLabel.text = "Fear";
                     break;
-                case EMOTION.Happy:
+                case EmotionManager.EMOTION.Happy:
                     _emotionLabel.text = "Happy";
                     break;
-                case EMOTION.Neutral:
+                case EmotionManager.EMOTION.Neutral:
                     _emotionLabel.text = "Neutral";
                     break;
-                case EMOTION.Sadness:
+                case EmotionManager.EMOTION.Sadness:
                     _emotionLabel.text = "Sadness";
                     break;
-                case EMOTION.Surprise:
+                case EmotionManager.EMOTION.Surprise:
                     _emotionLabel.text = "Surprise";
                     break;
             }
