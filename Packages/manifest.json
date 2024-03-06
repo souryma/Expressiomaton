@@ -9,7 +9,7 @@
     }
   ],
   "dependencies": {
-    "com.unity.barracuda": "2.0.0",
+    "com.unity.barracuda": "3.0.0",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.feature.development": "1.0.2",
     "com.unity.timeline": "1.8.6",
