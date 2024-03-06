@@ -5,7 +5,7 @@
 sampler2D _Texture;
 RWStructuredBuffer<float> _Tensor;
 
-[numthreads(8, 8, 1)]
+[numthreads(32, 32, 1)]
 void Preprocess(uint3 id : SV_DispatchThreadID)
 {
     float2 uv = (id.xy + 0.5) / ImageSize;
