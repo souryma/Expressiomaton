@@ -3,6 +3,16 @@ using UnityEngine;
 
 public class WebcamManager : MonoBehaviour
 {
+    public static WebcamManager instance;
+    
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
+    
     [SerializeField] private string _camera1Name = "";
     [SerializeField] private string _camera2Name = "";
 

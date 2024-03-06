@@ -3,7 +3,15 @@ using UnityEngine;
 
 public class EmotionManager : MonoBehaviour
 {
-    [SerializeField] private WebCamTexture _webcamManager;
+    public static EmotionManager instance;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
     
     public enum EMOTION
     {
@@ -32,6 +40,7 @@ public class EmotionManager : MonoBehaviour
     void Start()
     {
         _preprocessed = new ComputeBuffer(ImageSize * ImageSize, sizeof(float));
+        _worker = ModelLoader.Load(_model).CreateWorker();
     }
 
     public EMOTION GetPlayer1Emotion()
