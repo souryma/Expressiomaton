@@ -36,9 +36,6 @@ public class EmotionManager : MonoBehaviour
 
     private const int ImageSize = 64;
 
-    // Create a function that sends the emotion of a player
-
-    // Start is called before the first frame update
     void Start()
     {
         _preprocessed = new ComputeBuffer(ImageSize * ImageSize, sizeof(float));
