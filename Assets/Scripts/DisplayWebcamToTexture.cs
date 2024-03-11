@@ -9,12 +9,16 @@ public class DisplayWebcamToTexture : MonoBehaviour
     [SerializeField]
     public RawImage Image2;
     
+    private bool _isActivated = false;
+    
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (WebcamManager.instance.isCameraSetup && !_isActivated)
         {
             Image.texture = WebcamManager.instance.Webcam1Texture;
             Image2.texture = WebcamManager.instance.Webcam2Texture;
+
+            _isActivated = true;
         }
     }
 }

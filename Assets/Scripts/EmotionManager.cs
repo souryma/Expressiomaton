@@ -53,6 +53,8 @@ public class EmotionManager : MonoBehaviour
 
     public EMOTION GetPlayer1Emotion()
     {
+        if (!CheckCameras()) return EMOTION.Neutral;
+
         // Preprocessing
         _preprocessor.SetTexture(0, "_Texture", WebcamManager.instance.Webcam1Texture);
         _preprocessor.SetBuffer(0, "_Tensor", _preprocessed);
@@ -70,6 +72,8 @@ public class EmotionManager : MonoBehaviour
 
     public EMOTION GetPlayer2Emotion()
     {
+        if (!CheckCameras()) return EMOTION.Neutral;
+
         // Preprocessing
         _preprocessor.SetTexture(0, "_Texture", WebcamManager.instance.Webcam2Texture);
         _preprocessor.SetBuffer(0, "_Tensor", _preprocessed);
@@ -85,13 +89,27 @@ public class EmotionManager : MonoBehaviour
         return GetMaxEmotion(probs.ToList());
     }
 
+    private bool CheckCameras()
+    {
+        bool ret = true;
+
+        // If the cameras are not ready, return neutral by default.
+        if (!WebcamManager.instance.isCameraSetup)
+        {
+            Debug.LogWarning("Warning : the cameras are not initialized, returning neutral expression by default.");
+            ret = false;
+        }
+
+        return ret;
+    }
+
     private EMOTION GetMaxEmotion(List<float> probs)
     {
         var sum = probs.Sum();
 
         int emotionNumber = 0;
         float maxEmotionValue = 0;
-        
+
         for (int i = 0; i < probs.Count; i++)
         {
             // Return neutral if its more than 50%

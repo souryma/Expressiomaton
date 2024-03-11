@@ -14,19 +14,19 @@ public class WebcamToMaterial : MonoBehaviour
 
     [SerializeField] private Cameras _cameras = Cameras.Webcam1;
 
+    private bool _isActivated = false;
+
     // Start is called before the first frame update
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (WebcamManager.instance.isCameraSetup && !_isActivated)
         {
             if (_cameras == Cameras.Webcam1)
-            {
                 targetMaterial.material.mainTexture = WebcamManager.instance.Webcam1Texture;
-            }
             else
-            {
                 targetMaterial.material.mainTexture = WebcamManager.instance.Webcam2Texture;
-            }
+
+            _isActivated = true;
         }
     }
 }
