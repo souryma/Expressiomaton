@@ -115,15 +115,15 @@ namespace EmotionFerPlus
                 case EmotionManager.EMOTION.Anger:
                     _emotionLabel.text = "Anger";
                     break;
-                case EmotionManager.EMOTION.Contempt:
-                    _emotionLabel.text = "Contempt";
-                    break;
-                case EmotionManager.EMOTION.Disgust:
-                    _emotionLabel.text = "Disgust";
-                    break;
-                case EmotionManager.EMOTION.Fear:
-                    _emotionLabel.text = "Fear";
-                    break;
+                // case EmotionManager.EMOTION.Contempt:
+                //     _emotionLabel.text = "Contempt";
+                //     break;
+                // case EmotionManager.EMOTION.Disgust:
+                //     _emotionLabel.text = "Disgust";
+                //     break;
+                // case EmotionManager.EMOTION.Fear:
+                //     _emotionLabel.text = "Fear";
+                //     break;
                 case EmotionManager.EMOTION.Happy:
                     _emotionLabel.text = "Happy";
                     break;
