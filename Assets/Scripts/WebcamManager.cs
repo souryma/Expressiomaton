@@ -86,14 +86,12 @@ public class WebcamManager : MonoBehaviour
     void Update()
     {
         if (!isCameraSetup) return;
-        
+
         // Crop the cameras render to a square of the desired resolution
         var scale = new Vector2((float) _webcam1.height / _webcam1.width, 1);
-        var offset = new Vector2(scale.x / 2, 0);
-        Graphics.Blit(_webcam1, _webcam1Texture, scale, offset);
+        Graphics.Blit(_webcam1, _webcam1Texture, scale, new Vector2(0, 0));
 
         var scale2 = new Vector2((float) _webcam2.height / _webcam2.width, 1);
-        var offset2 = new Vector2(scale.x / 2, 0);
-        Graphics.Blit(_webcam2, _webcam2Texture, scale2, offset2);
+        Graphics.Blit(_webcam2, _webcam2Texture, scale2, new Vector2(0, 0));
     }
 }
