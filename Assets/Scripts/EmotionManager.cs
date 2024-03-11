@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Barracuda;
@@ -22,9 +23,9 @@ public class EmotionManager : MonoBehaviour
         Surprise = 2,
         Sadness = 3,
         Anger = 4,
-        Disgust = 5,
-        Fear = 6,
-        Contempt = 7
+        //Disgust = 5,
+        //Fear = 6,
+        //Contempt = 7
     }
 
     [SerializeField] private NNModel _model = null;
@@ -52,12 +53,6 @@ public class EmotionManager : MonoBehaviour
         _worker?.Dispose();
         _worker = null;
     }
-    
-    static readonly string[] Labels =
-    {
-        "Neutral", "Happiness", "Surprise", "Sadness",
-        "Anger", "Disgust", "Fear", "Contempt"
-    };
 
     public EMOTION GetPlayer1Emotion()
     {
@@ -72,10 +67,10 @@ public class EmotionManager : MonoBehaviour
 
         // Output aggregation
         var probs = _worker.PeekOutput().AsFloats().Select(x => Mathf.Exp(x));
-        
-        return GetMaxEmotion(probs);
+
+        return GetMaxEmotion(probs.ToList());
     }
-    
+
     public EMOTION GetPlayer2Emotion()
     {
         // Preprocessing
@@ -89,45 +84,35 @@ public class EmotionManager : MonoBehaviour
 
         // Output aggregation
         var probs = _worker.PeekOutput().AsFloats().Select(x => Mathf.Exp(x));
-        
-        return GetMaxEmotion(probs);
+
+        return GetMaxEmotion(probs.ToList());
     }
 
-    private EMOTION GetMaxEmotion(IEnumerable<float> probs)
+    private EMOTION GetMaxEmotion(List<float> probs)
     {
         var sum = probs.Sum();
 
-        var emotionValues = Labels.Zip(probs, (l, p) => $"{p / sum:0.00}");
-
-        int emotionNb = 0;
-        float maxValue = 0;
-        EMOTION maxEmotion = 0;
-        // Ignore first value (neutral)
-        foreach (var emotion in emotionValues)
+        int emotionNumber = 0;
+        float maxEmotionValue = 0;
+        
+        for (int i = 0; i < probs.Count; i++)
         {
-            float emotionValue = float.Parse(emotion);
-            if (emotionNb != 0)
+            // Return neutral if its more than 50%
+            if (probs[0] / sum >= 0.5)
             {
-                if (emotionValue > maxValue)
-                {
-                    maxValue = emotionValue;
-                    maxEmotion = (EMOTION) emotionNb;
-                }
+                emotionNumber = 0;
             }
-
-            emotionNb++;
+            else
+            {
+                float newEmotion = probs[i] / sum;
+                maxEmotionValue = Math.Max(maxEmotionValue, newEmotion);
+                if (Math.Abs(maxEmotionValue - newEmotion) < 0.001f)
+                    emotionNumber = i;
+            }
         }
 
-        return maxEmotion;
+        return (EMOTION) emotionNumber;
     }
-
-    // void Update()
-    // {
-    //     
-    //     var enumerable = probs.ToList();
-    //
-    //     Debug.Log("Happy : " + enumerable[1]);
-    // }
 
     public static string GetEmotionString(EMOTION emotion)
     {
@@ -137,15 +122,15 @@ public class EmotionManager : MonoBehaviour
             case EmotionManager.EMOTION.Anger:
                 emotionText = "Anger";
                 break;
-            case EmotionManager.EMOTION.Contempt:
-                emotionText = "Contempt";
-                break;
-            case EmotionManager.EMOTION.Disgust:
-                emotionText = "Disgust";
-                break;
-            case EmotionManager.EMOTION.Fear:
-                emotionText = "Fear";
-                break;
+            // case EmotionManager.EMOTION.Contempt:
+            //     emotionText = "Contempt";
+            //     break;
+            // case EmotionManager.EMOTION.Disgust:
+            //     emotionText = "Disgust";
+            //     break;
+            // case EmotionManager.EMOTION.Fear:
+            //     emotionText = "Fear";
+            //     break;
             case EmotionManager.EMOTION.Happy:
                 emotionText = "Happy";
                 break;
