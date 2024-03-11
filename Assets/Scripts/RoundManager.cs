@@ -48,25 +48,29 @@ public class RoundManager : MonoBehaviour
         {
             isNewRound = false;
             currentRoundEmotion = _GetRandomEmotion();
+            Debug.Log("Round Emotion" + currentRoundEmotion.ToString());
         }
 
         // Check for neutral state of the 2 players
-        if (_GetEmotionOfPlayer(1) != Emotion.Neutral || _GetEmotionOfPlayer(2) != Emotion.Neutral)
+/*        if (_GetEmotionOfPlayer(1) != Emotion.Neutral || _GetEmotionOfPlayer(2) != Emotion.Neutral)
         {
             Debug.Log("Please be neutral ma boy.");
             return;
-        }
+        }*/
 
         // 3) Start to count down
         StartCoroutine(_CountdownFor(3));
-
-        isRoundStarted = true;
     }
 
     private void _PlayRound()
     {
+        StartCoroutine(_PlayRoundCoroutine());
+    }
+
+    private IEnumerator _PlayRoundCoroutine()
+    {
         if (!isRoundStarted)
-            return;
+            yield return null;
 
         winnerFound = false;
 
@@ -91,6 +95,8 @@ public class RoundManager : MonoBehaviour
                 winnerFound = true;
                 winnerID = 2;
             }
+
+            yield return null;
         }
     }
 
@@ -118,6 +124,7 @@ public class RoundManager : MonoBehaviour
                 break;
         }
 
+        isNewRound = true;
         isRoundStarted = false;
     }
 
@@ -129,6 +136,7 @@ public class RoundManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
         Debug.Log("Go !!");
+        isRoundStarted = true;
     }
 
     private Emotion _GetRandomEmotion()

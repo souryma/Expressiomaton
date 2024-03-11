@@ -3,7 +3,10 @@ using UnityEngine.UI;
 
 public class DisplayWebcamToTexture : MonoBehaviour
 {
+    [SerializeField]
     public RawImage Image;
+
+    [SerializeField]
     public RawImage Image2;
     
     private void Update()
