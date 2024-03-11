@@ -16,6 +16,8 @@ public class WebcamManager : MonoBehaviour
         {
             instance = this;
         }
+
+        DontDestroyOnLoad(this);
     }
 
     [SerializeField] private int2 _cameraTextureResolutions = new int2(512, 512);
@@ -31,7 +33,7 @@ public class WebcamManager : MonoBehaviour
 
     private List<TMP_Dropdown.OptionData> _camerasNameList;
 
-    public bool isCameraSetup = false;
+    [HideInInspector] public bool isCameraSetup = false;
 
     void Start()
     {
