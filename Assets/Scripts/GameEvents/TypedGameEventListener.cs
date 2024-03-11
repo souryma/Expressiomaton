@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-namespace GameEvents
-{
     public abstract class TypedGameEventListener<T, E, UER> : MonoBehaviour, ITypedGameEventListener<T>
         where E : TypedGameEvent<T> where UER : UnityEvent<T>
     {
@@ -41,4 +39,3 @@ namespace GameEvents
             }
         }
     }
-}

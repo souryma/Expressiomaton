@@ -38,7 +38,7 @@ namespace EmotionFerPlus
 
         void Start()
         {
-            _webcamRaw = new WebCamTexture("Integrated Camera");
+            _webcamRaw = new WebCamTexture("USB2.0 HD UVC WebCam");
             _webcamBuffer = new RenderTexture(512, 512, 0);
             _preprocessed = new ComputeBuffer(ImageSize * ImageSize, sizeof(float));
             _worker = ModelLoader.Load(_model).CreateWorker();
