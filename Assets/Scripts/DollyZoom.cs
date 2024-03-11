@@ -18,7 +18,7 @@ public class DollyZoom : MonoBehaviour
     private Transform targetP2;
     
     [SerializeField]
-    private float dollySpeed = 2.0f;
+    private int nbmSecond = 10;
 
     private float initialFrustrumHeightP1;
     private float initialFrustrumHeightP2;
@@ -26,36 +26,38 @@ public class DollyZoom : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Initialize(cameraP1, targetP1, initialFrustrumHeightP1);
-        Initialize(cameraP2, targetP2, initialFrustrumHeightP2);
+        Initialize();
     }
     
     // Update is called once per frame
     void Update()
     {
         float currentDistance = Vector3.Distance(cameraP1.transform.position, targetP1.position);
-        if (currentDistance >= 2.0f)
+        if (currentDistance >= 2.2f)
         {
             DoZoomForCamera(cameraP1, currentDistance, initialFrustrumHeightP1);
             DoZoomForCamera(cameraP2, currentDistance, initialFrustrumHeightP2);
         }
     }
 
-    private void Initialize(Camera camera, Transform target, float initialFrustrumHeight)
+    private void Initialize()
     {
-        float distanceFromTarget = Vector3.Distance(camera.transform.position, target.position);
-        initialFrustrumHeight = computeFrustrumHeight(camera, distanceFromTarget);
+        float distanceFromTarget = Vector3.Distance(cameraP1.transform.position, targetP1.transform.position);
+        initialFrustrumHeightP1 = computeFrustrumHeight(cameraP1, distanceFromTarget);
+        distanceFromTarget = Vector3.Distance(cameraP2.transform.position, targetP2.transform.position);
+        initialFrustrumHeightP2 = computeFrustrumHeight(cameraP2, distanceFromTarget);
     }
 
-    private void DoZoomForCamera(Camera camera, float distance, float initialFrustrumHeight)
+    private void DoZoomForCamera(Camera TargetCamera, float distance, float initialFrustrumHeight)
     {
-        camera.transform.Translate(1 * Vector3.forward * Time.deltaTime * dollySpeed);
-        camera.fieldOfView = computeFieldOfView(initialFrustrumHeight, distance);
+        TargetCamera.transform.Translate(1.0f * Vector3.forward * Time.deltaTime * (8));
+        
+        TargetCamera.fieldOfView = computeFieldOfView(initialFrustrumHeight, distance);
     }
 
-    private float computeFrustrumHeight(Camera camera, float distance)
+    private float computeFrustrumHeight(Camera TargetCamera, float distance)
     {
-        return (2.0f * distance * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad));
+        return (2.0f * distance * Mathf.Tan(TargetCamera.fieldOfView * 0.5f * Mathf.Deg2Rad));
     }
     private float computeFieldOfView(float height, float distance)
     {

@@ -2415,6 +2415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1121474723}
   - component: {fileID: 1121474724}
+  - component: {fileID: 1121474725}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2453,7 +2454,19 @@ MonoBehaviour:
   cameraP2: {fileID: 1946119817}
   targetP1: {fileID: 669444193}
   targetP2: {fileID: 1291672316}
-  dollySpeed: 2
+  dollySpeed: 1
+--- !u!114 &1121474725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121474721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d97afd03d579046b1515a415aba1c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1157611290 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: d619e4a4a61ce85459c94689f99495e3, type: 3}
@@ -2595,7 +2608,7 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.5
+    width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -4051,9 +4064,9 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.5
+    x: 0
     y: 0
-    width: 0.5
+    width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -4066,7 +4079,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
+  m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
