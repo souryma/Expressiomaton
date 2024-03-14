@@ -4,14 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/GameScene_Ewen.unity
-    guid: d93f02bc07ea93a4d991d00a473f2aad
-  - enabled: 0
-    path: Assets/Scenes/TestMultiScreen.unity
-    guid: c4caf49ab69b2d0459b2eba09a8d4897
-  - enabled: 1
-    path: Assets/Scenes/MenuScene.unity
-    guid: 517499cb0794b584c9168130954f5b84
-  m_configObjects: {}
+  m_Scenes: [{enabled: 0, path: Assets/Scenes/GameScene_Ewen.unity, guid: d93f02bc07ea93a4d991d00a473f2aad},
+    {enabled: 0, path: Assets/Scenes/TestMultiScreen.unity, guid: c4caf49ab69b2d0459b2eba09a8d4897},
+    {enabled: 1, path: Assets/Scenes/MenuScene.unity, guid: 517499cb0794b584c9168130954f5b84}]
+  m_configObjects: {com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000,
+      guid: 9f318cec86f51b2449cad21d8cd8ddc6, type: 2}}
