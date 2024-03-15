@@ -202,4 +202,18 @@ public class WebcamManager : MonoBehaviour
             _face2 = ProcessTexture(_webcamDevice2, _webcam2, _processorWebCam2);
         }
     }
+
+    public bool DoesCamera1DetectFace()
+    {
+        return DoesCameraDetectFace(_processorWebCam1);
+    }
+    public bool DoesCamera2DetectFace()
+    {
+        return DoesCameraDetectFace(_processorWebCam2);
+    }
+
+    private bool DoesCameraDetectFace(FaceProcessorLive<Texture2D> processor)
+    {
+        return processor.Faces.Count != 0;
+    }
 }
