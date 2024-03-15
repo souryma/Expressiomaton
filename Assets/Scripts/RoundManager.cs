@@ -10,36 +10,54 @@ public class RoundManager : MonoBehaviour
     [SerializeField]
     private float maxRoundDuration = 10.0f; // in seconds
 
-    //========================= INTERNALS
+    [SerializeField]
+    private Emotion _emotionForPass = Emotion.Neutral;
 
-    private byte winnerID; // 0: nobody, 1: player1, 2: player2, 3: both
-    private bool winnerFound = false;
-    private bool isNewRound = false;
-    private bool isRoundStarted = false;
+    [SerializeField]
+    private int maxRoundCount = 3;
+
     private Emotion currentRoundEmotion;
 
+    private byte winnerID; // 0: nobody, 1: player1, 2: player2, 3: both
+    private bool winnerFound;
 
-    // Start is called before the first frame update
+    private bool isNewRound;
+    private bool isRoundStarted;
+    private bool isRoundPlaying;
+
+    private int currentRoundCount;
+    private float countdownOverTimestamp;
+
     void Start()
     {
+        winnerID = 0;
+        winnerFound = false;
+        isNewRound = true;
+        isRoundStarted = false;
+        isRoundPlaying = false;
 
+        currentRoundCount = 0;
+        countdownOverTimestamp = 0.0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        _LaunchRound();
+        if (currentRoundCount < maxRoundCount)
+            _LaunchOneRound();
     }
 
-    private void _LaunchRound()
+    private void _LaunchOneRound()
     {
-        _BeginRound();
-        _PlayRound();
-        _EndRound();
+        _BeginOneRound();
+        _PlayOneRound();
+        _EndOneRound();
     }
 
-    private void _BeginRound()
+    private void _BeginOneRound()
     {
+        if (isRoundStarted)
+            return;
+
         // 1) Init winner id
         winnerID = 0;
 
@@ -48,61 +66,70 @@ public class RoundManager : MonoBehaviour
         {
             isNewRound = false;
             currentRoundEmotion = _GetRandomEmotion();
-            Debug.Log("Round Emotion" + currentRoundEmotion.ToString());
+
+            Debug.Log($"Round {currentRoundCount + 1}, Emotion to reproduce : {currentRoundEmotion.ToString()}");
         }
 
         // Check for neutral state of the 2 players
-/*        if (_GetEmotionOfPlayer(1) != Emotion.Neutral || _GetEmotionOfPlayer(2) != Emotion.Neutral)
+        if (_GetEmotionOfPlayer(1) != _emotionForPass || _GetEmotionOfPlayer(2) != _emotionForPass)
         {
-            Debug.Log("Please be neutral ma boy.");
+            Debug.Log("Please be " + _emotionForPass.ToString() + " before to start.");
             return;
-        }*/
+        }
 
         // 3) Start to count down
         StartCoroutine(_CountdownFor(3));
     }
 
-    private void _PlayRound()
-    {
-        StartCoroutine(_PlayRoundCoroutine());
-    }
-
-    private IEnumerator _PlayRoundCoroutine()
+    private void _PlayOneRound()
     {
         if (!isRoundStarted)
-            yield return null;
+            return;
 
-        winnerFound = false;
+        float timeLimit = (countdownOverTimestamp + maxRoundDuration) - Time.time;
 
-        while (!winnerFound && Time.time < maxRoundDuration)
+        if (!winnerFound && timeLimit > 0.0f)
         {
+            Debug.Log(Mathf.Floor(timeLimit));
+
             // 3) Check for a winner
             if (_GetEmotionOfPlayer(1) == currentRoundEmotion && _GetEmotionOfPlayer(2) == currentRoundEmotion)
             {
                 // Match nul
-                winnerFound = true;
                 winnerID = 3;
+                winnerFound = true;
+                isRoundPlaying = false;
             }
             else if (_GetEmotionOfPlayer(1) == currentRoundEmotion)
             {
                 // Player 1 win
-                winnerFound = true;
                 winnerID = 1;
+                winnerFound = true;
+                isRoundPlaying = false;
             }
             else if (_GetEmotionOfPlayer(2) == currentRoundEmotion)
             {
                 // Player 2 win
-                winnerFound = true;
                 winnerID = 2;
+                winnerFound = true;
+                isRoundPlaying = false;
             }
-
-            yield return null;
+            else
+            {
+                winnerFound = false;
+                isRoundPlaying = true;
+            }
+        }
+        else if (Time.time > countdownOverTimestamp + maxRoundDuration)
+        {
+            isRoundPlaying = false;
+            winnerID = 0;
         }
     }
 
-    private void _EndRound()
+    private void _EndOneRound()
     {
-        if (!isRoundStarted)
+        if (!isRoundStarted || isRoundPlaying)
             return;
 
         switch (winnerID)
@@ -126,17 +153,23 @@ public class RoundManager : MonoBehaviour
 
         isNewRound = true;
         isRoundStarted = false;
+        currentRoundCount++;
     }
 
     private IEnumerator _CountdownFor(int seconds)
     {
+        Debug.Log("Be ready....");
+
         for (int i = seconds; i > 0; i--)
         {
-            Debug.Log("Counter : " + i);
+            Debug.Log(i);
             yield return new WaitForSeconds(1);
         }
         Debug.Log("Go !!");
+
         isRoundStarted = true;
+        countdownOverTimestamp = Time.time;
+        winnerFound = false;
     }
 
     private Emotion _GetRandomEmotion()
@@ -146,6 +179,6 @@ public class RoundManager : MonoBehaviour
 
     private Emotion _GetEmotionOfPlayer(int playerID)
     {
-        return playerID == 1 ? EmotionManager.instance.GetPlayer1Emotion() : EmotionManager.instance.GetPlayer1Emotion();
+        return playerID == 1 ? EmotionManager.instance.GetPlayer1Emotion() : EmotionManager.instance.GetPlayer2Emotion();
     }
 }
