@@ -197,28 +197,22 @@ public class WebcamManager : MonoBehaviour
         if (!isCameraSetup) return;
         if (_webcam1 is not null && _webcam1.didUpdateThisFrame)
         {
-            Debug.Log("FACE 1 crop");
-
             _face1 = ProcessTexture(_webcamDevice1, _webcam1, _processorWebCam1);
         }
 
         if (_webcam2 is not null && _webcam2.didUpdateThisFrame)
         {
-            Debug.Log("FACE 2 crop");
-
             _face2 = ProcessTexture(_webcamDevice2, _webcam2, _processorWebCam2);
         }
 
         if (_face1 is not null)
         {
-            Debug.Log("FACE 1 NOT NULL");
             var scale = new Vector2((float) _face1.height / _face1.width, 1);
             Graphics.Blit(_face1, _webcam1Texture, scale, new Vector2(0, 0));
         }
 
         if (_face2 is not null)
         {
-            Debug.Log("FACE 2 NOT NULL");
             var scale2 = new Vector2((float) _face2.height / _face2.width, 1);
             Graphics.Blit(_face2, _webcam2Texture, scale2, new Vector2(0, 0));
         }

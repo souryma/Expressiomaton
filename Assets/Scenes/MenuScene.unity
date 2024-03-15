@@ -2725,7 +2725,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1872148644}
         m_TargetAssemblyTypeName: MenuButtons, Assembly-CSharp
-        m_MethodName: GameAboutToStart
+        m_MethodName: ConfirmCameraSelection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
