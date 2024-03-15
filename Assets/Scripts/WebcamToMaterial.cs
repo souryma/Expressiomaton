@@ -22,9 +22,9 @@ public class WebcamToMaterial : MonoBehaviour
         if (WebcamManager.instance.isCameraSetup && !_isActivated)
         {
             if (_cameras == Cameras.Webcam1)
-                targetMaterial.material.mainTexture = WebcamManager.instance.Face1;
+                targetMaterial.material.mainTexture = WebcamManager.instance.Face1Texture;
             else
-                targetMaterial.material.mainTexture = WebcamManager.instance.Face2;
+                targetMaterial.material.mainTexture = WebcamManager.instance.Face2Texture;
 
             _isActivated = true;
         }

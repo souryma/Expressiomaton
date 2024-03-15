@@ -56,7 +56,7 @@ public class EmotionManager : MonoBehaviour
         if (!CheckCameras()) return EMOTION.Neutral;
 
         // Preprocessing
-        _preprocessor.SetTexture(0, "_Texture", WebcamManager.instance.Face1);
+        _preprocessor.SetTexture(0, "_Texture", WebcamManager.instance.Face1Texture);
         _preprocessor.SetBuffer(0, "_Tensor", _preprocessed);
         _preprocessor.Dispatch(0, ImageSize / 32, ImageSize / 32, 1);
 
@@ -75,7 +75,7 @@ public class EmotionManager : MonoBehaviour
         if (!CheckCameras()) return EMOTION.Neutral;
 
         // Preprocessing
-        _preprocessor.SetTexture(0, "_Texture", WebcamManager.instance.Face2);
+        _preprocessor.SetTexture(0, "_Texture", WebcamManager.instance.Face2Texture);
         _preprocessor.SetBuffer(0, "_Tensor", _preprocessed);
         _preprocessor.Dispatch(0, ImageSize / 32, ImageSize / 32, 1);
 
