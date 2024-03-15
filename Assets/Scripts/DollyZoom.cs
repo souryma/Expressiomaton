@@ -27,7 +27,7 @@ public class DollyZoom : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        speedCam = nbmSecond * 0.07f;
+        speedCam = 65f / (nbmSecond * 10f);
         Initialize();
     }
     
