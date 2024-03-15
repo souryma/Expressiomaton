@@ -11,5 +11,6 @@ public class MultiScreens : MonoBehaviour
         {
             display.Activate(1920, 1080, Screen.currentResolution.refreshRateRatio);
         }
+        Destroy(this);
     }
 }
