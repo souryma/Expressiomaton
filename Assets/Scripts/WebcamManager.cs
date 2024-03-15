@@ -29,7 +29,7 @@ public class WebcamManager : MonoBehaviour
             instance = this;
         }
 
-        DontDestroyOnLoad(this);
+        ScenesManager.instance.OnStartSceneLoaded += SetupCameras;
     }
 
 
@@ -53,7 +53,7 @@ public class WebcamManager : MonoBehaviour
 
     [HideInInspector] public bool isCameraSetup = false;
 
-    void Start()
+    private void SetupCameras()
     {
         _camerasNameList = new List<TMP_Dropdown.OptionData>();
         for (int i = 0; i < WebCamTexture.devices.Length; i++)
@@ -62,6 +62,22 @@ public class WebcamManager : MonoBehaviour
             data.text = WebCamTexture.devices[i].name;
             _camerasNameList.Add(data);
         }
+
+        bool hasPassed = false;
+        foreach (var dropdown in FindObjectsOfType<TMP_Dropdown>(true))
+        {
+            if (hasPassed)
+            {
+                _camera2Choice = dropdown;
+            }
+            else
+            {
+                _camera1Choice = dropdown;
+                hasPassed = true;
+            }
+        }
+
+        //_camera2Choice = GameObject.Find("DropdownCam1").GetComponent<TMP_Dropdown>();
 
         _camera2Choice.options = _camerasNameList;
         _camera1Choice.options = _camerasNameList;

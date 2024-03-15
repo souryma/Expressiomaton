@@ -14,8 +14,6 @@ public class EmotionManager : MonoBehaviour
         {
             instance = this;
         }
-
-        DontDestroyOnLoad(this);
     }
 
     public enum EMOTION

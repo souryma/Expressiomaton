@@ -1,11 +1,12 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class MenuButtons : MonoBehaviour
 {
+    public string TutorialScene = "";
+    public string NoTutorialScene = "";
+    
     public TextMeshProUGUI player2Text;
 
     private void Start()
@@ -32,6 +33,16 @@ public class MenuButtons : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         StartCoroutine(Player2TextAnimation());
+    }
+
+    public void PlayWithTutorial()
+    {
+        ScenesManager.instance.LoadScene(TutorialScene);
+    }
+    
+    public void PlayWithoutTutorial()
+    {
+        ScenesManager.instance.LoadScene(NoTutorialScene);
     }
 
     public void QuitGame()
