@@ -47,11 +47,13 @@ public class WebcamManager : MonoBehaviour
     private Texture2D _face1;
     private Texture2D _face2;
 
-    private RenderTexture _webcam1Texture;
-    private RenderTexture _webcam2Texture;
+    public Texture2D Face1 => _face1;
 
-    public RenderTexture Webcam1Texture => _webcam1Texture;
-    public RenderTexture Webcam2Texture => _webcam2Texture;
+    public Texture2D Face2 => _face2;
+
+    public WebCamTexture Webcam1 => _webcam1;
+
+    public WebCamTexture Webcam2 => _webcam2;
 
     private List<TMP_Dropdown.OptionData> _camerasNameList;
 
@@ -112,8 +114,6 @@ public class WebcamManager : MonoBehaviour
 
         _webcamDevice1 = WebCamTexture.devices[_camera1Choice.value];
         _webcamDevice2 = WebCamTexture.devices[_camera2Choice.value];
-        _webcam1Texture = new RenderTexture(_cameraTextureResolutions.x, _cameraTextureResolutions.y, 0);
-        _webcam2Texture = new RenderTexture(_cameraTextureResolutions.x, _cameraTextureResolutions.y, 0);
 
         _webcam1.Play();
         _webcam2.Play();
@@ -128,9 +128,6 @@ public class WebcamManager : MonoBehaviour
         
         if (_webcam1 != null) Destroy(_webcam1);
         if (_webcam2 != null) Destroy(_webcam2);
-
-        if (_webcam1Texture != null) Destroy(_webcam1Texture);
-        if (_webcam2Texture != null) Destroy(_webcam2Texture);
     }
 
     /// <summary>
@@ -203,18 +200,6 @@ public class WebcamManager : MonoBehaviour
         if (_webcam2 is not null && _webcam2.didUpdateThisFrame)
         {
             _face2 = ProcessTexture(_webcamDevice2, _webcam2, _processorWebCam2);
-        }
-
-        if (_face1 is not null)
-        {
-            var scale = new Vector2((float) _face1.height / _face1.width, 1);
-            Graphics.Blit(_face1, _webcam1Texture, scale, new Vector2(0, 0));
-        }
-
-        if (_face2 is not null)
-        {
-            var scale2 = new Vector2((float) _face2.height / _face2.width, 1);
-            Graphics.Blit(_face2, _webcam2Texture, scale2, new Vector2(0, 0));
         }
     }
 }

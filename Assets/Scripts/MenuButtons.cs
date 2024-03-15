@@ -7,32 +7,35 @@ public class MenuButtons : MonoBehaviour
     public string TutorialScene = "";
     public string NoTutorialScene = "";
     
-    public TextMeshProUGUI player2Text;
+    public TextMeshProUGUI player2WaitingText;
+    public TextMeshProUGUI player2AboutToStartText;
 
     private void Start()
     {
-        StartCoroutine(Player2TextAnimation());
+        player2AboutToStartText.gameObject.SetActive(false);
+        StartCoroutine(Player2TextAnimation(player2WaitingText, "Waiting for player 1"));
     }
-
-    private string _basicText = "Waiting for player 1";
 
     public void GameAboutToStart()
     {
-        _basicText = "The game is about to start";
+        player2AboutToStartText.gameObject.SetActive(true);
+        player2WaitingText.gameObject.SetActive(false);
+
+        StartCoroutine(Player2TextAnimation(player2AboutToStartText, "The game is about to start"));
     }
 
-    private IEnumerator Player2TextAnimation()
+    private IEnumerator Player2TextAnimation(TextMeshProUGUI textGui, string text)
     {
-        player2Text.text = _basicText;
+        textGui.text = text;
         yield return new WaitForSeconds(1);
-        player2Text.text = _basicText + ".";
+        textGui.text = text + ".";
         yield return new WaitForSeconds(1);
-        player2Text.text = _basicText + "..";
+        textGui.text = text + "..";
         yield return new WaitForSeconds(1);
-        player2Text.text = _basicText + "...";
+        textGui.text = text + "...";
         yield return new WaitForSeconds(1);
 
-        StartCoroutine(Player2TextAnimation());
+        StartCoroutine(Player2TextAnimation(textGui, text));
     }
 
     public void ConfirmCameraSelection()
