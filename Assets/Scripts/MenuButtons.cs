@@ -35,6 +35,11 @@ public class MenuButtons : MonoBehaviour
         StartCoroutine(Player2TextAnimation());
     }
 
+    public void ConfirmCameraSelection()
+    {
+        WebcamManager.instance.ConfirmCameraSelection();
+    }
+
     public void PlayWithTutorial()
     {
         ScenesManager.instance.LoadScene(TutorialScene);

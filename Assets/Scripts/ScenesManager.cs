@@ -16,12 +16,16 @@ public class ScenesManager : MonoBehaviour
 
     private bool isStartSceneLoaded = false;
 
+    public static bool isSceneManagerLoaded = false;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
+
+        isSceneManagerLoaded = true;
     }
     
     void Start()
