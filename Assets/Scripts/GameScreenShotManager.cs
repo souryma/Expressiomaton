@@ -26,22 +26,6 @@ public class GameScreenShotManager : MonoBehaviour
       }
       
   }
-  private void Start()
-  {
-      try
-      {
-          if (!Directory.Exists(m_screenshotFolder))
-          {
-              Directory.CreateDirectory(m_screenshotFolder);
-          }
-
-      }
-      catch (IOException ex)
-      {
-          throw ex;
-      }
-      StartCoroutine(ScreenShotTaker());
-  }
   
   public void TakeScreenShot()
   {
@@ -51,15 +35,56 @@ public class GameScreenShotManager : MonoBehaviour
 
   private IEnumerator ScreenShotTaker()
   {
-    yield return new WaitForSeconds(5);
-    m_lastScreenShot = ScreenCapture.CaptureScreenshotAsTexture();
-    string l_screenShotName = m_screenshotFolder+"screenshot " + System.DateTime.Now.ToString("MM-dd-yy (HH-mm-ss)") 
-        + ".png";
-    m_lastScreenShotName = l_screenShotName;
-    timeLastScreenTaken = DateTime.Now;
-    ScreenCapture.CaptureScreenshot(l_screenShotName);
-    Debug.Log("Screenshot taken");
-    // Emailer.SendEmail();
+      try
+      {
+          if (!Directory.Exists(GetFolderPath()))
+          {
+              Directory.CreateDirectory(GetFolderPath());
+          }
+
+      }
+      catch (IOException ex)
+      {
+          Debug.Log(ex.ToString());
+      }
+
+      yield return new WaitForEndOfFrame();
+      // = new Texture2D();
+      Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture();
+      SavePictureToGallery(texture);
+      Debug.Log("Screenshot taken");
+      // Emailer.SendEmail();
+  }
+
+  private void SavePictureToGallery( Texture2D texture2D )
+  {
+      string filename = "MugShot " + DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss-f");
+      string pathToFolder = GetFolderPath();
+      byte[] bytes = texture2D.EncodeToPNG();
+       
+        
+      string path = Path.Combine(pathToFolder, filename );
+      if( !filename.EndsWith( ".png" ) )
+          path += ".png";
+
+      // Debug.Log( "Saving to: " + path );
+      SaveImage(path, bytes);
+
+  }
+
+  private void SaveImage(string path, byte[] bytes)
+  {
+      File.WriteAllBytes( path, bytes );
+      // yield return 0;
+  }
+  private string GetFolderPath()
+  {
+#if UNITY_EDITOR
+      return System.Environment.GetFolderPath( System.Environment.SpecialFolder.DesktopDirectory ) +m_screenshotFolder;
+  
+#else
+        return Application.persistentDataPath + m_screenshotFolder;
+#endif
   }
 
 }

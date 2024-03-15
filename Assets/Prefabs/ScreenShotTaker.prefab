@@ -73,5 +73,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3dbef612cf44d347ba70a73adb75e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_screenshotFolder: screens/
+  m_screenshotFolder: /screens/
   timeBeforeScreenShotIsInvalid: 60
