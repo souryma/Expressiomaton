@@ -26,7 +26,8 @@ public class GameScreenShotManager : MonoBehaviour
       }
       
   }
-  private void Start(){
+  private void Start()
+  {
       try
       {
           if (!Directory.Exists(m_screenshotFolder))
@@ -37,8 +38,9 @@ public class GameScreenShotManager : MonoBehaviour
       }
       catch (IOException ex)
       {
-          Debug.Log(ex.ToString());
+          throw ex;
       }
+      StartCoroutine(ScreenShotTaker());
   }
   
   public void TakeScreenShot()
@@ -49,7 +51,7 @@ public class GameScreenShotManager : MonoBehaviour
 
   private IEnumerator ScreenShotTaker()
   {
-    yield return new WaitForEndOfFrame();
+    yield return new WaitForSeconds(5);
     m_lastScreenShot = ScreenCapture.CaptureScreenshotAsTexture();
     string l_screenShotName = m_screenshotFolder+"screenshot " + System.DateTime.Now.ToString("MM-dd-yy (HH-mm-ss)") 
         + ".png";
