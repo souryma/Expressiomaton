@@ -17,8 +17,9 @@ public class DollyZoom : MonoBehaviour
     [SerializeField]
     private Transform targetP2;
     
-    [SerializeField]
-    private int nbmSecond = 10;
+    public int timeZoom = 10;
+
+    public bool doZoom = false;
 
     private float speedCam;
     private float initialFrustrumHeightP1;
@@ -27,7 +28,7 @@ public class DollyZoom : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        speedCam = 65f / (nbmSecond * 10f);
+        speedCam = 65f / (timeZoom * 10f);
         Initialize();
     }
     
@@ -35,7 +36,7 @@ public class DollyZoom : MonoBehaviour
     void Update()
     {
         float currentDistance = Vector3.Distance(cameraP1.transform.position, targetP1.position);
-        if (currentDistance >= 2.2f)
+        if (currentDistance >= 2.2f && doZoom)
         {
             DoZoomForCamera(cameraP1, currentDistance, initialFrustrumHeightP1);
             DoZoomForCamera(cameraP2, currentDistance, initialFrustrumHeightP2);

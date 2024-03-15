@@ -2554,7 +2554,7 @@ GameObject:
   - component: {fileID: 1121474724}
   - component: {fileID: 1121474725}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: ZoomManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2591,7 +2591,8 @@ MonoBehaviour:
   cameraP2: {fileID: 1946119817}
   targetP1: {fileID: 669444193}
   targetP2: {fileID: 1291672316}
-  nbmSecond: 10
+  timeZoom: 4
+  doZoom: 0
 --- !u!114 &1121474725
 MonoBehaviour:
   m_ObjectHideFlags: 0
