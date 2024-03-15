@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace GameEvents
-{
+
     public abstract class TypedGameEvent<T> : ScriptableObject
     {
         private readonly List<ITypedGameEventListener<T>> m_eventListeners = new();
@@ -34,4 +33,4 @@ namespace GameEvents
         }
     }
 
-}
+
