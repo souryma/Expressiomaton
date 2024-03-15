@@ -12,13 +12,14 @@ public class WebcamManager : MonoBehaviour
     [SerializeField] private TMP_Dropdown _camera1Choice;
     [SerializeField] private TMP_Dropdown _camera2Choice;
 
-    [Header("Image Processor")] public TextAsset faces;
+    [Header("Image Processor")] 
+    public TextAsset faces;
     public TextAsset eyes;
     public TextAsset shapes;
     public bool forceFrontalCamera;
 
-    private FaceProcessorLive<Texture2D> processorWebCam1;
-    private FaceProcessorLive<Texture2D> processorWebCam2;
+    private FaceProcessorLive<Texture2D> _processorWebCam1;
+    private FaceProcessorLive<Texture2D> _processorWebCam2;
 
     private void Awake()
     {
@@ -82,24 +83,25 @@ public class WebcamManager : MonoBehaviour
 
         _camera2Choice.options = _camerasNameList;
         _camera1Choice.options = _camerasNameList;
-        processorInitializer(ref processorWebCam2);
-        processorInitializer(ref processorWebCam1);
+        _processorWebCam2= ProcessorInitializer();
+        _processorWebCam1 = ProcessorInitializer();
     }
 
-    private void processorInitializer(ref FaceProcessorLive<Texture2D> processor)
+    private FaceProcessorLive<Texture2D> ProcessorInitializer()
     {
-        processor = new FaceProcessorLive<Texture2D>();
+        var processor = new FaceProcessorLive<Texture2D>();
         processor.Initialize(faces.text, eyes.text, shapes.bytes);
 
         // data stabilizer - affects face rects, face landmarks etc.
         processor.DataStabilizer.Enabled = true; // enable stabilizer
-        processor.DataStabilizer.Threshold = 2.0; // threshold value in pixels
+        processor.DataStabilizer.Threshold = 2.0d; // threshold value in pixels
         processor.DataStabilizer.SamplesCount = 2; // how many samples do we need to compute stable data
 
         // performance data - some tricks to make it work faster
         processor.Performance.Downscale = 256; // processed image is pre-scaled down to N px by long side
-        processor.Performance.SkipRate =
-            0; // we actually process only each Nth frame (and every frame for skipRate = 0)
+        processor.Performance.SkipRate = 0; 
+        // we actually process only each Nth frame (and every frame for skipRate = 0)
+        return processor;
     }
 
     // Will select the camera names that are defined in the dropdowns
@@ -109,7 +111,7 @@ public class WebcamManager : MonoBehaviour
         _webcam2 = new WebCamTexture(_camerasNameList[_camera2Choice.value].text);
 
         _webcamDevice1 = WebCamTexture.devices[_camera1Choice.value];
-        _webcamDevice1 = WebCamTexture.devices[_camera2Choice.value];
+        _webcamDevice2 = WebCamTexture.devices[_camera2Choice.value];
         _webcam1Texture = new RenderTexture(_cameraTextureResolutions.x, _cameraTextureResolutions.y, 0);
         _webcam2Texture = new RenderTexture(_cameraTextureResolutions.x, _cameraTextureResolutions.y, 0);
 
@@ -140,10 +142,9 @@ public class WebcamManager : MonoBehaviour
         OpenCvSharp.Unity.TextureConversionParams textureParameters =
             ReadTextureConversionParameters(webCamDevice, input);
         // detect everything we're interested in
-        Texture2D texture2D = new Texture2D(input.width / 4, input.height, TextureFormat.RGBA32, false);
+        Texture2D texture2D = new Texture2D(input.width / 2, input.height, TextureFormat.RGBA32, false);
         texture2D.SetPixels(input.GetPixels(input.width / 4, 0, input.width / 2, input.height));
-        // texture2D.ReadPixels(new UnityEngine.Rect(input.width/3, 0, input.width/3, input.height), 0,0);
-        // Graphics.Blit(input, receiver, new Vector2(1f, 1f), new Vector2(input.width/3, 0f),0,0 );
+        
         texture2D.Apply();
         processor.ProcessTexture(texture2D, textureParameters);
 
@@ -180,13 +181,6 @@ public class WebcamManager : MonoBehaviour
         // frontal camera - we must flip around Y axis to make it mirror-like
         parameters.FlipHorizontally = forceFrontalCamera || webCamDevice.isFrontFacing;
 
-        // TODO:
-        // actually, code below should work, however, on our devices tests every device except iPad
-        // returned "false", iPad said "true" but the texture wasn't actually flipped
-
-        // compensate vertical flip
-        //parameters.FlipVertically = webCamTexture.videoVerticallyMirrored;
-
         // deal with rotation
         if (0 != webCamTexture.videoRotationAngle)
             parameters.RotationAngle = webCamTexture.videoRotationAngle; // cw -> ccw
@@ -201,18 +195,18 @@ public class WebcamManager : MonoBehaviour
     {
         // Crop the cameras render to a square of the desired resolution
         if (!isCameraSetup) return;
-        if (_webcam1 != null && _webcam1.didUpdateThisFrame)
+        if (_webcam1 is not null && _webcam1.didUpdateThisFrame)
         {
             Debug.Log("FACE 1 crop");
 
-            _face1 = ProcessTexture(_webcamDevice1, _webcam1, processorWebCam1);
+            _face1 = ProcessTexture(_webcamDevice1, _webcam1, _processorWebCam1);
         }
 
-        if (_webcam2 != null && _webcam2.didUpdateThisFrame)
+        if (_webcam2 is not null && _webcam2.didUpdateThisFrame)
         {
             Debug.Log("FACE 2 crop");
 
-            _face2 = ProcessTexture(_webcamDevice2, _webcam2, processorWebCam2);
+            _face2 = ProcessTexture(_webcamDevice2, _webcam2, _processorWebCam2);
         }
 
         if (_face1 is not null)
