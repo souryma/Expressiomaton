@@ -9,11 +9,11 @@ using MailKit.Security;
 
 public static class Emailer
 {
-    public static void SendEmail(EmailSender p_sender, EmailData p_data, string p_emailReceiver, string p_picture)
+    public static bool SendEmail(EmailSender p_sender, EmailData p_data, string p_emailReceiver, string p_picture)
     {
         if (string.IsNullOrWhiteSpace(p_picture) || p_picture.Length == 0)
         {
-            return;
+            return false;
         }
         var message = new MimeMessage();
         message.From.Add( new MailboxAddress( p_sender.nameSender, p_sender.address) );
@@ -55,6 +55,8 @@ public static class Emailer
             client.Disconnect( true );
             Debug.Log( "Sent email" );
         }
+
+        return true;
     }
 }
 

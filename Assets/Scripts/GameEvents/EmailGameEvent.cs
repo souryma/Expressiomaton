@@ -21,7 +21,7 @@ using UnityEngine;
             }
            
         }
-        public bool IsValid(string emailaddress)
+        public static bool IsValid(string emailaddress)
         {
             try
             {
