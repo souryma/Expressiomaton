@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FileEmotion: 3
   ImageEmotion: {fileID: 21300000, guid: 518d8df5556fc5c49b195a2c70393272, type: 3}
-  TextEmotion: 
+  TextEmotion: Be Sad !

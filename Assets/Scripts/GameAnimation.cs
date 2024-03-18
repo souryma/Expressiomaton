@@ -20,7 +20,13 @@ public class GameAnimation : MonoBehaviour
 
     public void killPlayer(GameObject deadPlayer, GameObject killerPlayer)
     {
-        GameObject player2Model = deadPlayer.transform.Find("").gameObject;
+        GameObject player2Model = deadPlayer.transform.Find("PlayerModel").gameObject;
+        GameObject player2ParentCam = deadPlayer.transform.Find("ParentCam").gameObject;
+        GameObject player2ShootingModel = deadPlayer.transform.Find("PlayerShootingModel").gameObject;
+        
+        player2Model.SetActive(false);
+        player2ParentCam.Set
+        
     }
     
     // Update is called once per frame
