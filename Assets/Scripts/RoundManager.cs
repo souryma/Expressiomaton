@@ -14,7 +14,7 @@ public class RoundManager : MonoBehaviour
     private Emotion _emotionForPass = Emotion.Neutral;
 
     [SerializeField]
-    private int maxRoundCount = 3;
+    private int maxRoundCount = 1;
 
     private Emotion currentRoundEmotion;
 
@@ -27,6 +27,10 @@ public class RoundManager : MonoBehaviour
 
     private int currentRoundCount;
     private float countdownOverTimestamp;
+
+    private int player1winCount = 0;
+    private int player2winCount = 0;
+    private bool bAnnounceOnceFlag = true;
 
     void Start()
     {
@@ -44,6 +48,31 @@ public class RoundManager : MonoBehaviour
     {
         if (currentRoundCount < maxRoundCount)
             _LaunchOneRound();
+        else
+            _AnnounceResult();
+    }
+
+    void _AnnounceResult()
+    {
+        if (!bAnnounceOnceFlag)
+            return;
+
+        bAnnounceOnceFlag = false;
+
+        if (player1winCount == player2winCount)
+        {
+            Debug.Log("Equality");
+        }
+        else if (player1winCount > player2winCount)
+        {
+            Debug.Log("Player 1 Win ! ");
+            Debug.Log("Player 2 you looooooose ! ");
+        }
+        else if (player2winCount > player1winCount)
+        {
+            Debug.Log("Player 2 Win ! ");
+            Debug.Log("Player 1 you looooooose ! ");
+        }
     }
 
     private void _LaunchOneRound()
@@ -140,10 +169,12 @@ public class RoundManager : MonoBehaviour
 
             case 1:
                 Debug.Log("Player 1 win");
+                player1winCount++;
                 break;
 
             case 2:
                 Debug.Log("Player 2 win");
+                player2winCount++;
                 break;
 
             case 3:
@@ -174,7 +205,7 @@ public class RoundManager : MonoBehaviour
 
     private Emotion _GetRandomEmotion()
     {
-        return (Emotion)Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
+        return (Emotion)Random.Range(1, System.Enum.GetNames(typeof(Emotion)).Length);
     }
 
     private Emotion _GetEmotionOfPlayer(int playerID)
