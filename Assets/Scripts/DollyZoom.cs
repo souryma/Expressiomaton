@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using OpenCvSharp.Util;
 using Unity.VisualScripting;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class DollyZoom : MonoBehaviour
@@ -24,6 +26,12 @@ public class DollyZoom : MonoBehaviour
     private float speedCam;
     private float initialFrustrumHeightP1;
     private float initialFrustrumHeightP2;
+    private Vector3 InitialPositioncameraP1;
+    private float InitialFOVcameraP1;
+    private Vector3 InitialPositioncameraP2;
+    private float InitialFOVcameraP2;
+    public event Action reinitialiseCam;
+
     
     // Start is called before the first frame update
     void Awake()
@@ -49,6 +57,10 @@ public class DollyZoom : MonoBehaviour
         initialFrustrumHeightP1 = computeFrustrumHeight(cameraP1, distanceFromTarget);
         distanceFromTarget = Vector3.Distance(cameraP2.transform.position, targetP2.transform.position);
         initialFrustrumHeightP2 = computeFrustrumHeight(cameraP2, distanceFromTarget);
+        InitialPositioncameraP1 = cameraP1.transform.position;
+        InitialPositioncameraP2 = cameraP2.transform.position;
+        InitialFOVcameraP1 = cameraP1.fieldOfView;
+        InitialFOVcameraP2 = cameraP2.fieldOfView;
     }
 
     private void DoZoomForCamera(Camera TargetCamera, float distance, float initialFrustrumHeight)
@@ -65,5 +77,13 @@ public class DollyZoom : MonoBehaviour
     private float computeFieldOfView(float height, float distance)
     {
         return (2.0f * Mathf.Atan(height * 0.5f / distance) * Mathf.Rad2Deg);
+    }
+    private void reinitiliazedCamera()
+    {
+        cameraP1.transform.position = InitialPositioncameraP1;
+        cameraP2.transform.position = InitialPositioncameraP2;
+        cameraP1.fieldOfView = InitialFOVcameraP1;
+        cameraP1.fieldOfView = InitialFOVcameraP2;
+        doZoom = false;
     }
 }
