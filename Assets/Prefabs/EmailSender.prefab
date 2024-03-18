@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_sender: {fileID: 11400000, guid: 274eddb1b6e15f347982580e9f0a2ff5, type: 2}
   m_data: {fileID: 11400000, guid: e28dff4bf4604354e80ce492ffb1f3c6, type: 2}
+  emailSent: {fileID: 11400000, guid: 6ea7b5469e1b6b54f997f6c985a72214, type: 2}
 --- !u!114 &5506142984285724031
 MonoBehaviour:
   m_ObjectHideFlags: 0

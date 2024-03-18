@@ -61,12 +61,13 @@ public class GameScreenShotManager : MonoBehaviour
       string filename = "MugShot " + DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss-f");
       string pathToFolder = GetFolderPath();
       byte[] bytes = texture2D.EncodeToPNG();
-       
+      timeLastScreenTaken = DateTime.Now;
         
       string path = Path.Combine(pathToFolder, filename );
       if( !filename.EndsWith( ".png" ) )
           path += ".png";
-
+      
+      m_lastScreenShotName = path;
       // Debug.Log( "Saving to: " + path );
       SaveImage(path, bytes);
 
