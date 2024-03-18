@@ -21,7 +21,7 @@ public class WebcamManager : MonoBehaviour
     private FaceProcessorLive<Texture2D> _processorWebCam1;
     private FaceProcessorLive<Texture2D> _processorWebCam2;
 
-    private void Awake()
+    private void Start()
     {
         if (instance == null)
         {
