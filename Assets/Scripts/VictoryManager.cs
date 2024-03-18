@@ -28,7 +28,7 @@ public class VictoryScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InitUI(true);
+        //InitUI(true);
     }
 
     public void InitUI(bool isP1Winner)
