@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PreTutoScene.unity
     guid: 5e11dcbae622b334780703aa969005db
+  - enabled: 1
+    path: Assets/Scenes/GameScene_Wilfried.unity
+    guid: fcbff754b278ffd4a883c39d8bb17a61
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 9f318cec86f51b2449cad21d8cd8ddc6, type: 2}
