@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Anger
   m_EditorClassIdentifier: 
   FileEmotion: 4
-  ImageEmotion: {fileID: 0}
+  ImageEmotion: {fileID: 21300000, guid: 6c66db7a930836e4b9042baceb7d63bc, type: 3}
   TextEmotion: 

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Neutral
   m_EditorClassIdentifier: 
   FileEmotion: 0
-  ImageEmotion: {fileID: 0}
+  ImageEmotion: {fileID: 21300000, guid: fd563d214a01b514293935d879e8d8a0, type: 3}
   TextEmotion: 

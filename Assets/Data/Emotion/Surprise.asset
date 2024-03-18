@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Surprise
   m_EditorClassIdentifier: 
   FileEmotion: 2
-  ImageEmotion: {fileID: 0}
+  ImageEmotion: {fileID: 21300000, guid: 3d443a81fcf72744c82cf43435c28d80, type: 3}
   TextEmotion: 
