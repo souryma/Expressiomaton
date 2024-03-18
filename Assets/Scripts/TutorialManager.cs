@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Emotion = EmotionManager.EMOTION;
 
 public class TutorialManager : MonoBehaviour
@@ -19,6 +20,8 @@ public class TutorialManager : MonoBehaviour
     bool bPrintedCurrentEmotion = false;
     bool bOnceFlag = true;
 
+    [SerializeField] private RawImage _player1Camera;
+    [SerializeField] private RawImage _player2Camera;
     [SerializeField] private TextMeshProUGUI _player1Text;
     [SerializeField] private TextMeshProUGUI _player2Text;
     [SerializeField] private TextMeshProUGUI _player1FailText;
@@ -26,11 +29,15 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject _returnToMenuButton1;
     [SerializeField] private GameObject _returnToMenuButton2;
 
+    [SerializeField] private string _menuSceneName;
 
     void Start()
     {
         for (int i = 0; i < System.Enum.GetNames(typeof(Emotion)).Length; i++)
             emotionsToTest.Add((Emotion) i);
+        
+        _player1Camera.texture = WebcamManager.instance.Webcam1;
+        _player2Camera.texture = WebcamManager.instance.Webcam2;
 
         currentEmotionIdx = 0;
         startTestTime = Time.time;
@@ -52,6 +59,11 @@ public class TutorialManager : MonoBehaviour
         _ProcessEmotionTestForPlayer(2);
     }
 
+    public void BackToMenu()
+    {
+        ScenesManager.instance.LoadScene(_menuSceneName);
+    }
+
     private void _ProcessEmotionTestForPlayer(int playerID)
     {
         currentTestTime = Time.time;
@@ -66,11 +78,17 @@ public class TutorialManager : MonoBehaviour
             {
                 var txt = $"Player {playerID} current emotion : {currentEmotionToTest.ToString()}";
                 Debug.Log(txt);
-                _player1Text.text = txt;
-                _player2Text.text = txt;
+                if (playerID == 1)
+                {
+                    _player1Text.text = txt;
+                }
+                else
+                {
+                    _player2Text.text = txt;
+                }
             }
 
-            Debug.Log($"Remaining time : {remainingTime}s");
+            // Debug.Log($"Remaining time : {remainingTime}s");
 
             if (_GetEmotionOfPlayer(playerID) == currentEmotionToTest)
             {
@@ -103,8 +121,21 @@ public class TutorialManager : MonoBehaviour
                     _player2FailText.text = txt;
                     _returnToMenuButton2.SetActive(true);
                 }
-                
+
                 bOnceFlag = false;
+            }
+
+            Emotion currentEmotionToTest = emotionsToTest[currentEmotionIdx];
+            if (_GetEmotionOfPlayer(playerID) == currentEmotionToTest)
+            {
+                // Set new emotion
+                currentEmotionIdx++;
+
+                // Set new start time for the new emotion
+                startTestTime = Time.time;
+
+                // Set new end time
+                endTestTime = startTestTime + maxEmotionTestDuration;
             }
         }
         else if (remainingTime > 0)
@@ -113,7 +144,7 @@ public class TutorialManager : MonoBehaviour
             {
                 Debug.Log($"Finish to recognize player {playerID} emotions");
                 bOnceFlag = false;
-                
+
                 if (playerID == 1)
                 {
                     _player1FailText.text = "";
