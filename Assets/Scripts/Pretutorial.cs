@@ -29,7 +29,7 @@ public class Pretutorial : MonoBehaviour
     {
         _player1Camera.texture = WebcamManager.instance.Webcam1;
         _player2Camera.texture = WebcamManager.instance.Webcam2;
-        
+
         _launchText1.gameObject.SetActive(false);
         _launchText2.gameObject.SetActive(false);
     }
@@ -57,27 +57,27 @@ public class Pretutorial : MonoBehaviour
         _launchText1.text = text;
         _launchText2.text = text;
         yield return new WaitForSecondsRealtime(1);
-        
+
         text = "The game will start in 4";
         _launchText1.text = text;
         _launchText2.text = text;
         yield return new WaitForSecondsRealtime(1);
-        
+
         text = "The game will start in 3";
         _launchText1.text = text;
         _launchText2.text = text;
         yield return new WaitForSecondsRealtime(1);
-        
+
         text = "The game will start in 2";
         _launchText1.text = text;
         _launchText2.text = text;
         yield return new WaitForSecondsRealtime(1);
-        
+
         text = "The game will start in 1";
         _launchText1.text = text;
         _launchText2.text = text;
         yield return new WaitForSecondsRealtime(1);
-        
+
         ScenesManager.instance.LoadScene(nextSceneName);
     }
 
@@ -87,6 +87,7 @@ public class Pretutorial : MonoBehaviour
         _player1WantedPoster.SetActive(true);
         _player1Face.texture = WebcamManager.instance.Face1Texture;
 
+        _player1Camera.gameObject.SetActive(false);
         _launchText1.gameObject.SetActive(true);
         _launchText1.text = "Waiting for player 2";
 
@@ -98,7 +99,8 @@ public class Pretutorial : MonoBehaviour
         _player2Text.SetActive(false);
         _player2WantedPoster.SetActive(true);
         _player2Face.texture = WebcamManager.instance.Face2Texture;
-        
+
+        _player2Camera.gameObject.SetActive(false);
         _launchText2.gameObject.SetActive(true);
         _launchText2.text = "Waiting for player 1";
 
