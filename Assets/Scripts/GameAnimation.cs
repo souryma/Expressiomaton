@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,15 +19,15 @@ public class GameAnimation : MonoBehaviour
     }
 
 
-    public void killPlayer(GameObject deadPlayer, GameObject killerPlayer)
+    public void killPlayer(GameObject deadPlayer)
     {
-        GameObject player2Model = deadPlayer.transform.Find("PlayerModel").gameObject;
-        GameObject player2ParentCam = deadPlayer.transform.Find("ParentCam").gameObject;
-        GameObject player2ShootingModel = deadPlayer.transform.Find("PlayerShootingModel").gameObject;
+        GameObject playerModel = deadPlayer.transform.Find("PlayerModel").gameObject;
+        GameObject playerParentCam = deadPlayer.transform.Find("ParentCam").gameObject;
+        GameObject playerShootingModel = deadPlayer.transform.Find("PlayerShootingModel").gameObject;
         
-        player2Model.SetActive(false);
-        player2ParentCam.Set
-        
+        playerModel.SetActive(false);
+        playerParentCam.SetActive(true);
+        playerShootingModel.transform.rotation = new quaternion(0f,0f,-77f,0f);
     }
     
     // Update is called once per frame

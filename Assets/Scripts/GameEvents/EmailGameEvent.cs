@@ -19,7 +19,6 @@ using UnityEngine;
             {
                 Debug.Log("Bad email");
             }
-           
         }
         public static bool IsValid(string emailaddress)
         {

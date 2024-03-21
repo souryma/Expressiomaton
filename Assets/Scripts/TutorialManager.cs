@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -30,12 +29,19 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject _returnToMenuButton2;
 
     [SerializeField] private string _menuSceneName;
+    [SerializeField] private string _nextSceneName;
+
+    [SerializeField] private TextMeshProUGUI _launchText1;
+    [SerializeField] private TextMeshProUGUI _launchText2;
+
+    private bool _player1Ready = false;
+    private bool _player2Ready = false;
 
     void Start()
     {
         for (int i = 0; i < System.Enum.GetNames(typeof(Emotion)).Length; i++)
             emotionsToTest.Add((Emotion) i);
-        
+
         _player1Camera.texture = WebcamManager.instance.Webcam1;
         _player2Camera.texture = WebcamManager.instance.Webcam2;
 
@@ -51,6 +57,9 @@ public class TutorialManager : MonoBehaviour
         _player2FailText.text = "";
         _returnToMenuButton1.SetActive(false);
         _returnToMenuButton2.SetActive(false);
+        
+        _launchText1.gameObject.SetActive(false);
+        _launchText2.gameObject.SetActive(false);
     }
 
     void Update()
@@ -66,6 +75,12 @@ public class TutorialManager : MonoBehaviour
 
     private void _ProcessEmotionTestForPlayer(int playerID)
     {
+        if (_player1Ready && _player2Ready)
+        {
+            StartCoroutine(LaunchGame());
+            return;
+        }
+
         currentTestTime = Time.time;
         int remainingTime = (int) Mathf.Round(endTestTime - currentTestTime);
 
@@ -76,8 +91,8 @@ public class TutorialManager : MonoBehaviour
 
             if (!bPrintedCurrentEmotion)
             {
-                var txt = $"Player {playerID} current emotion : {currentEmotionToTest.ToString()}";
-                Debug.Log(txt);
+                var txt = $"Do a {currentEmotionToTest.ToString()} face !";
+                //Debug.Log(txt);
                 if (playerID == 1)
                 {
                     _player1Text.text = txt;
@@ -108,8 +123,8 @@ public class TutorialManager : MonoBehaviour
         {
             if (bOnceFlag)
             {
-                var txt = $"Fail to recognize player {playerID} emotion";
-                Debug.Log(txt);
+                var txt = "Sadly, it seems like we aren't able to read your expression..";
+                //Debug.Log(txt);
 
                 if (playerID == 1)
                 {
@@ -147,16 +162,49 @@ public class TutorialManager : MonoBehaviour
 
                 if (playerID == 1)
                 {
-                    _player1FailText.text = "";
-                    _returnToMenuButton1.SetActive(false);
+                    _player1Ready = true;
+                    _player1Text.text = "Waiting for player 2";
                 }
                 else
                 {
-                    _player2FailText.text = "";
-                    _returnToMenuButton2.SetActive(false);
+                    _player2Ready = true;
+                    _player2Text.text = "Waiting for player 1";
                 }
             }
         }
+    }
+
+    private IEnumerator LaunchGame()
+    {
+        _launchText1.gameObject.SetActive(true);
+        _launchText2.gameObject.SetActive(true);
+
+        string text = "The game will start in 5";
+        _launchText1.text = text;
+        _launchText2.text = text;
+        yield return new WaitForSecondsRealtime(1);
+
+        text = "The game will start in 4";
+        _launchText1.text = text;
+        _launchText2.text = text;
+        yield return new WaitForSecondsRealtime(1);
+
+        text = "The game will start in 3";
+        _launchText1.text = text;
+        _launchText2.text = text;
+        yield return new WaitForSecondsRealtime(1);
+
+        text = "The game will start in 2";
+        _launchText1.text = text;
+        _launchText2.text = text;
+        yield return new WaitForSecondsRealtime(1);
+
+        text = "The game will start in 1";
+        _launchText1.text = text;
+        _launchText2.text = text;
+        yield return new WaitForSecondsRealtime(1);
+
+        ScenesManager.instance.LoadScene(_nextSceneName);
     }
 
     private Emotion _GetEmotionOfPlayer(int playerID)
