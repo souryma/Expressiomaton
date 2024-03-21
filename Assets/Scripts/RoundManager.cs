@@ -88,7 +88,7 @@ public class RoundManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
-            Instance = new RoundManager();
+            Instance = this;
     }
 
     void Start()
@@ -125,15 +125,11 @@ public class RoundManager : MonoBehaviour
         {
             Debug.Log("Player 1 Win ! ");
             Debug.Log("Player 2 you looooooose ! ");
-
-            onPlayer2Loose?.Invoke();
         }
         else if (player2winCount > player1winCount)
         {
             Debug.Log("Player 2 Win ! ");
             Debug.Log("Player 1 you looooooose ! ");
-            
-            onPlayer1Loose?.Invoke();
         }
     }
 
@@ -159,7 +155,7 @@ public class RoundManager : MonoBehaviour
             bCountdownOnceFlag = false;
             currentRoundEmotion = _GetRandomEmotion();
 
-            roundText.text = $"Round {currentRoundCount + 1}";
+            roundText.text = $"Round {currentRoundCount}";
 
             // Animation
             roundText.DOFade(1f, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
@@ -251,16 +247,19 @@ public class RoundManager : MonoBehaviour
         {
             case 0:
                 Debug.Log("Nobody win");
+                onPlayer1Loose?.Invoke();
                 break;
 
             case 1:
                 Debug.Log("Player 1 win");
                 player1winCount++;
+                onPlayer2Loose?.Invoke();
                 break;
 
             case 2:
                 Debug.Log("Player 2 win");
                 player2winCount++;
+                onPlayer1Loose?.Invoke();
                 break;
 
             case 3:
