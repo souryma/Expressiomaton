@@ -12,6 +12,8 @@ public class MenuButtons : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.instance.PlayMenuSound();
+
         player2AboutToStartText.gameObject.SetActive(false);
         StartCoroutine(Player2TextAnimation(player2WaitingText, "Waiting for player 1"));
     }
@@ -40,16 +42,19 @@ public class MenuButtons : MonoBehaviour
 
     public void ConfirmCameraSelection()
     {
+        SoundManager.instance.PlayShotgunSound();
         WebcamManager.instance.ConfirmCameraSelection();
     }
 
     public void PlayWithTutorial()
     {
+        SoundManager.instance.PlayShotgunSound();
         ScenesManager.instance.LoadScene(TutorialScene);
     }
     
     public void PlayWithoutTutorial()
     {
+        SoundManager.instance.PlayShotgunSound();
         ScenesManager.instance.LoadScene(NoTutorialScene);
     }
 
