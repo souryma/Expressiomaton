@@ -38,7 +38,7 @@ public class DollyZoom : MonoBehaviour
     {
         speedCam = 65f / (timeZoom * 10f);
         Initialize();
-        reinitiliazeCamera;
+        reinitiliazeCamera();
     }
     
     // Update is called once per frame
