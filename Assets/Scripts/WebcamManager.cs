@@ -166,10 +166,15 @@ public class WebcamManager : MonoBehaviour
             Texture2D faceTexture = new Texture2D(rect.Region.Width, rect.Region.Height, TextureFormat.RGBA32, false);
 
             int yFromBottom = texture2D.height - rect.Region.Y - rect.Region.Height;
-            faceTexture.SetPixels(texture2D.GetPixels(rect.Region.X, yFromBottom, rect.Region.Width, rect
-                .Region.Height));
-            faceTexture.Apply();
-            return faceTexture;
+            if (yFromBottom > 0 && yFromBottom < texture2D.height)
+            {
+                faceTexture.SetPixels(texture2D.GetPixels(rect.Region.X, yFromBottom, rect.Region.Width, rect
+                    .Region.Height));
+                
+                faceTexture.Apply();
+                return faceTexture;
+            } 
+         
         }
 
         return null;

@@ -1824,7 +1824,7 @@ MonoBehaviour:
   _player2Text: {fileID: 1885269993}
   _player2WantedPoster: {fileID: 1599661828}
   _launchText2: {fileID: 1295975241}
-  nextSceneName: MenuScene
+  nextSceneName: TutoScene
 --- !u!1 &1885269993
 GameObject:
   m_ObjectHideFlags: 0

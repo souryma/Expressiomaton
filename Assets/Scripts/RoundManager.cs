@@ -2,11 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using DG.Tweening;
+
 using Random = UnityEngine.Random;
 using Emotion = EmotionManager.EMOTION;
+using TMPro;
 
 public class RoundManager : MonoBehaviour
 {
+    ///===============================================
+    /// 
+    ///                 MEMBERS
+    /// 
+    ///===============================================
+
     [SerializeField]
     private float maxRoundDuration = 10.0f; // in seconds
 
@@ -16,32 +25,47 @@ public class RoundManager : MonoBehaviour
     [SerializeField]
     private int maxRoundCount = 1;
 
+    [SerializeField]
+    private TextMeshProUGUI countDownText;
+
+
     private Emotion currentRoundEmotion;
 
     private byte winnerID; // 0: nobody, 1: player1, 2: player2, 3: both
     private bool winnerFound;
 
-    private bool isNewRound;
-    private bool isRoundStarted;
-    private bool isRoundPlaying;
+    private bool bNewRound;
+    private bool bRoundStarted;
+    private bool bRoundPlaying;
 
     private int currentRoundCount;
-    private float countdownOverTimestamp;
+    private int countDownCount;
 
     private int player1winCount = 0;
     private int player2winCount = 0;
     private bool bAnnounceOnceFlag = true;
+    private bool bCountdownOnceFlag = true;
+
+
+    private float startRoundTime = 0;
+    private bool bPlayRoundOnceFlag = true;
+
+
+    ///===============================================
+    /// 
+    ///                 FUNCTIONS
+    /// 
+    ///===============================================
 
     void Start()
     {
         winnerID = 0;
         winnerFound = false;
-        isNewRound = true;
-        isRoundStarted = false;
-        isRoundPlaying = false;
+        bNewRound = true;
+        bRoundStarted = false;
+        bRoundPlaying = false;
 
         currentRoundCount = 0;
-        countdownOverTimestamp = 0.0f;
     }
 
     void Update()
@@ -84,16 +108,16 @@ public class RoundManager : MonoBehaviour
 
     private void _BeginOneRound()
     {
-        if (isRoundStarted)
+        if (bRoundStarted)
             return;
 
         // 1) Init winner id
         winnerID = 0;
 
         // 2) Choose an emotion
-        if (isNewRound)
+        if (bNewRound)
         {
-            isNewRound = false;
+            bNewRound = false;
             currentRoundEmotion = _GetRandomEmotion();
 
             Debug.Log($"Round {currentRoundCount + 1}, Emotion to reproduce : {currentRoundEmotion.ToString()}");
@@ -107,19 +131,28 @@ public class RoundManager : MonoBehaviour
         }
 
         // 3) Start to count down
-        StartCoroutine(_CountdownFor(3));
+        if (bCountdownOnceFlag) _StartCountDown();
     }
 
     private void _PlayOneRound()
     {
-        if (!isRoundStarted)
+        if (!bRoundStarted)
             return;
 
-        float timeLimit = (countdownOverTimestamp + maxRoundDuration) - Time.time;
-
-        if (!winnerFound && timeLimit > 0.0f)
+        if (bPlayRoundOnceFlag)
         {
-            Debug.Log(Mathf.Floor(timeLimit));
+            startRoundTime = Time.time;
+            bPlayRoundOnceFlag = false;
+        }
+
+
+        float currentRoundTime = Time.time;
+        float roundDuration = currentRoundTime - startRoundTime;
+
+        if (!winnerFound && roundDuration < maxRoundDuration)
+        {
+            Debug.Log($"TimeScale : {Time.timeScale}");
+            Debug.Log($"RoundDuration : {Mathf.Floor(roundDuration)}");
 
             // 3) Check for a winner
             if (_GetEmotionOfPlayer(1) == currentRoundEmotion && _GetEmotionOfPlayer(2) == currentRoundEmotion)
@@ -127,38 +160,39 @@ public class RoundManager : MonoBehaviour
                 // Match nul
                 winnerID = 3;
                 winnerFound = true;
-                isRoundPlaying = false;
+                bRoundPlaying = false;
             }
             else if (_GetEmotionOfPlayer(1) == currentRoundEmotion)
             {
                 // Player 1 win
                 winnerID = 1;
                 winnerFound = true;
-                isRoundPlaying = false;
+                bRoundPlaying = false;
             }
             else if (_GetEmotionOfPlayer(2) == currentRoundEmotion)
             {
                 // Player 2 win
                 winnerID = 2;
                 winnerFound = true;
-                isRoundPlaying = false;
+                bRoundPlaying = false;
             }
             else
             {
                 winnerFound = false;
-                isRoundPlaying = true;
+                bRoundPlaying = true;
             }
         }
-        else if (Time.time > countdownOverTimestamp + maxRoundDuration)
+        else if (roundDuration > maxRoundDuration)
         {
-            isRoundPlaying = false;
+            bRoundPlaying = false;
+            bPlayRoundOnceFlag = true;
             winnerID = 0;
         }
     }
 
     private void _EndOneRound()
     {
-        if (!isRoundStarted || isRoundPlaying)
+        if (!bRoundStarted || bRoundPlaying)
             return;
 
         switch (winnerID)
@@ -182,25 +216,54 @@ public class RoundManager : MonoBehaviour
                 break;
         }
 
-        isNewRound = true;
-        isRoundStarted = false;
+        bNewRound = true;
+        bRoundStarted = false;
+        bCountdownOnceFlag = true;
         currentRoundCount++;
     }
 
-    private IEnumerator _CountdownFor(int seconds)
+    private void _StartCountDown()
     {
-        Debug.Log("Be ready....");
+        countDownCount = 3;
+        StartCoroutine(_CountdownFor());
+        bCountdownOnceFlag = false;
+    }
 
-        for (int i = seconds; i > 0; i--)
+    private IEnumerator _CountdownFor()
+    {
+        if (countDownCount > 0)
         {
-            Debug.Log(i);
-            yield return new WaitForSeconds(1);
+            countDownText.text = countDownCount.ToString();
         }
-        Debug.Log("Go !!");
+        else
+        {
+            countDownText.text = "Go !!";
+            bRoundStarted = true;
+        }
 
-        isRoundStarted = true;
-        countdownOverTimestamp = Time.time;
-        winnerFound = false;
+        // Animation
+        countDownText.DOFade(1f, .3f).SetUpdate(true).OnComplete(() =>
+        {
+            countDownText.DOFade(0f, .3f).SetUpdate(true);
+        });
+
+        countDownText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), .3f).SetUpdate(true).OnComplete(() =>
+        {
+            countDownText.rectTransform.DOScale(Vector3.one, .3f).SetUpdate(true);
+        });
+
+        yield return new WaitForSeconds(1f);
+
+        countDownCount--;
+
+        if (countDownCount>=0)
+        {
+            StartCoroutine(_CountdownFor());
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     private Emotion _GetRandomEmotion()
@@ -210,6 +273,7 @@ public class RoundManager : MonoBehaviour
 
     private Emotion _GetEmotionOfPlayer(int playerID)
     {
-        return playerID == 1 ? EmotionManager.instance.GetPlayer1Emotion() : EmotionManager.instance.GetPlayer2Emotion();
+        // return playerID == 1 ? EmotionManager.instance.GetPlayer1Emotion() : EmotionManager.instance.GetPlayer2Emotion();
+        return Emotion.Neutral;
     }
 }

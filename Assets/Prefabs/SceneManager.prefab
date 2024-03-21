@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef5cd46efbd38c42aaf332810ec8e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startScene: MenuScene
+  startScene: CameraSelectionScene
