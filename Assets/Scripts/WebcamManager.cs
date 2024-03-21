@@ -9,41 +9,38 @@ public sealed class WebcamManager : MonoBehaviour
 {
     public static WebcamManager instance;
 
+    #region Private members
+    
     [SerializeField] private TMP_Dropdown _camera1Choice;
     [SerializeField] private TMP_Dropdown _camera2Choice;
-
-    [Header("Image Processor")] 
-    public TextAsset faces;
-    public TextAsset eyes;
-    public TextAsset shapes;
-    public bool forceFrontalCamera;
-
+    
     // private FaceProcessorLive<Texture2D> _processorWebCam1;
     // private FaceProcessorLive<Texture2D> _processorWebCam2;
     [Header("New Image Processor")] 
     // [SerializeField] RenderTexture renderTextureFace1 = null;
     // [SerializeField] RenderTexture renderTextureFace2 = null;
-    [SerializeField, Range(0, 1)] float _threshold = 0.5f;
-    [SerializeField] ResourceSet _resources = null;
+    [SerializeField, Range(0, 1)]private float _threshold = 0.5f;
+    [SerializeField]private ResourceSet _resources = null;
     // [SerializeField] Shader _visualizer = null;
     private FaceDetector _detector;
     // private Material _material;
-    private ComputeBuffer _drawArgs;
     private bool _face1Detected = false;
     private bool _face2Detected = false;
+
+    private readonly float _roundingValue = 100f;
     
     [SerializeField] private int2 _cameraTextureResolutions = new int2(512, 512);
 
     private WebCamTexture _webcam1;
     private WebCamTexture _webcam2;
-    // private WebCamDevice _webcamDevice1;
-    // private WebCamDevice _webcamDevice2;
-    // private Texture2D _face1;
-    // private Texture2D _face2;
 
     private RenderTexture _face1Texture;
     private RenderTexture _face2Texture;
+    
+    private List<TMP_Dropdown.OptionData> _camerasNameList;
+    #endregion
 
+    #region Public members
     public RenderTexture Face1Texture => _face1Texture;
 
     public RenderTexture Face2Texture => _face2Texture;
@@ -52,7 +49,9 @@ public sealed class WebcamManager : MonoBehaviour
 
     public WebCamTexture Webcam2 => _webcam2;
 
-    private List<TMP_Dropdown.OptionData> _camerasNameList;
+    #endregion
+    
+   
 
     [HideInInspector] public bool isCameraSetup = false;
 
@@ -71,8 +70,6 @@ public sealed class WebcamManager : MonoBehaviour
         {
             SetupCameras();
         }
-        
-        
     }
 
   
@@ -108,9 +105,6 @@ public sealed class WebcamManager : MonoBehaviour
     private void FaceDetectorInitializer()
     {
         _detector = new FaceDetector(_resources);
-        _drawArgs = new ComputeBuffer(4, sizeof(uint),
-            ComputeBufferType.IndirectArguments);
-        _drawArgs.SetData(new [] {6, 0, 0, 0});
     }
 
 
@@ -139,13 +133,13 @@ public sealed class WebcamManager : MonoBehaviour
         
         if (_face1Texture != null) Destroy(_face1Texture);
         if (_face2Texture != null) Destroy(_face2Texture);
+        
         DestroyFaceDetector();
     }
 
     private void DestroyFaceDetector()
     {
         _detector?.Dispose();
-        _drawArgs?.Dispose();
         Debug.Log("Destroy Face Detector");
     }
     
@@ -176,19 +170,25 @@ public sealed class WebcamManager : MonoBehaviour
                 }
             }
 
-            Vector2 scale = new Vector2(savedDetection.x2 - savedDetection.x1,
-                savedDetection.y2 - savedDetection.y1);
+            float myX2 = Mathf.Floor(savedDetection.x2 * _roundingValue) / _roundingValue;
+            float myX1 = Mathf.Floor(savedDetection.x1 * _roundingValue) / _roundingValue;
+            float myY2 = Mathf.Floor(savedDetection.y2 * _roundingValue) / _roundingValue;
+            float myY1 = Mathf.Floor(savedDetection.y1 * _roundingValue) / _roundingValue;
+            Vector2 scale = new Vector2(myX2 - myX1,
+                myY2 - myY1);
 
-            Graphics.Blit(webCamTexture, renderTexture, scale, new Vector2(savedDetection.x1, 1 - savedDetection.y2));
-
+            Graphics.Blit(webCamTexture, renderTexture, scale, new Vector2(myX1, 1 - myY2));
         }
         else
         {
             faceDetected = false;
         }
+        
+        webCamTexture = null;
+        renderTexture = null;
     }
 
-    void Update()
+    private void LateUpdate()
     {
         if (!isCameraSetup) return;
         if (_webcam1 is not null && _webcam1.didUpdateThisFrame)
