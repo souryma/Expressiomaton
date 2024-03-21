@@ -9,6 +9,10 @@ public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private float maxEmotionTestDuration = 10.0f;
 
+    // TODO : @WILL Replace emotionToTest by _emotionsToTestP1 and _emotionsToTestP2
+    private List<Emotion> _emotionsToTestP1 = new List<Emotion>();
+    private List<Emotion> _emotionsToTestP2 = new List<Emotion>();
+    
     private List<Emotion> emotionsToTest = new List<Emotion>();
 
     int currentEmotionIdx = 0;
@@ -40,7 +44,10 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         for (int i = 0; i < System.Enum.GetNames(typeof(Emotion)).Length; i++)
-            emotionsToTest.Add((Emotion) i);
+        {
+            _emotionsToTestP1.Add((Emotion) i);
+            _emotionsToTestP2.Add((Emotion) i);
+        }
 
         _player1Camera.texture = WebcamManager.instance.Webcam1;
         _player2Camera.texture = WebcamManager.instance.Webcam2;
@@ -85,7 +92,7 @@ public class TutorialManager : MonoBehaviour
         int remainingTime = (int) Mathf.Round(endTestTime - currentTestTime);
 
         // Test emotion
-        if (currentEmotionIdx < emotionsToTest.Count && remainingTime > 0)
+        if (currentEmotionIdx < _emotionsToTestP1.Count && remainingTime > 0)
         {
             Emotion currentEmotionToTest = emotionsToTest[currentEmotionIdx];
 
@@ -102,8 +109,6 @@ public class TutorialManager : MonoBehaviour
                     _player2Text.text = txt;
                 }
             }
-
-            // Debug.Log($"Remaining time : {remainingTime}s");
 
             if (_GetEmotionOfPlayer(playerID) == currentEmotionToTest)
             {
