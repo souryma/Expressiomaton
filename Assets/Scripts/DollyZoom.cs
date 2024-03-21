@@ -38,6 +38,7 @@ public class DollyZoom : MonoBehaviour
     {
         speedCam = 65f / (timeZoom * 10f);
         Initialize();
+        reinitiliazeCamera;
     }
     
     // Update is called once per frame
@@ -78,7 +79,7 @@ public class DollyZoom : MonoBehaviour
     {
         return (2.0f * Mathf.Atan(height * 0.5f / distance) * Mathf.Rad2Deg);
     }
-    private void reinitiliazedCamera()
+    private void reinitiliazeCamera()
     {
         cameraP1.transform.position = InitialPositioncameraP1;
         cameraP2.transform.position = InitialPositioncameraP2;
