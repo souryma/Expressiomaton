@@ -8,10 +8,20 @@ using UnityEngine;
 
 public class GameAnimation : MonoBehaviour
 {
+    public static GameAnimation Instance;
     [SerializeField] private GameObject Player1;
     [SerializeField] private GameObject Player2;
     // Start is called before the first frame update
+    public event Action reinitialise;
     void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
+    void Start()
     {
         RoundManager.Instance.onPlayer1Loose += killEventPlayer1;
         RoundManager.Instance.onPlayer2Loose += killEventPlayer2;
@@ -26,11 +36,6 @@ public class GameAnimation : MonoBehaviour
     {
         StartCoroutine(killPlayer2());
     }
-    void Start()
-    {
-        
-    }
-
 
     public IEnumerator killPlayer1()
     {
@@ -46,7 +51,8 @@ public class GameAnimation : MonoBehaviour
         playerParentCam.transform.rotation = new quaternion(0f,0f,-77f,0f);
 
         yield return new WaitForSeconds(5);
-        reinitilise();
+        reinitialiseModel();
+        reinitialise?.Invoke();
     }
     
     public IEnumerator killPlayer2()
@@ -64,11 +70,11 @@ public class GameAnimation : MonoBehaviour
         playerParentCam.transform.rotation = new quaternion(0f, 0f, -77f, 0f);
 
         yield return new WaitForSeconds(5);
-        reinitilise();
-        
+        reinitialiseModel();
+        reinitialise?.Invoke();
     }
     
-    public void reinitilise()
+    public void reinitialiseModel()
     {
         GameObject player1Model = Player1.transform.Find("PlayerModel").gameObject;
         GameObject player1ShootingModel = Player1.transform.Find("PlayerShootingModel").gameObject;
@@ -89,13 +95,5 @@ public class GameAnimation : MonoBehaviour
         player2ShootingModel.SetActive(false);
         player2DeadModel.SetActive(false);
         player2ParentCam.transform.rotation = new quaternion(0f,0f,0f,0f);
-        
-        
-    }
-    
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
