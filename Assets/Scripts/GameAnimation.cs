@@ -25,7 +25,7 @@ public class GameAnimation : MonoBehaviour
         GameObject player2ShootingModel = deadPlayer.transform.Find("PlayerShootingModel").gameObject;
         
         player2Model.SetActive(false);
-        player2ParentCam.Set
+        //player2ParentCam.Set
         
     }
     

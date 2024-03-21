@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using OpenCvSharp.Demo;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UltraFace;
 
-public class WebcamManager : MonoBehaviour
+public sealed class WebcamManager : MonoBehaviour
 {
     public static WebcamManager instance;
 
@@ -18,34 +18,28 @@ public class WebcamManager : MonoBehaviour
     public TextAsset shapes;
     public bool forceFrontalCamera;
 
-    private FaceProcessorLive<Texture2D> _processorWebCam1;
-    private FaceProcessorLive<Texture2D> _processorWebCam2;
-
-    private void Start()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-
-        if (ScenesManager.isSceneManagerLoaded)
-        {
-            ScenesManager.instance.OnStartSceneLoaded += SetupCameras;
-        }
-        else
-        {
-            SetupCameras();
-        }
-    }
-
+    // private FaceProcessorLive<Texture2D> _processorWebCam1;
+    // private FaceProcessorLive<Texture2D> _processorWebCam2;
+    [Header("New Image Processor")] 
+    // [SerializeField] RenderTexture renderTextureFace1 = null;
+    // [SerializeField] RenderTexture renderTextureFace2 = null;
+    [SerializeField, Range(0, 1)] float _threshold = 0.5f;
+    [SerializeField] ResourceSet _resources = null;
+    // [SerializeField] Shader _visualizer = null;
+    private FaceDetector _detector;
+    // private Material _material;
+    private ComputeBuffer _drawArgs;
+    private bool _face1Detected = false;
+    private bool _face2Detected = false;
+    
     [SerializeField] private int2 _cameraTextureResolutions = new int2(512, 512);
 
     private WebCamTexture _webcam1;
     private WebCamTexture _webcam2;
-    private WebCamDevice _webcamDevice1;
-    private WebCamDevice _webcamDevice2;
-    private Texture2D _face1;
-    private Texture2D _face2;
+    // private WebCamDevice _webcamDevice1;
+    // private WebCamDevice _webcamDevice2;
+    // private Texture2D _face1;
+    // private Texture2D _face2;
 
     private RenderTexture _face1Texture;
     private RenderTexture _face2Texture;
@@ -62,6 +56,26 @@ public class WebcamManager : MonoBehaviour
 
     [HideInInspector] public bool isCameraSetup = false;
 
+    private void Start()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+        if (ScenesManager.isSceneManagerLoaded)
+        {
+            ScenesManager.instance.OnStartSceneLoaded += SetupCameras;
+        }
+        else
+        {
+            SetupCameras();
+        }
+        
+        
+    }
+
+  
     private void SetupCameras()
     {
         _camerasNameList = new List<TMP_Dropdown.OptionData>();
@@ -88,26 +102,17 @@ public class WebcamManager : MonoBehaviour
 
         _camera2Choice.options = _camerasNameList;
         _camera1Choice.options = _camerasNameList;
-        _processorWebCam2= ProcessorInitializer();
-        _processorWebCam1 = ProcessorInitializer();
+        FaceDetectorInitializer();
     }
 
-    private FaceProcessorLive<Texture2D> ProcessorInitializer()
+    private void FaceDetectorInitializer()
     {
-        var processor = new FaceProcessorLive<Texture2D>();
-        processor.Initialize(faces.text, eyes.text, shapes.bytes);
-
-        // data stabilizer - affects face rects, face landmarks etc.
-        processor.DataStabilizer.Enabled = true; // enable stabilizer
-        processor.DataStabilizer.Threshold = 2.0d; // threshold value in pixels
-        processor.DataStabilizer.SamplesCount = 2; // how many samples do we need to compute stable data
-
-        // performance data - some tricks to make it work faster
-        processor.Performance.Downscale = 256; // processed image is pre-scaled down to N px by long side
-        processor.Performance.SkipRate = 0; 
-        // we actually process only each Nth frame (and every frame for skipRate = 0)
-        return processor;
+        _detector = new FaceDetector(_resources);
+        _drawArgs = new ComputeBuffer(4, sizeof(uint),
+            ComputeBufferType.IndirectArguments);
+        _drawArgs.SetData(new [] {6, 0, 0, 0});
     }
+
 
     // Will select the camera names that are defined in the dropdowns
     public void ConfirmCameraSelection()
@@ -117,17 +122,14 @@ public class WebcamManager : MonoBehaviour
         
         _face1Texture = new RenderTexture(_cameraTextureResolutions.x, _cameraTextureResolutions.y, 0);
         _face2Texture = new RenderTexture(_cameraTextureResolutions.x, _cameraTextureResolutions.y, 0);
-
-        _webcamDevice1 = WebCamTexture.devices[_camera1Choice.value];
-        _webcamDevice2 = WebCamTexture.devices[_camera2Choice.value];
-
+        
         _webcam1.Play();
         _webcam2.Play();
 
         isCameraSetup = true;
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         if (ScenesManager.isSceneManagerLoaded)
             ScenesManager.instance.OnStartSceneLoaded -= SetupCameras;
@@ -137,109 +139,78 @@ public class WebcamManager : MonoBehaviour
         
         if (_face1Texture != null) Destroy(_face1Texture);
         if (_face2Texture != null) Destroy(_face2Texture);
+        DestroyFaceDetector();
     }
 
-    /// <summary>
-    /// Per-frame video capture processor
-    /// </summary>
-    private Texture2D ProcessTexture(WebCamDevice webCamDevice, WebCamTexture input,
-        FaceProcessorLive<Texture2D> processor)
+    private void DestroyFaceDetector()
     {
-        OpenCvSharp.Unity.TextureConversionParams textureParameters =
-            ReadTextureConversionParameters(webCamDevice, input);
-        // detect everything we're interested in
-        Texture2D texture2D = new Texture2D(input.width / 2, input.height, TextureFormat.RGBA32, false);
-        texture2D.SetPixels(input.GetPixels(input.width / 4, 0, input.width / 2, input.height));
-        
-        texture2D.Apply();
-        processor.ProcessTexture(texture2D, textureParameters);
-
-        // mark detected objects
-        // processor.MarkDetected();
+        _detector?.Dispose();
+        _drawArgs?.Dispose();
+        Debug.Log("Destroy Face Detector");
+    }
+    
+    private void FaceDetectorDetectFace(WebCamTexture webCamTexture, RenderTexture renderTexture, ref bool faceDetected)
+    {
+        _detector.ProcessImage(webCamTexture, _threshold);
 
 
-        // processor.Image now holds data we'd like to visualize
-        texture2D = OpenCvSharp.Unity.MatToTexture(processor.Image, texture2D);
-        if (processor.Faces.Count != 0)
+        // Marker update
+        if (_detector.Detections.Any())
         {
-            var rect = processor.Faces.Last();
-            Texture2D faceTexture = new Texture2D(rect.Region.Width, rect.Region.Height, TextureFormat.RGBA32, false);
-
-            int yFromBottom = texture2D.height - rect.Region.Y - rect.Region.Height;
-            if (yFromBottom > 0 && yFromBottom < texture2D.height)
+            faceDetected = true;
+            Vector2 imageCenter = new Vector2(0.5f, 0.5f);
+            var savedDetection = _detector.Detections.First();
+            Vector2 vec2 = new Vector2(savedDetection.x1 + (savedDetection.x2 - savedDetection.x1) / 2,
+                savedDetection.y1 + (savedDetection.y2 - savedDetection.y1) / 2);
+            float smallestDistance = Vector2.Distance(imageCenter, vec2);
+            foreach (var detection in _detector.Detections)
             {
-                faceTexture.SetPixels(texture2D.GetPixels(rect.Region.X, yFromBottom, rect.Region.Width, rect
-                    .Region.Height));
-                
-                faceTexture.Apply();
-                return faceTexture;
-            } 
-         
+                if (detection.Equals(savedDetection)) continue;
+                Vector2 center = new Vector2(detection.x1 + (detection.x2 - detection.x1) / 2,
+                    detection.y1 + (detection.y2 - detection.y1) / 2);
+                float distance = Vector2.Distance(imageCenter, center);
+                if (distance < smallestDistance)
+                {
+                    smallestDistance = distance;
+                    savedDetection = detection;
+                }
+            }
+
+            Vector2 scale = new Vector2(savedDetection.x2 - savedDetection.x1,
+                savedDetection.y2 - savedDetection.y1);
+
+            Graphics.Blit(webCamTexture, renderTexture, scale, new Vector2(savedDetection.x1, 1 - savedDetection.y2));
+
         }
-
-        return null;
-    }
-
-    /// <summary>
-    /// This method scans source device params (flip, rotation, front-camera status etc.) and
-    /// prepares TextureConversionParameters that will compensate all that stuff for OpenCV
-    /// </summary>
-    private OpenCvSharp.Unity.TextureConversionParams ReadTextureConversionParameters(WebCamDevice webCamDevice,
-        WebCamTexture webCamTexture)
-    {
-        OpenCvSharp.Unity.TextureConversionParams parameters = new OpenCvSharp.Unity.TextureConversionParams();
-
-        // frontal camera - we must flip around Y axis to make it mirror-like
-        parameters.FlipHorizontally = forceFrontalCamera || webCamDevice.isFrontFacing;
-
-        // deal with rotation
-        if (0 != webCamTexture.videoRotationAngle)
-            parameters.RotationAngle = webCamTexture.videoRotationAngle; // cw -> ccw
-
-        // apply
-        return parameters;
-
-        //UnityEngine.Debug.Log (string.Format("front = {0}, vertMirrored = {1}, angle = {2}", webCamDevice.isFrontFacing, webCamTexture.videoVerticallyMirrored, webCamTexture.videoRotationAngle));
+        else
+        {
+            faceDetected = false;
+        }
     }
 
     void Update()
     {
-        // Crop the cameras render to a square of the desired resolution
         if (!isCameraSetup) return;
         if (_webcam1 is not null && _webcam1.didUpdateThisFrame)
         {
-            _face1 = ProcessTexture(_webcamDevice1, _webcam1, _processorWebCam1);
+            FaceDetectorDetectFace(_webcam1, _face1Texture, ref _face1Detected);
         }
 
         if (_webcam2 is not null && _webcam2.didUpdateThisFrame)
         {
-            _face2 = ProcessTexture(_webcamDevice2, _webcam2, _processorWebCam2);
+            FaceDetectorDetectFace(_webcam2, _face2Texture, ref _face2Detected);
+
         }
         
-        if (_face1 is not null)
-        {
-            var scale = new Vector2((float) _face1.height / _face1.width, 1);
-            Graphics.Blit(_face1, _face1Texture, scale, new Vector2(0, 0));
-        }
-
-        if (_face2 is not null)
-        {
-            var scale2 = new Vector2((float) _face2.height / _face2.width, 1);
-            Graphics.Blit(_face2, _face2Texture, scale2, new Vector2(0, 0));
-        }
     }
 
     public bool DoesCamera1DetectFace()
     {
-        return DoesCameraDetectFace(_processorWebCam1);
+        return _face1Detected;
     }
     public bool DoesCamera2DetectFace()
     {
-        return DoesCameraDetectFace(_processorWebCam2);
+        return _face2Detected;
     }
-
-    private bool DoesCameraDetectFace(FaceProcessorLive<Texture2D> processor)
-    {
-        return processor.Faces.Count != 0;
-    }
+    
 }

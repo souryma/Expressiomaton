@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/System.unity
     guid: d5d0d825cf0e93f4686fc59ec774aea7
+  - enabled: 0
+    path: Assets/Scenes/TestPB.unity
+    guid: 5f5bcddc5ac76294b980e998de9c15a1
+  - enabled: 0
+    path: Assets/Scenes/GameScene_Ewen.unity
+    guid: d93f02bc07ea93a4d991d00a473f2aad
   - enabled: 1
     path: Assets/Scenes/CameraSelectionScene.unity
     guid: 3c6c9d2f5bfe1184a9cc8e23988f83ad
@@ -20,5 +26,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TutoScene.unity
     guid: 2dc2012e4e331204dbab929dc7d1d6d0
+  - enabled: 1
+    path: Assets/Scenes/VictoryScene.unity
+    guid: 5a35a5c852e213644b7eaa31d6e36e2d
+  - enabled: 0
+    path: Assets/Scenes/GameSceneUI.unity
+    guid: d02a64b2599faa34aa95febf0734da2c
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 9f318cec86f51b2449cad21d8cd8ddc6, type: 2}

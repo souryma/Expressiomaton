@@ -659,7 +659,7 @@ PrefabInstance:
     - target: {fileID: 4713295199359017797, guid: abe1fda03e4499d4da481958f76a9239, type: 3}
       propertyPath: m_sender
       value: 
-      objectReference: {fileID: 11400000, guid: 21fb426868ee0c5468c69791921165e5, type: 2}
+      objectReference: {fileID: 11400000, guid: 2edf14951f05c324b8cddd84534f1504, type: 2}
     - target: {fileID: 8381418334411211059, guid: abe1fda03e4499d4da481958f76a9239, type: 3}
       propertyPath: m_Name
       value: EmailSender

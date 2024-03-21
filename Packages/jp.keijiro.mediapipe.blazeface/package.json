@@ -1,0 +1,16 @@
+{
+  "author": "Keijiro Takahashi",
+  "dependencies": {
+    "com.unity.barracuda": "3.0.0",
+    "jp.keijiro.klak.nnutils": "1.1.0"
+  },
+  "description": "MediaPipe BlazeFace face detection neural network model for Unity Barracuda",
+  "displayName": "BlazeFace",
+  "keywords": [ "unity" ],
+  "license": "Apache-2.0",
+  "name": "jp.keijiro.mediapipe.blazeface",
+  "repository": "github:keijiro/BlazeFaceBarracuda",
+  "unity": "2020.3",
+  "unityRelease": "0f1",
+  "version": "1.2.0"
+}
