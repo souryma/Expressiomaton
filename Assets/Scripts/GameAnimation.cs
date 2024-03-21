@@ -14,8 +14,8 @@ public class GameAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        RoundManager.OnPlayer1Loose += killPlayer(Player1);
-        RoundManager.OnPlayer2Loose += killPlayer(Player2);
+        RoundManager.Instance.onPlayer1Loose += killPlayer1;
+        RoundManager.Instance.onPlayer2Loose += killPlayer2;
     }
     void Start()
     {
@@ -23,15 +23,24 @@ public class GameAnimation : MonoBehaviour
     }
 
 
-    public void killPlayer(GameObject deadPlayer)
+    public void killPlayer1()
     {
-        GameObject playerModel = deadPlayer.transform.Find("PlayerModel").gameObject;
-        GameObject playerParentCam = deadPlayer.transform.Find("ParentCam").gameObject;
-        GameObject playerShootingModel = deadPlayer.transform.Find("PlayerShootingModel").gameObject;
+        GameObject playerModel = Player1.transform.Find("PlayerModel").gameObject;
+        GameObject playerParentCam = Player1.transform.Find("ParentCam").gameObject;
+        GameObject playerShootingModel = Player1.transform.Find("PlayerShootingModel").gameObject;
         playerModel.SetActive(false);
         playerShootingModel.SetActive(true);
         playerParentCam.transform.rotation = new quaternion(0f,0f,-77f,0f);
-        
+    }
+    
+    public void killPlayer2()
+    {
+        GameObject playerModel = Player2.transform.Find("PlayerModel").gameObject;
+        GameObject playerParentCam = Player2.transform.Find("ParentCam").gameObject;
+        GameObject playerShootingModel = Player2.transform.Find("PlayerShootingModel").gameObject;
+        playerModel.SetActive(false);
+        playerShootingModel.SetActive(true);
+        playerParentCam.transform.rotation = new quaternion(0f, 0f, -77f, 0f);
     }
     
     public void reinitilise()
