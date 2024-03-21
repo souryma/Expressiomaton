@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 using Emotion = EmotionManager.EMOTION;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class RoundManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class RoundManager : MonoBehaviour
     ///                 MEMBERS
     /// 
     ///===============================================
+
+    //============ Editor
 
     [SerializeField]
     private float maxRoundDuration = 10.0f; // in seconds
@@ -26,12 +29,27 @@ public class RoundManager : MonoBehaviour
     [SerializeField]
     private int maxRoundCount = 1;
 
+    [Header("HUD Params")]
+
     [SerializeField]
     private TextMeshProUGUI countDownText;
+
+    [SerializeField]
+    private TextMeshProUGUI roundText;
+
+    [SerializeField]
+    private RawImage background;
+
+    [SerializeField]
+    private float animDuration = 1f;
+
+    [SerializeField]
+    private DollyZoom dollyZoomer;
 
     //============ Static
     public static RoundManager Instance { get; private set; }
 
+    //============ Logic
 
     private Emotion currentRoundEmotion;
 
@@ -81,7 +99,7 @@ public class RoundManager : MonoBehaviour
         bRoundStarted = false;
         bRoundPlaying = false;
 
-        currentRoundCount = 0;
+        currentRoundCount = 1;
     }
 
     void Update()
@@ -121,15 +139,15 @@ public class RoundManager : MonoBehaviour
 
     private void _LaunchOneRound()
     {
-        _BeginOneRound();
+        StartCoroutine(_BeginOneRound());
         _PlayOneRound();
         _EndOneRound();
     }
 
-    private void _BeginOneRound()
+    private IEnumerator _BeginOneRound()
     {
         if (bRoundStarted)
-            return;
+            yield return null;
 
         // 1) Init winner id
         winnerID = 0;
@@ -138,16 +156,33 @@ public class RoundManager : MonoBehaviour
         if (bNewRound)
         {
             bNewRound = false;
+            bCountdownOnceFlag = false;
             currentRoundEmotion = _GetRandomEmotion();
 
+            roundText.text = $"Round {currentRoundCount + 1}";
+
+            // Animation
+            roundText.DOFade(1f, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
+            {
+                roundText.DOFade(0f, animDuration * .3f).SetUpdate(true);
+            });
+
+            roundText.rectTransform.DOScale(Vector3.one, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
+            {
+                roundText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f).SetUpdate(true);
+                bCountdownOnceFlag = true;
+            });
+
             Debug.Log($"Round {currentRoundCount + 1}, Emotion to reproduce : {currentRoundEmotion.ToString()}");
+
+            yield return new WaitForSeconds(animDuration + 0.5f);
         }
 
         // Check for neutral state of the 2 players
         if (_GetEmotionOfPlayer(1) != _emotionForPass || _GetEmotionOfPlayer(2) != _emotionForPass)
         {
             Debug.Log("Please be " + _emotionForPass.ToString() + " before to start.");
-            return;
+            yield return null;
         }
 
         // 3) Start to count down
@@ -171,9 +206,6 @@ public class RoundManager : MonoBehaviour
 
         if (!winnerFound && roundDuration < maxRoundDuration)
         {
-            Debug.Log($"TimeScale : {Time.timeScale}");
-            Debug.Log($"RoundDuration : {Mathf.Floor(roundDuration)}");
-
             // 3) Check for a winner
             if (_GetEmotionOfPlayer(1) == currentRoundEmotion && _GetEmotionOfPlayer(2) == currentRoundEmotion)
             {
@@ -259,6 +291,10 @@ public class RoundManager : MonoBehaviour
         {
             countDownText.text = "Go !!";
             bRoundStarted = true;
+
+            dollyZoomer.timeZoom = (int)Mathf.Round(animDuration);
+            dollyZoomer.doZoom = true;
+            background.DOFade(0, 0.000001f).SetUpdate(true);
         }
 
         // Animation
@@ -276,14 +312,8 @@ public class RoundManager : MonoBehaviour
 
         countDownCount--;
 
-        if (countDownCount>=0)
-        {
-            StartCoroutine(_CountdownFor());
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
+        if (countDownCount>=0) StartCoroutine(_CountdownFor());
+        else Time.timeScale = 1f;
     }
 
     private Emotion _GetRandomEmotion()
