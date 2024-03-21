@@ -3180,6 +3180,7 @@ GameObject:
   - component: {fileID: 1121474723}
   - component: {fileID: 1121474724}
   - component: {fileID: 1121474725}
+  - component: {fileID: 1121474726}
   m_Layer: 0
   m_Name: CamManager
   m_TagString: Untagged
@@ -3218,7 +3219,7 @@ MonoBehaviour:
   cameraP2: {fileID: 1946119817}
   targetP1: {fileID: 669444193}
   targetP2: {fileID: 1291672316}
-  timeZoom: 4
+  timeZoom: 0
   doZoom: 0
 --- !u!114 &1121474725
 MonoBehaviour:
@@ -3232,6 +3233,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d97afd03d579046b1515a415aba1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1121474726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121474721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4df8bf13caec884da800efecaa6a049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player1: {fileID: 109437178}
+  Player2: {fileID: 597467190}
 --- !u!4 &1131269241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 441750, guid: 802bd3dc24c20394ca2037c1b9c882a0, type: 3}
