@@ -524,6 +524,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3247652034803334484, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
+      propertyPath: TutorialScene
+      value: TutoScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3247652034803334484, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: player2WaitingText
       value: 
       objectReference: {fileID: 360414780}
