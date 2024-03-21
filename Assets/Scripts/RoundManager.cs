@@ -7,6 +7,7 @@ using DG.Tweening;
 using Random = UnityEngine.Random;
 using Emotion = EmotionManager.EMOTION;
 using TMPro;
+using System;
 
 public class RoundManager : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class RoundManager : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI countDownText;
+
+    //============ Static
+    public static RoundManager Instance { get; private set; }
 
 
     private Emotion currentRoundEmotion;
@@ -51,11 +55,23 @@ public class RoundManager : MonoBehaviour
     private bool bPlayRoundOnceFlag = true;
 
 
+    //============ Events
+
+    public event Action onPlayer1Loose;
+    public event Action onPlayer2Loose;
+
+
     ///===============================================
     /// 
     ///                 FUNCTIONS
     /// 
     ///===============================================
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = new RoundManager();
+    }
 
     void Start()
     {
@@ -91,11 +107,15 @@ public class RoundManager : MonoBehaviour
         {
             Debug.Log("Player 1 Win ! ");
             Debug.Log("Player 2 you looooooose ! ");
+
+            onPlayer2Loose?.Invoke();
         }
         else if (player2winCount > player1winCount)
         {
             Debug.Log("Player 2 Win ! ");
             Debug.Log("Player 1 you looooooose ! ");
+            
+            onPlayer1Loose?.Invoke();
         }
     }
 
