@@ -12,16 +12,20 @@ public class TutorialManager : MonoBehaviour
     // TODO : @WILL Replace emotionToTest by _emotionsToTestP1 and _emotionsToTestP2
     private List<Emotion> _emotionsToTestP1 = new List<Emotion>();
     private List<Emotion> _emotionsToTestP2 = new List<Emotion>();
-    
-    private List<Emotion> emotionsToTest = new List<Emotion>();
 
-    int currentEmotionIdx = 0;
-    float startTestTime = 0;
-    float currentTestTime = 0;
-    float endTestTime = 0;
+    int _currentEmotionIdxP1 = 0;
+    int _currentEmotionIdxP2 = 0;
+    float _startTestTimeP1 = 0;
+    float _startTestTimeP2 = 0;
+    float _currentTestTimeP1 = 0;
+    float _currentTestTimeP2 = 0;
+    float _endTestTimeP1 = 0;
+    float _endTestTimeP2 = 0;
 
-    bool bPrintedCurrentEmotion = false;
-    bool bOnceFlag = true;
+    bool bPrintedCurrentEmotionP1 = false;
+    bool bPrintedCurrentEmotionP2 = false;
+    bool _bOnceFlagP1 = true;
+    bool _bOnceFlagP2 = true;
 
     [SerializeField] private RawImage _player1Camera;
     [SerializeField] private RawImage _player2Camera;
@@ -52,9 +56,13 @@ public class TutorialManager : MonoBehaviour
         _player1Camera.texture = WebcamManager.instance.Webcam1;
         _player2Camera.texture = WebcamManager.instance.Webcam2;
 
-        currentEmotionIdx = 0;
-        startTestTime = Time.time;
-        endTestTime = startTestTime + maxEmotionTestDuration;
+        _currentEmotionIdxP1 = 0;
+        _currentEmotionIdxP2 = 0;
+        _startTestTimeP1 = Time.time;
+        _endTestTimeP1 = _startTestTimeP1 + maxEmotionTestDuration;
+        
+        _startTestTimeP2 = Time.time;
+        _endTestTimeP2 = _startTestTimeP2 + maxEmotionTestDuration;
 
         string txt = "Prepare your emotions !";
         _player1Text.text = txt;
@@ -64,15 +72,23 @@ public class TutorialManager : MonoBehaviour
         _player2FailText.text = "";
         _returnToMenuButton1.SetActive(false);
         _returnToMenuButton2.SetActive(false);
-        
+
         _launchText1.gameObject.SetActive(false);
         _launchText2.gameObject.SetActive(false);
     }
 
+    private bool gameLaunched = false;
+
     void Update()
     {
-        _ProcessEmotionTestForPlayer(1);
-        _ProcessEmotionTestForPlayer(2);
+        _ProcessEmotionTestForPlayer1();
+        _ProcessEmotionTestForPlayer2();
+
+        if (_player1Ready && _player2Ready && gameLaunched == false)
+        {
+            gameLaunched = true;
+            StartCoroutine(LaunchGame());
+        }
     }
 
     public void BackToMenu()
@@ -80,101 +96,140 @@ public class TutorialManager : MonoBehaviour
         ScenesManager.instance.LoadScene(_menuSceneName);
     }
 
-    private void _ProcessEmotionTestForPlayer(int playerID)
+    private void _ProcessEmotionTestForPlayer1()
     {
-        if (_player1Ready && _player2Ready)
-        {
-            StartCoroutine(LaunchGame());
-            return;
-        }
-
-        currentTestTime = Time.time;
-        int remainingTime = (int) Mathf.Round(endTestTime - currentTestTime);
+        _currentTestTimeP1 = Time.time;
+        int remainingTime = (int) Mathf.Round(_endTestTimeP1 - _currentTestTimeP1);
 
         // Test emotion
-        if (currentEmotionIdx < _emotionsToTestP1.Count && remainingTime > 0)
+        if (_currentEmotionIdxP1 < _emotionsToTestP1.Count && remainingTime > 0)
         {
-            Emotion currentEmotionToTest = emotionsToTest[currentEmotionIdx];
+            Emotion currentEmotionToTest = _emotionsToTestP1[_currentEmotionIdxP1];
 
-            if (!bPrintedCurrentEmotion)
+            if (!bPrintedCurrentEmotionP1)
             {
                 var txt = $"Do a {currentEmotionToTest.ToString()} face !";
-                //Debug.Log(txt);
-                if (playerID == 1)
-                {
-                    _player1Text.text = txt;
-                }
-                else
-                {
-                    _player2Text.text = txt;
-                }
+                _player1Text.text = txt;
             }
 
-            if (_GetEmotionOfPlayer(playerID) == currentEmotionToTest)
+            if (_GetEmotionOfPlayer(1) == currentEmotionToTest)
             {
                 // Set new emotion
-                currentEmotionIdx++;
+                _currentEmotionIdxP1++;
 
                 // Set new start time for the new emotion
-                startTestTime = Time.time;
+                _startTestTimeP1 = Time.time;
 
                 // Set new end time
-                endTestTime = startTestTime + maxEmotionTestDuration;
+                _endTestTimeP1 = _startTestTimeP1 + maxEmotionTestDuration;
             }
 
-            bOnceFlag = true;
+            _bOnceFlagP1 = true;
         }
-        else if (currentEmotionIdx < emotionsToTest.Count)
+        else if (_currentEmotionIdxP1 < _emotionsToTestP1.Count)
         {
-            if (bOnceFlag)
+            if (_bOnceFlagP1)
             {
                 var txt = "Sadly, it seems like we aren't able to read your expression..";
                 //Debug.Log(txt);
 
-                if (playerID == 1)
-                {
-                    _player1FailText.text = txt;
-                    _returnToMenuButton1.SetActive(true);
-                }
-                else
-                {
-                    _player2FailText.text = txt;
-                    _returnToMenuButton2.SetActive(true);
-                }
+                _player1FailText.text = txt;
+                _returnToMenuButton1.SetActive(true);
 
-                bOnceFlag = false;
+                _bOnceFlagP1 = false;
             }
 
-            Emotion currentEmotionToTest = emotionsToTest[currentEmotionIdx];
-            if (_GetEmotionOfPlayer(playerID) == currentEmotionToTest)
+            Emotion currentEmotionToTest = _emotionsToTestP1[_currentEmotionIdxP1];
+            if (_GetEmotionOfPlayer(1) == currentEmotionToTest)
             {
                 // Set new emotion
-                currentEmotionIdx++;
+                _currentEmotionIdxP1++;
 
                 // Set new start time for the new emotion
-                startTestTime = Time.time;
+                _startTestTimeP1 = Time.time;
 
                 // Set new end time
-                endTestTime = startTestTime + maxEmotionTestDuration;
+                _endTestTimeP1 = _startTestTimeP1 + maxEmotionTestDuration;
             }
         }
         else if (remainingTime > 0)
         {
-            if (bOnceFlag)
+            if (_bOnceFlagP1)
             {
-                Debug.Log($"Finish to recognize player {playerID} emotions");
-                bOnceFlag = false;
+                Debug.Log($"Finish to recognize player 1 emotions");
+                _bOnceFlagP1 = false;
 
-                if (playerID == 1)
-                {
-                    _player1Ready = true;
-                    _player1Text.text = "Waiting for player 2";
-                }
-                else
-                {
-                    _player2Ready = true;
-                    _player2Text.text = "Waiting for player 1";
-                }
+                _player1Ready = true;
+                _player1Text.text = "Waiting for player 2";
+            }
+        }
+    }
+
+    private void _ProcessEmotionTestForPlayer2()
+    {
+        _currentTestTimeP2 = Time.time;
+        int remainingTime = (int) Mathf.Round(_endTestTimeP2 - _currentTestTimeP2);
+
+        // Test emotion
+        if (_currentEmotionIdxP2 < _emotionsToTestP1.Count && remainingTime > 0)
+        {
+            Emotion currentEmotionToTest = _emotionsToTestP2[_currentEmotionIdxP2];
+
+            if (!bPrintedCurrentEmotionP2)
+            {
+                var txt = $"Do a {currentEmotionToTest.ToString()} face !";
+                _player2Text.text = txt;
+            }
+
+            if (_GetEmotionOfPlayer(2) == currentEmotionToTest)
+            {
+                // Set new emotion
+                _currentEmotionIdxP2++;
+
+                // Set new start time for the new emotion
+                _startTestTimeP2 = Time.time;
+
+                // Set new end time
+                _endTestTimeP2 = _startTestTimeP2 + maxEmotionTestDuration;
+            }
+
+            _bOnceFlagP2 = true;
+        }
+        else if (_currentEmotionIdxP2 < _emotionsToTestP2.Count)
+        {
+            if (_bOnceFlagP2)
+            {
+                var txt = "Sadly, it seems like we aren't able to read your expression..";
+                //Debug.Log(txt);
+
+                _player2FailText.text = txt;
+                _returnToMenuButton2.SetActive(true);
+
+                _bOnceFlagP2 = false;
+            }
+
+            Emotion currentEmotionToTest = _emotionsToTestP2[_currentEmotionIdxP2];
+            if (_GetEmotionOfPlayer(2) == currentEmotionToTest)
+            {
+                // Set new emotion
+                _currentEmotionIdxP2++;
+
+                // Set new start time for the new emotion
+                _startTestTimeP2 = Time.time;
+
+                // Set new end time
+                _endTestTimeP2 = _startTestTimeP2 + maxEmotionTestDuration;
+            }
+        }
+        else if (remainingTime > 0)
+        {
+            if (_bOnceFlagP2)
+            {
+                Debug.Log($"Finish to recognize player 1 emotions");
+                _bOnceFlagP2 = false;
+
+                _player2Ready = true;
+                _player2Text.text = "Waiting for player 1";
             }
         }
     }

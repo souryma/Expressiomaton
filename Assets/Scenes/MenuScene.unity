@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -499,21 +499,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 304944242670074087, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1691771764763187612, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1691771764763187612, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1691771764763187612, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 159.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1691771764763187612, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -264.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1692297995719932661, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_IsActive
@@ -522,14 +526,6 @@ PrefabInstance:
     - target: {fileID: 3247652034803334484, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: TutorialScene
       value: TutoScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 3247652034803334484, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
-      propertyPath: TutorialScene
-      value: GameScene_Wilfried
-      objectReference: {fileID: 0}
-    - target: {fileID: 3247652034803334484, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
-      propertyPath: NoTutorialScene
-      value: GameScene_Wilfried
       objectReference: {fileID: 0}
     - target: {fileID: 3247652034803334484, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: player2WaitingText
@@ -541,19 +537,19 @@ PrefabInstance:
       objectReference: {fileID: 1761221648}
     - target: {fileID: 3858091503486470039, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3858091503486470039, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3858091503486470039, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 159.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3858091503486470039, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -197.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4884742929872052415, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_Name
@@ -593,19 +589,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7196065480159823095, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7196065480159823095, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7196065480159823095, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 159.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7196065480159823095, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7769878779072487128, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_Pivot.x
