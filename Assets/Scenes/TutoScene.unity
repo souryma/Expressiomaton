@@ -2147,7 +2147,7 @@ MonoBehaviour:
   _returnToMenuButton1: {fileID: 1382092148}
   _returnToMenuButton2: {fileID: 735385967}
   _menuSceneName: MenuScene
-  _nextSceneName: GameScene_Ewen
+  _nextSceneName: GameScene
   _launchText1: {fileID: 1980609084}
   _launchText2: {fileID: 432436593}
   angerSprite: {fileID: 2800000, guid: 6c66db7a930836e4b9042baceb7d63bc, type: 3}

@@ -5,7 +5,6 @@ using UnityEngine;
 public class MenuButtons : MonoBehaviour
 {
     public string TutorialScene = "";
-    public string NoTutorialScene = "";
     
     public TextMeshProUGUI player2WaitingText;
     public TextMeshProUGUI player2AboutToStartText;
@@ -50,12 +49,6 @@ public class MenuButtons : MonoBehaviour
     {
         SoundManager.instance.PlayShotgunSound();
         ScenesManager.instance.LoadScene(TutorialScene);
-    }
-    
-    public void PlayWithoutTutorial()
-    {
-        SoundManager.instance.PlayShotgunSound();
-        ScenesManager.instance.LoadScene(NoTutorialScene);
     }
 
     public void QuitGame()
