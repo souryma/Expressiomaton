@@ -9,6 +9,10 @@ public class MenuButtons : MonoBehaviour
     public TextMeshProUGUI player2WaitingText;
     public TextMeshProUGUI player2AboutToStartText;
 
+    public GameObject _player2Rules1;
+    public GameObject _player2Rules2;
+    public GameObject _player2Rules3;
+
     private void Start()
     {
         SoundManager.instance.PlayMenuSound();
@@ -54,5 +58,37 @@ public class MenuButtons : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void DisplayRules1()
+    {
+        SoundManager.instance.PlayShotgunSound();
+        _player2Rules1.SetActive(true);
+        player2WaitingText.gameObject.SetActive(false);
+    }
+    
+    public void DisplayRules2()
+    {
+        SoundManager.instance.PlayShotgunSound();
+        _player2Rules1.SetActive(false);
+        _player2Rules2.SetActive(true);
+        player2WaitingText.gameObject.SetActive(false);
+    }
+    
+    public void DisplayRules3()
+    {
+        SoundManager.instance.PlayShotgunSound();
+        _player2Rules2.SetActive(false);
+        _player2Rules3.SetActive(true);
+        player2WaitingText.gameObject.SetActive(false);
+    }
+    
+    public void BackToMenu()
+    {
+        SoundManager.instance.PlayShotgunSound();
+        _player2Rules1.SetActive(false);
+        _player2Rules2.SetActive(false);
+        _player2Rules3.SetActive(false);
+        player2WaitingText.gameObject.SetActive(true);
     }
 }

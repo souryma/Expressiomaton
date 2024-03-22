@@ -267,7 +267,6 @@ public class TutorialManager : MonoBehaviour
         {
             if (_bOnceFlagP2)
             {
-                Debug.Log($"Finish to recognize player 1 emotions");
                 _bOnceFlagP2 = false;
 
                 _player2Ready = true;
