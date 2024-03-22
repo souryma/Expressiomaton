@@ -18,7 +18,7 @@ public class CreditTracking : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(this.GameObject().transform.position, Objectif.transform.position) <= 19f)
+        if (Vector3.Distance(this.GameObject().transform.position, Objectif.transform.position) <= 16.5f)
         {
             DoTracking();
         }
