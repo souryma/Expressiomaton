@@ -243,6 +243,8 @@ public class RoundManager : MonoBehaviour
         if (!bRoundStarted || bRoundPlaying)
             return;
 
+        SoundManager.instance.PlayShotgunSound();
+
         switch (winnerID)
         {
             case 0:
@@ -294,6 +296,8 @@ public class RoundManager : MonoBehaviour
             dollyZoomer.timeZoom = (int)Mathf.Round(animDuration);
             dollyZoomer.doZoom = true;
             background.DOFade(0, 0.000001f).SetUpdate(true);
+
+            SoundManager.instance.PlayWind();
         }
 
         // Animation
