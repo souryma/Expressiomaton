@@ -515,15 +515,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Mugshot
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d8581dcf127da7248b84f62983461f23, type: 2}
-  m_sharedMaterial: {fileID: 5619714399978293788, guid: d8581dcf127da7248b84f62983461f23, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4290117629
-  m_fontColor: {r: 0.9909788, g: 1, b: 0.71132076, a: 1}
+  m_fontColor: {r: 0.99178284, g: 1, b: 0.7490566, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -540,7 +540,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 86.8
+  m_fontSize: 64.63
   m_fontSizeBase: 86.8
   m_fontWeight: 400
   m_enableAutoSizing: 0

@@ -3086,6 +3086,9 @@ MonoBehaviour:
   TutorialScene: PreTutoScene
   player2WaitingText: {fileID: 0}
   player2AboutToStartText: {fileID: 0}
+  _player2Rules1: {fileID: 0}
+  _player2Rules2: {fileID: 0}
+  _player2Rules3: {fileID: 0}
 --- !u!223 &7684423402415381772
 Canvas:
   m_ObjectHideFlags: 0
@@ -4614,8 +4617,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Mugshot
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d8581dcf127da7248b84f62983461f23, type: 2}
-  m_sharedMaterial: {fileID: 5619714399978293788, guid: d8581dcf127da7248b84f62983461f23, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4639,8 +4642,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 86.8
-  m_fontSizeBase: 86.8
+  m_fontSize: 64.63
+  m_fontSizeBase: 64.63
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

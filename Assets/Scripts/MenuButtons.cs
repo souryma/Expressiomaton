@@ -91,4 +91,10 @@ public class MenuButtons : MonoBehaviour
         _player2Rules3.SetActive(false);
         player2WaitingText.gameObject.SetActive(true);
     }
+
+    public void loadCreditScene()
+    {
+        SoundManager.instance.PlayShotgunSound();
+        ScenesManager.instance.LoadScene("Credits");
+    }
 }

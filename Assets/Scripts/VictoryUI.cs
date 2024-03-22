@@ -3,19 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class VictoryUI : MonoBehaviour
 {
+    [SerializeField] private bool hasInput;
+
+    [Header("Common Screen")]
+    [SerializeField] private CanvasGroup commonScreen;
+
     [Header("Start Screen")]
     [SerializeField] private CanvasGroup startScreen;
+    [SerializeField] private Button startPictureScreen;
+    [SerializeField] private GameEvent onStartPictureScreen;
+
     [Header("Take Picture Screen")]
     [SerializeField] private CanvasGroup takePictureScreen;
     [SerializeField] private TMP_Text promptFaceField;
     [SerializeField] private TMP_Text timerField;
     [Header("Send Email Screen")]
     [SerializeField] private CanvasGroup emailScreen;
-    [SerializeField] private bool hasInput;
     [SerializeField] private TMP_InputField emailInput;
     [SerializeField] private TMP_Text warningField;
     [SerializeField] private TMP_Text emailSendingField;
@@ -28,8 +36,10 @@ public class VictoryUI : MonoBehaviour
     private void Start()
     {
         if (!hasInput) return;
+        HideOverlay();
         sendEmailButton.onClick.AddListener(OnSendEmail);
         passButton.onClick.AddListener(OnPass);
+        startPictureScreen.onClick.AddListener(OnPictureStart);
     }
 
     public void UpdateTimer(string number)
@@ -37,37 +47,56 @@ public class VictoryUI : MonoBehaviour
         timerField.text = number;
     }
 
-    public void StartScreen()
+    public void ShowStartScreen()
     {
-        HideCanvas(takePictureScreen);
-        HideCanvas(emailScreen);
+        HideCanvas(commonScreen);
         ShowCanvas(startScreen);
-    }
-
-    // Start is called before the first frame update
-    public void InitTakePicture(string promptText, string timerStart)
-    {
-        HideCanvas(startScreen);
-        HideCanvas(emailScreen);
-        ShowCanvas(takePictureScreen);
-        promptFaceField.text = promptText;
-        timerField.text = timerStart;
-    }
-
-    public void HideOverlay()
-    {
         HideCanvas(takePictureScreen);
         HideCanvas(emailScreen);
-        HideCanvas(startScreen);
     }
 
-    public void SwitchToEmailScreen()
+    public void ShowPictureScreen()
     {
+        HideCanvas(commonScreen);
+        HideCanvas(startScreen);
+        ShowCanvas(takePictureScreen);
+        HideCanvas(emailScreen);
+    }
+
+    public void ShowEmailScreen()
+    {
+        HideCanvas(commonScreen);
         HideCanvas(startScreen);
         HideCanvas(takePictureScreen);
         ShowCanvas(emailScreen);
     }
+    public void HideOverlay()
+    {
+        HideCanvas(commonScreen);
+        HideCanvas(startScreen);
+        HideCanvas(takePictureScreen);
+        HideCanvas(emailScreen);
+    }
 
+    public void ShowCommonScreen()
+    {
+        ShowCanvas(commonScreen);
+        HideCanvas(startScreen);
+        HideCanvas(takePictureScreen);
+        HideCanvas(emailScreen);
+    }
+    // Start is called before the first frame update
+    public void InitUIMail(string promptText, string timerStart)
+    {
+        promptFaceField.text = promptText;
+        timerField.text = timerStart;
+    }
+    
+
+    private void OnPictureStart()
+    {
+        onStartPictureScreen.Raise();
+    }
     private void OnSendEmail()
     {
         if (!_emailIsSending && EmailGameEvent.IsValid(emailInput.text))
@@ -86,12 +115,14 @@ public class VictoryUI : MonoBehaviour
     {
         canvas.alpha = 0;
         canvas.interactable = false;
+        canvas.blocksRaycasts = false;
     }
 
     private void ShowCanvas(CanvasGroup canvas)
     {
         canvas.alpha = 1;
         canvas.interactable = true;
+        canvas.blocksRaycasts = true;
     }
 
     private void ShowWarning()
@@ -115,7 +146,7 @@ public class VictoryUI : MonoBehaviour
         emailSentField.alpha = 1;
     }
 
-    private void ShowNone()
+    private void ShowEmailNone()
     {
         warningField.alpha = 0;
         emailSendingField.alpha = 0;

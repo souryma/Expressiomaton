@@ -878,8 +878,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: In a mythical Far West where duels are settled as much with colts as with
-    the strength of feelings, MushShot offers an immersive adventure where two cowboys,
-    each carrying the weight of his own emotions, clash for honor, love and redemption.
+    the strength of emotions, MugShot offers an immersive adventure where two cowboys,
+    each carrying the weight of their own emotions, clash for honor, love and redemption.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8581dcf127da7248b84f62983461f23, type: 2}
   m_sharedMaterial: {fileID: 5619714399978293788, guid: d8581dcf127da7248b84f62983461f23, type: 2}
@@ -1507,6 +1507,13 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1180456293546581004, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
+      propertyPath: m_text
+      value: In a mythical Far West where duels are settled as much with colts as
+        with the strength of emotions, MugShot offers an immersive adventure where
+        two cowboys, each carrying the weight of their own emotions, clash for honor,
+        love and redemption.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180456293546581004, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_fontColor.b
       value: 1
       objectReference: {fileID: 0}
@@ -1561,6 +1568,10 @@ PrefabInstance:
     - target: {fileID: 2821355626571490847, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2982775369677642385, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: loadCreditScene
       objectReference: {fileID: 0}
     - target: {fileID: 3247652034803334484, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: TutorialScene
@@ -2285,6 +2296,14 @@ PrefabInstance:
     - target: {fileID: 429677905509181475, guid: 2bd2c3e4c71da5940a638f16a4de1dad, type: 3}
       propertyPath: m_Name
       value: MenuUIP2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588080090112850493, guid: 2bd2c3e4c71da5940a638f16a4de1dad, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 64.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588080090112850493, guid: 2bd2c3e4c71da5940a638f16a4de1dad, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4290772989
       objectReference: {fileID: 0}
     - target: {fileID: 5558702501339132021, guid: 2bd2c3e4c71da5940a638f16a4de1dad, type: 3}
       propertyPath: m_IsActive

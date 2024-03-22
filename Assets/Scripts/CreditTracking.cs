@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-    
+
 public class CreditTracking : MonoBehaviour
 {
     [SerializeField] private GameObject Objectif;
+
+    [SerializeField] private bool _mustLoadMenu = false;
+
     // Start is called before the first frame update
     public void DoTracking()
     {
@@ -15,13 +18,14 @@ public class CreditTracking : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(this.GameObject().transform.position, Objectif.transform.position) <= 19f)
+        if (Vector3.Distance(this.GameObject().transform.position, Objectif.transform.position) <= 16.5f)
         {
             DoTracking();
         }
         else
         {
-            ScenesManager.instance.LoadScene("MenuScene");
+            if (_mustLoadMenu)
+                ScenesManager.instance.LoadScene("MenuScene");
         }
     }
 }
