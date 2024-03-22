@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: GameLocalization_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 3f9d6cde9c936dc4fb12b5f0221c8d59, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 348109365248
+    m_Localized: Back To Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547338141696
+    m_Localized: 'Waiting for player 1...
+
+      Go to him if you want to receive
+      the picture!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2977761812480
+    m_Localized: Picture time!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3502066589696
+    m_Localized: Waiting for player 1 to launch the picture!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3974454272000
+    m_Localized: An IEM P8 Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6561807163392
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7004163629056
+    m_Localized: Do you want to receive the picture?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7400365973504
+    m_Localized: Invalid email address!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8035991773184
+    m_Localized: Sending email...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8600050163712
+    m_Localized: Email sent!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8783035064320
+    m_Localized: By choosing to receive the picture, you allow us to process your
+      data to send you an email.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9386821902336
+    m_Localized: Send email
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17487469961216
+    m_Localized: Select webcams
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17887887581184
+    m_Localized: Confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19772333842432
+    m_Localized: Waiting for player 1...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20126131773440
+    m_Localized: The game is about to start...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21210334191616
+    m_Localized: Player 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21425942388736
+    m_Localized: Player 1
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

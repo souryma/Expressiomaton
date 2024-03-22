@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: GameLocalization Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: GameLocalization
+  m_TableCollectionNameGuidString: 3f9d6cde9c936dc4fb12b5f0221c8d59
+  m_Entries:
+  - m_Id: 348109365248
+    m_Key: back_menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547338141696
+    m_Key: waiting_picture_sending
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2977761812480
+    m_Key: picture_time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3502066589696
+    m_Key: picture_waiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3974454272000
+    m_Key: game_maker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6561807163392
+    m_Key: start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7004163629056
+    m_Key: question_picture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7400365973504
+    m_Key: warning_email
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8035991773184
+    m_Key: sending_email
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8600050163712
+    m_Key: email_sent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8783035064320
+    m_Key: data_warning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9386821902336
+    m_Key: send
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17487469961216
+    m_Key: select_webcams
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17887887581184
+    m_Key: confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19772333842432
+    m_Key: waiting_player_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20126131773440
+    m_Key: game_about_start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21210334191616
+    m_Key: player_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21425942388736
+    m_Key: player_1
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 329554931129778184
+  references:
+    version: 2
+    RefIds:
+    - rid: 329554931129778184
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1711110372108
