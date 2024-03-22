@@ -27,14 +27,14 @@ public class VictoryScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InitUI(true);
+        InitUI();
     }
 
-    public void InitUI(bool isP1Winner)
+    public void InitUI()
     {
         victoryUIP1.ShowStartScreen();
         victoryUIP2.ShowStartScreen();
-        if (isP1Winner)
+        if (VictoryPlayer.instance.hasPlayer1Win)
         {
             winnerFace.material.mainTexture =  WebcamManager.instance.Face1Texture;
             loserFace.material.mainTexture =  WebcamManager.instance.Face2Texture;
