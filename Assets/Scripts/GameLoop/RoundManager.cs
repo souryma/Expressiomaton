@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using DG.Tweening;
-
-using Random = UnityEngine.Random;
-using Emotion = EmotionManager.EMOTION;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using DG.Tweening;
+
+
+using Random = UnityEngine.Random;
+using Emotion = EmotionManager.EMOTION;
+using UnityEngine.UIElements;
 
 public class RoundManager : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class RoundManager : MonoBehaviour
     //============ Editor
 
     [SerializeField]
+    private int playerCount = 2;
+
+    [SerializeField]
     private float maxRoundDuration = 10.0f; // in seconds
 
     [SerializeField]
@@ -29,22 +33,16 @@ public class RoundManager : MonoBehaviour
     [SerializeField]
     private int maxRoundCount = 1;
 
-    [Header("HUD Params")]
-
-    [SerializeField]
-    private TextMeshProUGUI countDownText;
-
-    [SerializeField]
-    private TextMeshProUGUI roundText;
-
-    [SerializeField]
-    private RawImage background;
-
     [SerializeField]
     private float animDuration = 1f;
 
     [SerializeField]
     private DollyZoom dollyZoomer;
+
+    [Header("Player HUDs")]
+
+    [SerializeField]
+    HUD[] playersHUD;
 
     //============ Static
     public static RoundManager Instance { get; private set; }
@@ -135,19 +133,35 @@ public class RoundManager : MonoBehaviour
 
     private void _LaunchOneRound()
     {
-        StartCoroutine(_BeginOneRound());
+        _BeginOneRound();
         _PlayOneRound();
         _EndOneRound();
     }
 
-    private IEnumerator _BeginOneRound()
+    private void _BeginOneRound()
     {
         if (bRoundStarted)
-            yield return null;
+            return;
 
         // 1) Init winner id
         winnerID = 0;
 
+        StartCoroutine(_AnnounceRoundCoroutine());
+
+
+        // Check for neutral state of the 2 players
+        if (_GetEmotionOfPlayer(1) != _emotionForPass || _GetEmotionOfPlayer(2) != _emotionForPass)
+        {
+            Debug.Log("Please be " + _emotionForPass.ToString() + " before to start.");
+            return;
+        }
+
+        // 3) Start to count down
+        if (bCountdownOnceFlag) _StartCountDown();
+    }
+
+    private IEnumerator _AnnounceRoundCoroutine()
+    {
         // 2) Choose an emotion
         if (bNewRound)
         {
@@ -155,34 +169,12 @@ public class RoundManager : MonoBehaviour
             bCountdownOnceFlag = false;
             currentRoundEmotion = _GetRandomEmotion();
 
-            roundText.text = $"Round {currentRoundCount}";
-
-            // Animation
-            roundText.DOFade(1f, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
-            {
-                roundText.DOFade(0f, animDuration * .3f).SetUpdate(true);
-            });
-
-            roundText.rectTransform.DOScale(Vector3.one, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
-            {
-                roundText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f).SetUpdate(true);
-                bCountdownOnceFlag = true;
-            });
+            _AnnounceRound();
 
             Debug.Log($"Round {currentRoundCount + 1}, Emotion to reproduce : {currentRoundEmotion.ToString()}");
 
             yield return new WaitForSeconds(animDuration + 0.5f);
         }
-
-        // Check for neutral state of the 2 players
-        if (_GetEmotionOfPlayer(1) != _emotionForPass || _GetEmotionOfPlayer(2) != _emotionForPass)
-        {
-            Debug.Log("Please be " + _emotionForPass.ToString() + " before to start.");
-            yield return null;
-        }
-
-        // 3) Start to count down
-        if (bCountdownOnceFlag) _StartCountDown();
     }
 
     private void _PlayOneRound()
@@ -245,23 +237,34 @@ public class RoundManager : MonoBehaviour
 
         SoundManager.instance.PlayShotgunSound();
 
+        StartCoroutine(_AnnounceWinner());
+    }
+
+    private IEnumerator _AnnounceWinner()
+    {
         switch (winnerID)
         {
             case 0:
                 Debug.Log("Nobody win");
                 onPlayer1Loose?.Invoke();
+                playersHUD[0].roundResult.text = "You Loose";
+                playersHUD[1].roundResult.text = "You Win";
                 break;
 
             case 1:
                 Debug.Log("Player 1 win");
                 player1winCount++;
                 onPlayer2Loose?.Invoke();
+                playersHUD[1].roundResult.text = "You Loose";
+                playersHUD[0].roundResult.text = "You Win";
                 break;
 
             case 2:
                 Debug.Log("Player 2 win");
                 player2winCount++;
                 onPlayer1Loose?.Invoke();
+                playersHUD[1].roundResult.text = "You Loose";
+                playersHUD[0].roundResult.text = "You Win";
                 break;
 
             case 3:
@@ -269,12 +272,29 @@ public class RoundManager : MonoBehaviour
                 break;
         }
 
+        // Animation
+        foreach (HUD playerHUD in playersHUD)
+        {
+            playerHUD.roundResult.DOFade(1f, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
+            {
+                playerHUD.roundResult.DOFade(0f, animDuration * .3f).SetUpdate(true);
+            });
+
+            playerHUD.roundResult.rectTransform.DOScale(Vector3.one, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
+            {
+                playerHUD.roundResult.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f).SetUpdate(true);
+            });
+        }
+
+        yield return new WaitForSeconds(4f);
+
         bNewRound = true;
         bRoundStarted = false;
         bCountdownOnceFlag = true;
         currentRoundCount++;
     }
 
+    // Launch the countdown
     private void _StartCountDown()
     {
         countDownCount = 3;
@@ -282,34 +302,22 @@ public class RoundManager : MonoBehaviour
         bCountdownOnceFlag = false;
     }
 
+    // Compute the countdown
     private IEnumerator _CountdownFor()
     {
         if (countDownCount > 0)
         {
-            countDownText.text = countDownCount.ToString();
+            // countDownText.text = countDownCount.ToString();
+            _UpdateCountdownText(/* text= */countDownCount.ToString());
         }
         else
         {
-            countDownText.text = "Go !!";
+            //countDownText.text = "Go !!";
+            _UpdateCountdownText(/* text= */"Go !!", /* bRemovebg= */true);
+            _LaunchSuspenseCinematic();
+
             bRoundStarted = true;
-
-            dollyZoomer.timeZoom = (int)Mathf.Round(animDuration);
-            dollyZoomer.doZoom = true;
-            background.DOFade(0, 0.000001f).SetUpdate(true);
-
-            SoundManager.instance.PlayWind();
         }
-
-        // Animation
-        countDownText.DOFade(1f, .3f).SetUpdate(true).OnComplete(() =>
-        {
-            countDownText.DOFade(0f, .3f).SetUpdate(true);
-        });
-
-        countDownText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), .3f).SetUpdate(true).OnComplete(() =>
-        {
-            countDownText.rectTransform.DOScale(Vector3.one, .3f).SetUpdate(true);
-        });
 
         yield return new WaitForSeconds(1f);
 
@@ -319,14 +327,68 @@ public class RoundManager : MonoBehaviour
         else Time.timeScale = 1f;
     }
 
+    // Returns a random emotion
     private Emotion _GetRandomEmotion()
     {
         return (Emotion)Random.Range(1, System.Enum.GetNames(typeof(Emotion)).Length);
     }
 
+    // Returns the emotion of a given player
     private Emotion _GetEmotionOfPlayer(int playerID)
     {
         // return playerID == 1 ? EmotionManager.instance.GetPlayer1Emotion() : EmotionManager.instance.GetPlayer2Emotion();
         return Emotion.Neutral;
+    }
+
+    // Start the dolly zoom animation for adding suspense
+    private void _LaunchSuspenseCinematic()
+    {
+        dollyZoomer.timeZoom = (int)Mathf.Round(animDuration);
+        dollyZoomer.doZoom = true;
+        SoundManager.instance.PlayWind();
+    }
+
+    // Display the current round on all the HUDs
+    private void _AnnounceRound()
+    {
+        foreach (HUD playerHUD in playersHUD)
+        {
+            playerHUD.roundText.text = $"Round {currentRoundCount}";
+
+            // Animation
+            playerHUD.roundText.DOFade(1f, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
+            {
+                playerHUD.roundText.DOFade(0f, animDuration * .3f).SetUpdate(true);
+            });
+
+            playerHUD.roundText.rectTransform.DOScale(Vector3.one, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
+            {
+                playerHUD.roundText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f).SetUpdate(true);
+                bCountdownOnceFlag = true;
+            });
+        }
+    }
+
+    // Display the countdown on all the HUDs
+    private void _UpdateCountdownText(string text, bool bRemovebg = false)
+    {
+        foreach (HUD playerHUD in playersHUD)
+        {
+            playerHUD.countDownText.text = text;
+
+            // Animation
+            playerHUD.countDownText.DOFade(1f, .3f).SetUpdate(true).OnComplete(() =>
+            {
+                playerHUD.countDownText.DOFade(0f, .3f).SetUpdate(true);
+            });
+
+            playerHUD.countDownText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), .3f).SetUpdate(true).OnComplete(() =>
+            {
+                playerHUD.countDownText.rectTransform.DOScale(Vector3.one, .3f).SetUpdate(true);
+            });
+
+            if (bRemovebg)
+                playerHUD.background.DOFade(0, 0.000001f).SetUpdate(true);
+        }
     }
 }
