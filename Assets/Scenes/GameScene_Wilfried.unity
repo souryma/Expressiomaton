@@ -3237,7 +3237,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraP1: {fileID: 227954253}
+  cameraP1Parent: {fileID: 1517333460}
   cameraP2: {fileID: 1733410952}
+  cameraP2Parent: {fileID: 1287222924}
   targetP1: {fileID: 668868090}
   targetP2: {fileID: 473669266}
   timeZoom: 4

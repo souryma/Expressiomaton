@@ -11,6 +11,8 @@ public class GameAnimation : MonoBehaviour
     public static GameAnimation Instance;
     [SerializeField] private GameObject Player1;
     [SerializeField] private GameObject Player2;
+    [SerializeField] private Camera CamPlayer1;
+    [SerializeField] private Camera CamPlayer2;
     // Start is called before the first frame update
     public event Action reinitialise;
     void Awake()
@@ -48,7 +50,7 @@ public class GameAnimation : MonoBehaviour
         playerShootingModel.SetActive(true);
         playerModelLoosing.SetActive(false);
         playerDeadModel.SetActive(true);
-        playerParentCam.transform.rotation = new quaternion(0f,0f,-77f,0f);
+        playerParentCam.transform.rotation = Quaternion.Euler(5f, 5f, -77f);
 
         yield return new WaitForSeconds(5);
         reinitialiseModel();
@@ -67,7 +69,7 @@ public class GameAnimation : MonoBehaviour
         playerModelLoosing.SetActive(false);
         playerDeadModel.SetActive(true);
         
-        playerParentCam.transform.rotation = new quaternion(0f, 0f, -77f, 0f);
+        playerParentCam.transform.rotation = Quaternion.Euler(5f, 5f, -77f);
 
         yield return new WaitForSeconds(5);
         reinitialiseModel();
@@ -84,16 +86,16 @@ public class GameAnimation : MonoBehaviour
         GameObject player2Model = Player2.transform.Find("PlayerModel").gameObject;
         GameObject player2ShootingModel = Player2.transform.Find("PlayerShootingModel").gameObject;
         GameObject player2ParentCam = Player2.transform.Find("ParentCam").gameObject;
-        GameObject player2DeadModel = Player1.transform.Find("PlayerDeadModel").gameObject;
+        GameObject player2DeadModel = Player2.transform.Find("PlayerDeadModel").gameObject;
         
         player1Model.SetActive(true);
         player1ShootingModel.SetActive(false);
         player1DeadModel.SetActive(false);
-        player1ParentCam.transform.rotation = new quaternion(0f,0f,0f,0f);
+        player1ParentCam.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         
         player2Model.SetActive(true);
         player2ShootingModel.SetActive(false);
         player2DeadModel.SetActive(false);
-        player2ParentCam.transform.rotation = new quaternion(0f,0f,0f,0f);
+        player2ParentCam.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 }

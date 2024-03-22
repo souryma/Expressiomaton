@@ -43,7 +43,11 @@ public class DollyZoom : MonoBehaviour
     void Update()
     {
         float currentDistance = Vector3.Distance(cameraP1.transform.position, targetP1.position);
-        if (currentDistance >= 2.2f && doZoom)
+        if (currentDistance <= 2.2f)
+        {
+            doZoom = false;
+        }
+        if (doZoom)
         {
             DoZoomForCamera(cameraP1, currentDistance, initialFrustrumHeightP1);
             DoZoomForCamera(cameraP2, currentDistance, initialFrustrumHeightP2);
