@@ -47,6 +47,7 @@ public class DollyZoom : MonoBehaviour
         {
             doZoom = false;
         }
+        
         if (doZoom)
         {
             DoZoomForCamera(cameraP1, currentDistance, initialFrustrumHeightP1);

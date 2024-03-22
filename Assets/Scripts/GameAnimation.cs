@@ -11,8 +11,6 @@ public class GameAnimation : MonoBehaviour
     public static GameAnimation Instance;
     [SerializeField] private GameObject Player1;
     [SerializeField] private GameObject Player2;
-    [SerializeField] private Camera CamPlayer1;
-    [SerializeField] private Camera CamPlayer2;
     // Start is called before the first frame update
     public event Action reinitialise;
     void Awake()
@@ -41,6 +39,7 @@ public class GameAnimation : MonoBehaviour
 
     public IEnumerator killPlayer1()
     {
+        // Fonction pour faire tirer le joueur 2 et tuer le joueur 1
         GameObject playerModel = Player1.transform.Find("PlayerModel").gameObject;
         GameObject playerParentCam = Player1.transform.Find("ParentCam").gameObject;
         GameObject playerShootingModel = Player1.transform.Find("PlayerShootingModel").gameObject;
@@ -59,6 +58,7 @@ public class GameAnimation : MonoBehaviour
     
     public IEnumerator killPlayer2()
     {
+        // Fonction pour faire tirer le joueur 1 et tuer le joueur 2
         GameObject playerModelWinner = Player2.transform.Find("PlayerModel").gameObject;
         GameObject playerParentCam = Player2.transform.Find("ParentCam").gameObject;
         GameObject playerShootingModel = Player2.transform.Find("PlayerShootingModel").gameObject;
