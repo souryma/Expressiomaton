@@ -1562,6 +1562,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2982775369677642385, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: loadCreditScene
+      objectReference: {fileID: 0}
     - target: {fileID: 3247652034803334484, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: TutorialScene
       value: PreTutoScene

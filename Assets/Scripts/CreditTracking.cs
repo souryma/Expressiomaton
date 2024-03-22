@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-    
+
 public class CreditTracking : MonoBehaviour
 {
     [SerializeField] private GameObject Objectif;
+
+    [SerializeField] private bool _mustLoadMenu = false;
+
     // Start is called before the first frame update
     public void DoTracking()
     {
@@ -21,7 +24,8 @@ public class CreditTracking : MonoBehaviour
         }
         else
         {
-            ScenesManager.instance.LoadScene("MenuScene");
+            if (_mustLoadMenu)
+                ScenesManager.instance.LoadScene("MenuScene");
         }
     }
 }
