@@ -10,6 +10,7 @@ using DG.Tweening;
 using Random = UnityEngine.Random;
 using Emotion = EmotionManager.EMOTION;
 using UnityEngine.UIElements;
+using DefaultNamespace;
 
 public class RoundManager : MonoBehaviour
 {
@@ -20,9 +21,6 @@ public class RoundManager : MonoBehaviour
     ///===============================================
 
     //============ Editor
-
-    [SerializeField]
-    private int playerCount = 2;
 
     [SerializeField]
     private float maxRoundDuration = 10.0f; // in seconds
@@ -102,7 +100,7 @@ public class RoundManager : MonoBehaviour
 
     void Update()
     {
-        if (currentRoundCount < maxRoundCount)
+        if (currentRoundCount <= maxRoundCount)
             _LaunchOneRound();
         else
             _AnnounceResult();
@@ -133,35 +131,23 @@ public class RoundManager : MonoBehaviour
 
     private void _LaunchOneRound()
     {
-        _BeginOneRound();
+        StartCoroutine(_BeginOneRound());
         _PlayOneRound();
-        _EndOneRound();
+
+        if (!bRoundStarted || bRoundPlaying)
+            return;
+
+        StartCoroutine(_EndOneRound());
     }
 
-    private void _BeginOneRound()
+    private IEnumerator _BeginOneRound()
     {
         if (bRoundStarted)
-            return;
+            yield return null;
 
         // 1) Init winner id
         winnerID = 0;
 
-        StartCoroutine(_AnnounceRoundCoroutine());
-
-
-        // Check for neutral state of the 2 players
-        if (_GetEmotionOfPlayer(1) != _emotionForPass || _GetEmotionOfPlayer(2) != _emotionForPass)
-        {
-            Debug.Log("Please be " + _emotionForPass.ToString() + " before to start.");
-            return;
-        }
-
-        // 3) Start to count down
-        if (bCountdownOnceFlag) _StartCountDown();
-    }
-
-    private IEnumerator _AnnounceRoundCoroutine()
-    {
         // 2) Choose an emotion
         if (bNewRound)
         {
@@ -171,10 +157,20 @@ public class RoundManager : MonoBehaviour
 
             _AnnounceRound();
 
-            Debug.Log($"Round {currentRoundCount + 1}, Emotion to reproduce : {currentRoundEmotion.ToString()}");
+            Debug.Log($"Round {currentRoundCount}, Emotion to reproduce : {currentRoundEmotion.ToString()}");
 
             yield return new WaitForSeconds(animDuration + 0.5f);
         }
+
+        // Check for neutral state of the 2 players
+        if (_GetEmotionOfPlayer(1) != _emotionForPass || _GetEmotionOfPlayer(2) != _emotionForPass)
+        {
+            Debug.Log("Please be " + _emotionForPass.ToString() + " before to start.");
+            yield return null;
+        }
+
+        // 3) Start to count down
+        if (bCountdownOnceFlag) _StartCountDown();
     }
 
     private void _PlayOneRound()
@@ -230,18 +226,10 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    private void _EndOneRound()
+    private IEnumerator _EndOneRound()
     {
-        if (!bRoundStarted || bRoundPlaying)
-            return;
-
         SoundManager.instance.PlayShotgunSound();
 
-        StartCoroutine(_AnnounceWinner());
-    }
-
-    private IEnumerator _AnnounceWinner()
-    {
         switch (winnerID)
         {
             case 0:
@@ -285,12 +273,13 @@ public class RoundManager : MonoBehaviour
                 playerHUD.roundResult.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f).SetUpdate(true);
             });
         }
-
         yield return new WaitForSeconds(4f);
 
         bNewRound = true;
         bRoundStarted = false;
         bCountdownOnceFlag = true;
+        winnerFound = false;
+        bPlayRoundOnceFlag = true;
         currentRoundCount++;
     }
 
@@ -307,12 +296,10 @@ public class RoundManager : MonoBehaviour
     {
         if (countDownCount > 0)
         {
-            // countDownText.text = countDownCount.ToString();
             _UpdateCountdownText(/* text= */countDownCount.ToString());
         }
         else
         {
-            //countDownText.text = "Go !!";
             _UpdateCountdownText(/* text= */"Go !!", /* bRemovebg= */true);
             _LaunchSuspenseCinematic();
 
@@ -353,8 +340,6 @@ public class RoundManager : MonoBehaviour
     {
         foreach (HUD playerHUD in playersHUD)
         {
-            playerHUD.roundText.text = $"Round {currentRoundCount}";
-
             // Animation
             playerHUD.roundText.DOFade(1f, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
             {
@@ -363,9 +348,38 @@ public class RoundManager : MonoBehaviour
 
             playerHUD.roundText.rectTransform.DOScale(Vector3.one, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
             {
-                playerHUD.roundText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f).SetUpdate(true);
-                bCountdownOnceFlag = true;
+                playerHUD.roundText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f).SetUpdate(true).OnComplete(() =>
+                {
+                    bCountdownOnceFlag = true;  
+
+                });
             });
+
+            playerHUD.emotionText.DOFade(1f, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
+            {
+                playerHUD.emotionText.DOFade(0f, animDuration * .3f).SetUpdate(true);
+            });
+
+            playerHUD.emotionText.rectTransform.DOScale(Vector3.one, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
+            {
+                playerHUD.emotionText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f).SetUpdate(true);
+            });
+
+            playerHUD.emotionImage.DOFade(1f, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
+            {
+                playerHUD.emotionImage.DOFade(0f, animDuration * .3f).SetUpdate(true);
+            });
+
+            playerHUD.emotionImage.rectTransform.DOScale(Vector3.one, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
+            {
+                playerHUD.emotionImage.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f).SetUpdate(true);
+            });
+
+            playerHUD.roundText.text = $"Round {currentRoundCount}";
+
+            playerHUD.emotionText.text = currentRoundEmotion.ToString();
+
+            playerHUD.emotionImage.texture = EmotionDataset.Instance.data[currentRoundEmotion].ImageEmotion.texture;
         }
     }
 

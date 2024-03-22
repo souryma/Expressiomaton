@@ -15,4 +15,8 @@ public struct HUD
     public TextMeshProUGUI roundText;
 
     public RawImage background;
+
+    public TextMeshProUGUI emotionText;
+
+    public RawImage emotionImage;
 }
