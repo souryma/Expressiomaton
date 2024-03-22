@@ -19,4 +19,6 @@ public struct HUD
     public TextMeshProUGUI emotionText;
 
     public RawImage emotionImage;
+
+    public RawImage animHandler;
 }
