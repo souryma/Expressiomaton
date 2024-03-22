@@ -957,8 +957,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Pierre-Baptiste LEFLOCH
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1047,7 +1047,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1742,8 +1742,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Pierre-Baptiste LEFLOCH
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1832,7 +1832,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1979,8 +1979,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Ewen JEZEQUEL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2069,7 +2069,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2309,8 +2309,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Antoine MARTIN
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2399,8 +2399,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2974,8 +2973,8 @@ MonoBehaviour:
 
     Keijiro TAKAHASHI'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3064,7 +3063,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3094,7 +3093,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901115925}
   m_LocalRotation: {x: -0, y: -0.80783296, z: -0, w: -0.5894116}
-  m_LocalPosition: {x: 0, y: 0, z: -7.239}
+  m_LocalPosition: {x: 0, y: 0, z: -7.2599998}
   m_LocalScale: {x: 0.16031, y: 0.16031, z: 0.16031}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3102,8 +3101,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -252.231, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 89.482, y: 4.8900003}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 89.4785, y: 4.6145}
+  m_SizeDelta: {x: 29.6335, y: 8.1978}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &924339366
 PrefabInstance:
@@ -3799,8 +3798,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wilfried NDEFO
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3889,7 +3888,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4438,8 +4437,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Ewen JEZEQUEL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4528,7 +4527,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6890,8 +6889,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wilfried NDEFO
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6980,7 +6979,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7194,8 +7193,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Antoine MARTIN
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7284,7 +7283,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7560,8 +7559,8 @@ MonoBehaviour:
 
     Keijiro TAKAHASHI'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7650,7 +7649,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7680,7 +7679,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031099522}
   m_LocalRotation: {x: -0, y: -0.80783296, z: -0, w: -0.5894116}
-  m_LocalPosition: {x: 0, y: 0, z: -7.21}
+  m_LocalPosition: {x: 0, y: 0, z: -7.22}
   m_LocalScale: {x: 0.16031, y: 0.16031, z: 0.16031}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7688,8 +7687,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -252.231, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 89.47, y: 4.92}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 89.47, y: 4.6637}
+  m_SizeDelta: {x: 29.6335, y: 8.1978}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &2031953686 stripped
 Transform:

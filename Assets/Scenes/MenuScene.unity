@@ -2297,6 +2297,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuUIP2
       objectReference: {fileID: 0}
+    - target: {fileID: 2588080090112850493, guid: 2bd2c3e4c71da5940a638f16a4de1dad, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 64.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588080090112850493, guid: 2bd2c3e4c71da5940a638f16a4de1dad, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4290772989
+      objectReference: {fileID: 0}
     - target: {fileID: 5558702501339132021, guid: 2bd2c3e4c71da5940a638f16a4de1dad, type: 3}
       propertyPath: m_IsActive
       value: 1
