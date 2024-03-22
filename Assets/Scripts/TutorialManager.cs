@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 using Emotion = EmotionManager.EMOTION;
 
 public class TutorialManager : MonoBehaviour
@@ -42,6 +44,15 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _launchText1;
     [SerializeField] private TextMeshProUGUI _launchText2;
 
+    [SerializeField] private Texture2D angerSprite;
+    [SerializeField] private Texture2D neutralSprite;
+    [SerializeField] private Texture2D happySprite;
+    [SerializeField] private Texture2D sadSprite;
+    [SerializeField] private Texture2D surpriseSprite;
+
+    [SerializeField] private RawImage spriteP1;
+    [SerializeField] private RawImage spriteP2;
+
     private bool _player1Ready = false;
     private bool _player2Ready = false;
 
@@ -60,7 +71,7 @@ public class TutorialManager : MonoBehaviour
         _currentEmotionIdxP2 = 0;
         _startTestTimeP1 = Time.time;
         _endTestTimeP1 = _startTestTimeP1 + maxEmotionTestDuration;
-        
+
         _startTestTimeP2 = Time.time;
         _endTestTimeP2 = _startTestTimeP2 + maxEmotionTestDuration;
 
@@ -75,18 +86,21 @@ public class TutorialManager : MonoBehaviour
 
         _launchText1.gameObject.SetActive(false);
         _launchText2.gameObject.SetActive(false);
+
+        spriteP1.texture = neutralSprite;
+        spriteP2.texture = neutralSprite;
     }
 
-    private bool gameLaunched = false;
+    private bool _gameLaunched = false;
 
     void Update()
     {
         _ProcessEmotionTestForPlayer1();
         _ProcessEmotionTestForPlayer2();
 
-        if (_player1Ready && _player2Ready && gameLaunched == false)
+        if (_player1Ready && _player2Ready && _gameLaunched == false)
         {
-            gameLaunched = true;
+            _gameLaunched = true;
             StartCoroutine(LaunchGame());
         }
     }
@@ -94,6 +108,31 @@ public class TutorialManager : MonoBehaviour
     public void BackToMenu()
     {
         ScenesManager.instance.LoadScene(_menuSceneName);
+    }
+
+    private Texture2D EmotionToTexture(Emotion emotion)
+    {
+        var ret = neutralSprite;
+        switch (emotion)
+        {
+            case Emotion.Anger:
+                ret = angerSprite;
+                break;
+            case Emotion.Happy:
+                ret = happySprite;
+                break;
+            case Emotion.Neutral:
+                ret = neutralSprite;
+                break;
+            case Emotion.Surprise:
+                ret = surpriseSprite;
+                break;
+            case Emotion.Sadness:
+                ret = sadSprite;
+                break;
+        }
+
+        return ret;
     }
 
     private void _ProcessEmotionTestForPlayer1()
@@ -110,6 +149,7 @@ public class TutorialManager : MonoBehaviour
             {
                 var txt = $"Do a {currentEmotionToTest.ToString()} face !";
                 _player1Text.text = txt;
+                spriteP1.texture = EmotionToTexture(currentEmotionToTest);
             }
 
             if (_GetEmotionOfPlayer(1) == currentEmotionToTest)
@@ -161,6 +201,7 @@ public class TutorialManager : MonoBehaviour
 
                 _player1Ready = true;
                 _player1Text.text = "Waiting for player 2";
+                spriteP1.gameObject.SetActive(false);
             }
         }
     }
@@ -179,6 +220,7 @@ public class TutorialManager : MonoBehaviour
             {
                 var txt = $"Do a {currentEmotionToTest.ToString()} face !";
                 _player2Text.text = txt;
+                spriteP2.texture = EmotionToTexture(currentEmotionToTest);
             }
 
             if (_GetEmotionOfPlayer(2) == currentEmotionToTest)
@@ -230,6 +272,7 @@ public class TutorialManager : MonoBehaviour
 
                 _player2Ready = true;
                 _player2Text.text = "Waiting for player 1";
+                spriteP2.gameObject.SetActive(false);
             }
         }
     }
