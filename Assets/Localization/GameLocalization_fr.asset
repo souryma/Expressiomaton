@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: GameLocalization_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: 3f9d6cde9c936dc4fb12b5f0221c8d59, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 348109365248
+    m_Localized: Retour Au Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547338141696
+    m_Localized: 'En attente du joueur 1...
+
+      Allez le voir si vous voulez recevoir
+      l''image !'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2977761812480
+    m_Localized: Moment photo !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3502066589696
+    m_Localized: En attente que le joueur 1 lance la photo !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3974454272000
+    m_Localized: Un jeu IEM P8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6561807163392
+    m_Localized: Commencer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7004163629056
+    m_Localized: Voulez vous recevoir la photo ?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7400365973504
+    m_Localized: Adresse email invalide !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8035991773184
+    m_Localized: Envoi en cours...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8600050163712
+    m_Localized: Email envoye !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8783035064320
+    m_Localized: En choisissant de recevoir la photo, vous acceptez que nous utilisions
+      vos donnees afin de vous envoyer un mail.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9386821902336
+    m_Localized: Envoyer l'email
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17487469961216
+    m_Localized: Selectionner les webcams
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17887887581184
+    m_Localized: Valider
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19772333842432
+    m_Localized: En attente du joueur 1...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20126131773440
+    m_Localized: Le jeu va bientot commencer...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21210334191616
+    m_Localized: Joueur 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21425942388736
+    m_Localized: Joueur 1
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

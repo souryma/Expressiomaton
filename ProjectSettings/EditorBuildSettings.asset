@@ -36,4 +36,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Credits.unity
     guid: e478575b0ef95f343990c5cd4342a068
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 576c6459c84523647afed9f54c6fd3f7, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: f8ce5d0a3ab358648ae78bb0c2fb28ef, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 9f318cec86f51b2449cad21d8cd8ddc6, type: 2}
