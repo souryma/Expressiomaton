@@ -17,7 +17,6 @@ public class VictoryScene : MonoBehaviour
     [SerializeField] private string victoryPrompt = "Do your winner face !";
     [SerializeField] private string loserPrompt = "Do your loser face !";
 
-    [SerializeField] private int timerBeforePicturePrompt = 3;
     [FormerlySerializedAs("timerBeforeScreen")] [SerializeField] private int timerBeforePicture = 3;
     [SerializeField] private GameEvent screenShotEvent;
     
@@ -28,51 +27,43 @@ public class VictoryScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //InitUI(true);
+        InitUI(true);
     }
 
     public void InitUI(bool isP1Winner)
     {
-        victoryUIP1.StartScreen();
-        victoryUIP2.StartScreen();
+        victoryUIP1.ShowStartScreen();
+        victoryUIP2.ShowStartScreen();
         if (isP1Winner)
         {
             winnerFace.material.mainTexture =  WebcamManager.instance.Face1Texture;
             loserFace.material.mainTexture =  WebcamManager.instance.Face2Texture;
-           
+            victoryUIP1.InitUIMail(victoryPrompt, timerBeforePicture.ToString());
+            victoryUIP2.InitUIMail(loserPrompt, timerBeforePicture.ToString());
+
         }
         else
         {
             winnerFace.material.mainTexture =  WebcamManager.instance.Face2Texture;
             loserFace.material.mainTexture =  WebcamManager.instance.Face1Texture;
+            victoryUIP1.InitUIMail(loserPrompt, timerBeforePicture.ToString());
+            victoryUIP2.InitUIMail(victoryPrompt, timerBeforePicture.ToString());
         }
+        victoryUIP1.ShowStartScreen();
+        victoryUIP2.ShowStartScreen();
 
-        StartCoroutine(AfterPrompt(isP1Winner));
     }
 
-    private IEnumerator AfterPrompt(bool isP1Winner)
+    public void StartPictureTaking()
     {
-       
-        
-        yield return new WaitForSeconds(timerBeforePicturePrompt);
-        if (isP1Winner)
-        {
-            victoryUIP1.InitTakePicture(victoryPrompt, timerBeforePicture.ToString());
-            victoryUIP2.InitTakePicture(loserPrompt, timerBeforePicture.ToString());
-           
-        }
-        else
-        {
-            victoryUIP1.InitTakePicture(loserPrompt, timerBeforePicture.ToString());
-            victoryUIP2.InitTakePicture(victoryPrompt, timerBeforePicture.ToString());
-        }
-      
         _pictureCountDownEngaged = true;
         _startTime =  Time.time;
         _endTime =  _startTime + timerBeforePicture;
+        victoryUIP2.ShowPictureScreen();
+        victoryUIP1.ShowPictureScreen();
     }
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if(!_pictureCountDownEngaged)return;
         _currentTime = Time.time;
@@ -82,8 +73,8 @@ public class VictoryScene : MonoBehaviour
         if (remainingTime <= 0)
         {
             _pictureCountDownEngaged = false;
-            victoryUIP1.HideOverlay();
-            victoryUIP2.HideOverlay();
+            victoryUIP1.ShowCommonScreen();
+            victoryUIP2.ShowCommonScreen();
             screenShotEvent.Raise();
             StartCoroutine(PictureTaken());
         }
@@ -91,9 +82,9 @@ public class VictoryScene : MonoBehaviour
 
     private IEnumerator PictureTaken()
     {
-        yield return new WaitForSeconds(1.5f);
-        victoryUIP1.SwitchToEmailScreen();
-        victoryUIP2.SwitchToEmailScreen();
+        yield return new WaitForSeconds(1f);
+        victoryUIP1.ShowEmailScreen();
+        victoryUIP2.ShowEmailScreen();
     }
     
 }
