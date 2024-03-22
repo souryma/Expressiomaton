@@ -878,8 +878,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: In a mythical Far West where duels are settled as much with colts as with
-    the strength of feelings, MushShot offers an immersive adventure where two cowboys,
-    each carrying the weight of his own emotions, clash for honor, love and redemption.
+    the strength of emotions, MugShot offers an immersive adventure where two cowboys,
+    each carrying the weight of their own emotions, clash for honor, love and redemption.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8581dcf127da7248b84f62983461f23, type: 2}
   m_sharedMaterial: {fileID: 5619714399978293788, guid: d8581dcf127da7248b84f62983461f23, type: 2}
@@ -1505,6 +1505,13 @@ PrefabInstance:
     - target: {fileID: 1084992787832114787, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180456293546581004, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
+      propertyPath: m_text
+      value: In a mythical Far West where duels are settled as much with colts as
+        with the strength of emotions, MugShot offers an immersive adventure where
+        two cowboys, each carrying the weight of their own emotions, clash for honor,
+        love and redemption.
       objectReference: {fileID: 0}
     - target: {fileID: 1180456293546581004, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_fontColor.b
