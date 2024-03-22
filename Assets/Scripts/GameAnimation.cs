@@ -11,8 +11,6 @@ public class GameAnimation : MonoBehaviour
     public static GameAnimation Instance;
     [SerializeField] private GameObject Player1;
     [SerializeField] private GameObject Player2;
-    [SerializeField] private Camera CamPlayer1;
-    [SerializeField] private Camera CamPlayer2;
     // Start is called before the first frame update
     public event Action reinitialise;
     void Awake()
