@@ -16,10 +16,11 @@ MonoBehaviour:
     m_Code: fr
   m_SharedData: {fileID: 11400000, guid: 3f9d6cde9c936dc4fb12b5f0221c8d59, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 329554938455392263
   m_TableData:
   - m_Id: 348109365248
-    m_Localized: Retour Au Menu
+    m_Localized: Retour au menu
     m_Metadata:
       m_Items: []
   - m_Id: 2547338141696
@@ -79,7 +80,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 19772333842432
-    m_Localized: En attente du joueur 1...
+    m_Localized: En attente du joueur 1
     m_Metadata:
       m_Items: []
   - m_Id: 20126131773440
@@ -94,6 +95,150 @@ MonoBehaviour:
     m_Localized: Joueur 1
     m_Metadata:
       m_Items: []
+  - m_Id: 114138914185216
+    m_Localized: JOUER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 114336587538432
+    m_Localized: REGLES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 115530416480256
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116006193160192
+    m_Localized: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116212796186624
+    m_Localized: Quitter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116440752414720
+    m_Localized: Voulez vous voir le tutoriel ?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116651138703360
+    m_Localized: Oui
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116880244170752
+    m_Localized: Non
+    m_Metadata:
+      m_Items: []
+  - m_Id: 117376195452928
+    m_Localized: 'Regles du jeu:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 122513534181376
+    m_Localized: Page Suivante
+    m_Metadata:
+      m_Items: []
+  - m_Id: 125575413850112
+    m_Localized: Dans un Far West mythique, ou les duels sont regles autant avec
+      les colts qu'avec la forces des sentiments, Mushot offre une aventure immersive
+      ou 2 cowboys, chacun portant le poids de ses propres emotions, s'affrontent
+      pour l'honneur, l'amour et la redemption.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127475517448192
+    m_Localized: "\rVous prenez part dans un duel intense contre votre enemie ultime.\r\nVotre
+      but est d'etre le plus rapide a faire l'emotion demande sur l'ecran.\r\nLe
+      premier joueur realisant l'emotion demande sera le gagnant de la manche."
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392263
+  - m_Id: 129172344102912
+    m_Localized: 'Le premier joueur qui gagne 3 manches remporte la partie.
+
+      A
+      la fin vous serez capable de recevoir l''ecran de victoire par courriel.
+
+
+
+      Bon
+      jeu !'
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392263
+  - m_Id: 129570463244288
+    m_Localized: Options camera 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 129832158453760
+    m_Localized: Options camera 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 148344184725504
+    m_Localized: "Fais ta t\xEAte de vainqueur !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 148547189039104
+    m_Localized: "Fais ta t\xEAte de perdant !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151140363624448
+    m_Localized: "Faites en sorte d'avoir votre t\xEAte en face de la camera."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 152916340989952
+    m_Localized: Le jeu commencera dans
+    m_Metadata:
+      m_Items: []
+  - m_Id: 162987749892096
+    m_Localized: En attente du joueur 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 164735567650816
+    m_Localized: Maintenant, nous allons calibrer le jeu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 339827664740352
+    m_Localized: Preparez vos emotions !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 340090672766976
+    m_Localized: Faites une expression de {emotionName} !
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392263
+  - m_Id: 341188401815552
+    m_Localized: Malheureusement, il semblerait que nous ne parvenons pas a lire
+      votre expression..
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392263
+  - m_Id: 363273056542720
+    m_Localized: Colere
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363337791430656
+    m_Localized: Joie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363422914830336
+    m_Localized: Neutre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363800876146688
+    m_Localized: Tristesse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363926776569856
+    m_Localized: Surprise
+    m_Metadata:
+      m_Items: []
+  - m_Id: 456237854351360
+    m_Localized: Malheureusement, il semblerait que nous ne parvenons pas a lire
+      l'expression du joueur 2...
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392263
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 329554938455392263
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0060ef34f07300000060af477b75000000e0bd874f35010000e07d1d4f36010000e03d27f29e0100

@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbcea557ca834fb5be4a3a3b16e95fa7, type: 3}
   m_Name: Sadness
   m_EditorClassIdentifier: 
-  FileEmotion: 3
+  TypeEmotion: 3
   ImageEmotion: {fileID: 21300000, guid: 518d8df5556fc5c49b195a2c70393272, type: 3}
-  TextEmotion: Be Sad !
+  TextEmotion:
+    m_TableReference:
+      m_TableCollectionName: GUID:3f9d6cde9c936dc4fb12b5f0221c8d59
+    m_TableEntryReference:
+      m_KeyId: 363800876146688
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

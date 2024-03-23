@@ -18,8 +18,12 @@ public class EmotionsData : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        else
+        {
+            return;
+        }
 
         foreach (EmotionData emotionData in emotionsData)
-            data.Add(emotionData.FileEmotion, emotionData);
+            data.Add(emotionData.TypeEmotion, emotionData);
     }
 }

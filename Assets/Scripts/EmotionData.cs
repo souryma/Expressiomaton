@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
     [CreateAssetMenu(fileName = "EmotionData", menuName = "EmotionData", order = 0)]
     public class EmotionData : ScriptableObject
     {
-        [SerializeField] public EmotionManager.EMOTION FileEmotion;
+        [FormerlySerializedAs("FileEmotion")] [SerializeField] public EmotionManager.EMOTION TypeEmotion;
         [SerializeField] public Sprite ImageEmotion;
-        [SerializeField] public string TextEmotion;
+        [SerializeField] public LocalizedString TextEmotion;
 
     }
 }

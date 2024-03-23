@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using DefaultNamespace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 using Emotion = EmotionManager.EMOTION;
@@ -11,9 +15,8 @@ public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private float maxEmotionTestDuration = 10.0f;
 
-    // TODO : @WILL Replace emotionToTest by _emotionsToTestP1 and _emotionsToTestP2
-    private List<Emotion> _emotionsToTestP1 = new List<Emotion>();
-    private List<Emotion> _emotionsToTestP2 = new List<Emotion>();
+    private List<EmotionData> _emotionsToTestP1 = new List<EmotionData>();
+    private List<EmotionData> _emotionsToTestP2 = new List<EmotionData>();
 
     int _currentEmotionIdxP1 = 0;
     int _currentEmotionIdxP2 = 0;
@@ -44,26 +47,43 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _launchText1;
     [SerializeField] private TextMeshProUGUI _launchText2;
 
-    [SerializeField] private Texture2D angerSprite;
-    [SerializeField] private Texture2D neutralSprite;
-    [SerializeField] private Texture2D happySprite;
-    [SerializeField] private Texture2D sadSprite;
-    [SerializeField] private Texture2D surpriseSprite;
+    [SerializeField] private List<EmotionData> emotionsNeededForGame = new();
+    // [SerializeField] private EmotionData angerSprite;
+    // [SerializeField] private EmotionData neutralSprite;
+    // [SerializeField] private EmotionData happySprite;
+    // [SerializeField] private EmotionData sadSprite;
+    // [SerializeField] private EmotionData surpriseSprite;
 
     [SerializeField] private RawImage spriteP1;
     [SerializeField] private RawImage spriteP2;
 
+
+    [Header("Localization")] 
+    [SerializeField] private LocalizedString prepareText;
+    [SerializeField] private LocalizedString doEmotionText;
+    [SerializeField] private LocalizedString emotionUnreadableText;
+    [SerializeField] private LocalizedString emotionUnreadableP2Text;
+    [SerializeField] private LocalizedString waitingP1;
+    [SerializeField] private LocalizedString waitingP2;
+    
+    [Header("Countdown")]
+    [SerializeField] private int countDownStart = 5;
+    [SerializeField] private LocalizedString countDownText;
     private bool _player1Ready = false;
     private bool _player2Ready = false;
 
     void Start()
     {
-        for (int i = 0; i < System.Enum.GetNames(typeof(Emotion)).Length; i++)
-        {
-            _emotionsToTestP1.Add((Emotion) i);
-            _emotionsToTestP2.Add((Emotion) i);
-        }
+        // for (int i = 0; i < System.Enum.GetNames(typeof(Emotion)).Length; i++)
+        // {
+        //     _emotionsToTestP1.Add((Emotion) i);
+        //     _emotionsToTestP2.Add((Emotion) i);
+        // }
 
+        _emotionsToTestP1 = new List<EmotionData>(emotionsNeededForGame);
+        _emotionsToTestP2 = new List<EmotionData>(emotionsNeededForGame);
+        
+        
         _player1Camera.texture = WebcamManager.instance.Webcam1;
         _player2Camera.texture = WebcamManager.instance.Webcam2;
 
@@ -75,7 +95,7 @@ public class TutorialManager : MonoBehaviour
         _startTestTimeP2 = Time.time;
         _endTestTimeP2 = _startTestTimeP2 + maxEmotionTestDuration;
 
-        string txt = "Prepare your emotions !";
+        string txt = prepareText.GetLocalizedString();
         _player1Text.text = txt;
         _player2Text.text = txt;
 
@@ -87,8 +107,8 @@ public class TutorialManager : MonoBehaviour
         _launchText1.gameObject.SetActive(false);
         _launchText2.gameObject.SetActive(false);
 
-        spriteP1.texture = neutralSprite;
-        spriteP2.texture = neutralSprite;
+        spriteP1.texture = emotionsNeededForGame.First().ImageEmotion.texture;
+        spriteP2.texture = emotionsNeededForGame.First().ImageEmotion.texture;
     }
 
     private bool _gameLaunched = false;
@@ -109,31 +129,7 @@ public class TutorialManager : MonoBehaviour
     {
         ScenesManager.instance.LoadScene(_menuSceneName);
     }
-
-    private Texture2D EmotionToTexture(Emotion emotion)
-    {
-        var ret = neutralSprite;
-        switch (emotion)
-        {
-            case Emotion.Anger:
-                ret = angerSprite;
-                break;
-            case Emotion.Happy:
-                ret = happySprite;
-                break;
-            case Emotion.Neutral:
-                ret = neutralSprite;
-                break;
-            case Emotion.Surprise:
-                ret = surpriseSprite;
-                break;
-            case Emotion.Sadness:
-                ret = sadSprite;
-                break;
-        }
-
-        return ret;
-    }
+    
 
     private void _ProcessEmotionTestForPlayer1()
     {
@@ -143,16 +139,23 @@ public class TutorialManager : MonoBehaviour
         // Test emotion
         if (_currentEmotionIdxP1 < _emotionsToTestP1.Count && remainingTime > 0)
         {
-            Emotion currentEmotionToTest = _emotionsToTestP1[_currentEmotionIdxP1];
+            EmotionData currentEmotionToTest = _emotionsToTestP1[_currentEmotionIdxP1];
 
             if (!bPrintedCurrentEmotionP1)
             {
-                var txt = $"Do a {currentEmotionToTest.ToString()} face !";
+                if (doEmotionText["emotionName"] is StringVariable emotionName)
+                {
+                    emotionName.Value = currentEmotionToTest.TextEmotion.GetLocalizedString();
+                    doEmotionText["emotionName"] = emotionName;
+                }
+               
+                var txt = doEmotionText.GetLocalizedString();
+                // var txt = $"Do a {currentEmotionToTest.ToString()} face !";
                 _player1Text.text = txt;
-                spriteP1.texture = EmotionToTexture(currentEmotionToTest);
+                spriteP1.texture = currentEmotionToTest.ImageEmotion.texture;
             }
 
-            if (_GetEmotionOfPlayer(1) == currentEmotionToTest)
+            if (_GetEmotionOfPlayer(1) == currentEmotionToTest.TypeEmotion)
             {
                 // Set new emotion
                 _currentEmotionIdxP1++;
@@ -170,7 +173,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (_bOnceFlagP1)
             {
-                var txt = "Sadly, it seems like we aren't able to read your expression..";
+                var txt = emotionUnreadableText.GetLocalizedString();
                 //Debug.Log(txt);
 
                 _player1FailText.text = txt;
@@ -179,8 +182,8 @@ public class TutorialManager : MonoBehaviour
                 _bOnceFlagP1 = false;
             }
 
-            Emotion currentEmotionToTest = _emotionsToTestP1[_currentEmotionIdxP1];
-            if (_GetEmotionOfPlayer(1) == currentEmotionToTest)
+            EmotionData currentEmotionToTest = _emotionsToTestP1[_currentEmotionIdxP1];
+            if (_GetEmotionOfPlayer(1) == currentEmotionToTest.TypeEmotion)
             {
                 // Set new emotion
                 _currentEmotionIdxP1++;
@@ -200,7 +203,7 @@ public class TutorialManager : MonoBehaviour
                 _bOnceFlagP1 = false;
 
                 _player1Ready = true;
-                _player1Text.text = "Waiting for player 2";
+                _player1Text.text = waitingP2.GetLocalizedString();
                 spriteP1.gameObject.SetActive(false);
             }
         }
@@ -214,16 +217,21 @@ public class TutorialManager : MonoBehaviour
         // Test emotion
         if (_currentEmotionIdxP2 < _emotionsToTestP1.Count && remainingTime > 0)
         {
-            Emotion currentEmotionToTest = _emotionsToTestP2[_currentEmotionIdxP2];
+            EmotionData currentEmotionToTest = _emotionsToTestP2[_currentEmotionIdxP2];
 
             if (!bPrintedCurrentEmotionP2)
             {
-                var txt = $"Do a {currentEmotionToTest.ToString()} face !";
+                if (doEmotionText["emotionName"] is StringVariable emotionName)
+                {
+                    emotionName.Value = currentEmotionToTest.TextEmotion.GetLocalizedString();
+                    doEmotionText["emotionName"] = emotionName;
+                }
+                var txt = doEmotionText.GetLocalizedString();
                 _player2Text.text = txt;
-                spriteP2.texture = EmotionToTexture(currentEmotionToTest);
+                spriteP2.texture = currentEmotionToTest.ImageEmotion.texture;
             }
 
-            if (_GetEmotionOfPlayer(2) == currentEmotionToTest)
+            if (_GetEmotionOfPlayer(2) == currentEmotionToTest.TypeEmotion)
             {
                 // Set new emotion
                 _currentEmotionIdxP2++;
@@ -241,17 +249,21 @@ public class TutorialManager : MonoBehaviour
         {
             if (_bOnceFlagP2)
             {
-                var txt = "Sadly, it seems like we aren't able to read your expression..";
+                // var txt = "Sadly, it seems like we aren't able to read your expression..";
+                var txt = emotionUnreadableText.GetLocalizedString();
+
                 //Debug.Log(txt);
 
                 _player2FailText.text = txt;
-                _returnToMenuButton2.SetActive(true);
+                _player1FailText.text = emotionUnreadableP2Text.GetLocalizedString();
+                _returnToMenuButton1.SetActive(true);
+                // _returnToMenuButton2.SetActive(true);
 
                 _bOnceFlagP2 = false;
             }
 
-            Emotion currentEmotionToTest = _emotionsToTestP2[_currentEmotionIdxP2];
-            if (_GetEmotionOfPlayer(2) == currentEmotionToTest)
+            EmotionData currentEmotionToTest = _emotionsToTestP2[_currentEmotionIdxP2];
+            if (_GetEmotionOfPlayer(2) == currentEmotionToTest.TypeEmotion)
             {
                 // Set new emotion
                 _currentEmotionIdxP2++;
@@ -270,7 +282,7 @@ public class TutorialManager : MonoBehaviour
                 _bOnceFlagP2 = false;
 
                 _player2Ready = true;
-                _player2Text.text = "Waiting for player 1";
+                _player2Text.text = waitingP1.GetLocalizedString();
                 spriteP2.gameObject.SetActive(false);
             }
         }
@@ -280,31 +292,11 @@ public class TutorialManager : MonoBehaviour
     {
         _launchText1.gameObject.SetActive(true);
         _launchText2.gameObject.SetActive(true);
-
-        string text = "The game will start in 5";
-        _launchText1.text = text;
-        _launchText2.text = text;
-        yield return new WaitForSecondsRealtime(1);
-
-        text = "The game will start in 4";
-        _launchText1.text = text;
-        _launchText2.text = text;
-        yield return new WaitForSecondsRealtime(1);
-
-        text = "The game will start in 3";
-        _launchText1.text = text;
-        _launchText2.text = text;
-        yield return new WaitForSecondsRealtime(1);
-
-        text = "The game will start in 2";
-        _launchText1.text = text;
-        _launchText2.text = text;
-        yield return new WaitForSecondsRealtime(1);
-
-        text = "The game will start in 1";
-        _launchText1.text = text;
-        _launchText2.text = text;
-        yield return new WaitForSecondsRealtime(1);
+        for (int i = 0; i < countDownStart; i++)
+        {
+            _launchText1.text = _launchText2.text = countDownText.GetLocalizedString() + " " + i;
+            yield return new WaitForSecondsRealtime(1);
+        }
 
         ScenesManager.instance.LoadScene(_nextSceneName);
     }

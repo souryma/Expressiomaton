@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbcea557ca834fb5be4a3a3b16e95fa7, type: 3}
   m_Name: Surprise
   m_EditorClassIdentifier: 
-  FileEmotion: 2
+  TypeEmotion: 2
   ImageEmotion: {fileID: 21300000, guid: 3d443a81fcf72744c82cf43435c28d80, type: 3}
-  TextEmotion: Be Surprise !
+  TextEmotion:
+    m_TableReference:
+      m_TableCollectionName: GUID:3f9d6cde9c936dc4fb12b5f0221c8d59
+    m_TableEntryReference:
+      m_KeyId: 363926776569856
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

@@ -87,6 +87,126 @@ MonoBehaviour:
     m_Key: player_1
     m_Metadata:
       m_Items: []
+  - m_Id: 114138914185216
+    m_Key: play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 114336587538432
+    m_Key: rules
+    m_Metadata:
+      m_Items: []
+  - m_Id: 115530416480256
+    m_Key: credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116006193160192
+    m_Key: options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116212796186624
+    m_Key: quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116440752414720
+    m_Key: tutorial_question
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116651138703360
+    m_Key: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116880244170752
+    m_Key: no
+    m_Metadata:
+      m_Items: []
+  - m_Id: 117376195452928
+    m_Key: rules_header
+    m_Metadata:
+      m_Items: []
+  - m_Id: 122513534181376
+    m_Key: next_page
+    m_Metadata:
+      m_Items: []
+  - m_Id: 125575413850112
+    m_Key: rules_text_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127475517448192
+    m_Key: rules_text_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 129172344102912
+    m_Key: rules_text_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 129570463244288
+    m_Key: label_option_cam_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 129832158453760
+    m_Key: label_option_cam_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 148344184725504
+    m_Key: victory_pose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 148547189039104
+    m_Key: loser_face
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151140363624448
+    m_Key: headfront
+    m_Metadata:
+      m_Items: []
+  - m_Id: 152916340989952
+    m_Key: game_will_start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 162987749892096
+    m_Key: waiting_player_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 164735567650816
+    m_Key: calibrating
+    m_Metadata:
+      m_Items: []
+  - m_Id: 339827664740352
+    m_Key: prepare_emotions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 340090672766976
+    m_Key: do_emotion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341188401815552
+    m_Key: emotion_unreadable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363273056542720
+    m_Key: anger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363337791430656
+    m_Key: happy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363422914830336
+    m_Key: neutral
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363800876146688
+    m_Key: sad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363926776569856
+    m_Key: surprise
+    m_Metadata:
+      m_Items: []
+  - m_Id: 456237854351360
+    m_Key: emotion_unreadable_player_2
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

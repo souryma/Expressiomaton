@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.Serialization;
 
 public class VictoryScene : MonoBehaviour
@@ -14,8 +15,8 @@ public class VictoryScene : MonoBehaviour
     [SerializeField] private MeshRenderer loserFace;
     
     [Header("Parameters")]
-    [SerializeField] private string victoryPrompt = "Do your winner face !";
-    [SerializeField] private string loserPrompt = "Do your loser face !";
+    [SerializeField] private LocalizedString victoryPrompt;
+    [SerializeField] private LocalizedString loserPrompt;
 
     [FormerlySerializedAs("timerBeforeScreen")] [SerializeField] private int timerBeforePicture = 3;
     [SerializeField] private GameEvent screenShotEvent;
@@ -38,16 +39,16 @@ public class VictoryScene : MonoBehaviour
         {
             winnerFace.material.mainTexture =  WebcamManager.instance.Face1Texture;
             loserFace.material.mainTexture =  WebcamManager.instance.Face2Texture;
-            victoryUIP1.InitUIMail(victoryPrompt, timerBeforePicture.ToString());
-            victoryUIP2.InitUIMail(loserPrompt, timerBeforePicture.ToString());
+            victoryUIP1.InitUIMail(victoryPrompt.ToString(), timerBeforePicture.ToString());
+            victoryUIP2.InitUIMail(loserPrompt.ToString(), timerBeforePicture.ToString());
 
         }
         else
         {
             winnerFace.material.mainTexture =  WebcamManager.instance.Face2Texture;
             loserFace.material.mainTexture =  WebcamManager.instance.Face1Texture;
-            victoryUIP1.InitUIMail(loserPrompt, timerBeforePicture.ToString());
-            victoryUIP2.InitUIMail(victoryPrompt, timerBeforePicture.ToString());
+            victoryUIP1.InitUIMail(loserPrompt.ToString(), timerBeforePicture.ToString());
+            victoryUIP2.InitUIMail(victoryPrompt.ToString(), timerBeforePicture.ToString());
         }
         victoryUIP1.ShowStartScreen();
         victoryUIP2.ShowStartScreen();

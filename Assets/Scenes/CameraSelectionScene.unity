@@ -831,7 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ca3ed4ebd556845a8590342c90f0c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextSceneName: VictoryScene
+  _nextSceneName: MenuScene
 --- !u!4 &2042694712
 Transform:
   m_ObjectHideFlags: 0

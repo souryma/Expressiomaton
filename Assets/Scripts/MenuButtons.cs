@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class MenuButtons : MonoBehaviour
     
     public TextMeshProUGUI player2WaitingText;
     public TextMeshProUGUI player2AboutToStartText;
-
+    public LocalizedString waitingP1;
+    public LocalizedString gameStarting;
     public GameObject _player2Rules1;
     public GameObject _player2Rules2;
     public GameObject _player2Rules3;
@@ -18,7 +20,7 @@ public class MenuButtons : MonoBehaviour
         SoundManager.instance.PlayMenuSound();
 
         player2AboutToStartText.gameObject.SetActive(false);
-        StartCoroutine(Player2TextAnimation(player2WaitingText, "Waiting for player 1"));
+        StartCoroutine(Player2TextAnimation(player2WaitingText, waitingP1.GetLocalizedString()));
     }
 
     public void GameAboutToStart()
@@ -26,7 +28,7 @@ public class MenuButtons : MonoBehaviour
         player2AboutToStartText.gameObject.SetActive(true);
         player2WaitingText.gameObject.SetActive(false);
 
-        StartCoroutine(Player2TextAnimation(player2AboutToStartText, "The game is about to start"));
+        StartCoroutine(Player2TextAnimation(player2AboutToStartText, gameStarting.GetLocalizedString()));
     }
 
     private IEnumerator Player2TextAnimation(TextMeshProUGUI textGui, string text)

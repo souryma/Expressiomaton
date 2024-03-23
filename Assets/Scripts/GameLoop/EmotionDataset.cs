@@ -20,6 +20,6 @@ public class EmotionDataset : MonoBehaviour
             Instance = this;
 
         foreach (EmotionData emotionData in emotionsData)
-            data.Add(emotionData.FileEmotion, emotionData);
+            data.Add(emotionData.TypeEmotion, emotionData);
     }
 }

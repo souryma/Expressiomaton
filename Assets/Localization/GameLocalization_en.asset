@@ -16,10 +16,11 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 3f9d6cde9c936dc4fb12b5f0221c8d59, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 329554938455392262
   m_TableData:
   - m_Id: 348109365248
-    m_Localized: Back To Menu
+    m_Localized: Back to menu
     m_Metadata:
       m_Items: []
   - m_Id: 2547338141696
@@ -79,7 +80,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 19772333842432
-    m_Localized: Waiting for player 1...
+    m_Localized: Waiting for player 1
     m_Metadata:
       m_Items: []
   - m_Id: 20126131773440
@@ -94,6 +95,150 @@ MonoBehaviour:
     m_Localized: Player 1
     m_Metadata:
       m_Items: []
+  - m_Id: 114138914185216
+    m_Localized: PLAY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 114336587538432
+    m_Localized: RULES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 115530416480256
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116006193160192
+    m_Localized: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116212796186624
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116440752414720
+    m_Localized: Do you want to see the tutorial?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116651138703360
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116880244170752
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 117376195452928
+    m_Localized: 'Rules of the game:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 122513534181376
+    m_Localized: Next Page
+    m_Metadata:
+      m_Items: []
+  - m_Id: 125575413850112
+    m_Localized: In a mythical Far West where duels are settled as much with colts
+      as with the strength of feelings, MugShot offers an immersive adventure where
+      two cowboys, each carrying the weight of his own emotions, clash for honor,
+      love and redemption.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127475517448192
+    m_Localized: 'You are part of an intense duel against your ultimate foe.
+
+      Your
+      goal is to be the fastest to do the emotion asked on the screen.
+
+      The
+      first player doing the asked emotion will be the winner of the round.'
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392262
+  - m_Id: 129172344102912
+    m_Localized: 'The first player that wins 3 rounds wins the game.
+
+      At the
+      end you will be able to get the victory screen by email.
+
+
+      Have fun !'
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392262
+  - m_Id: 129570463244288
+    m_Localized: Options camera 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 129832158453760
+    m_Localized: Options camera 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 148344184725504
+    m_Localized: ' Do your winner face!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 148547189039104
+    m_Localized: Do your loser face!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151140363624448
+    m_Localized: Make sure your head is in front of the camera.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 152916340989952
+    m_Localized: The game will start in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 162987749892096
+    m_Localized: Waiting for player 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 164735567650816
+    m_Localized: Now we will be calibrating the game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 339827664740352
+    m_Localized: Prepare your emotions!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 340090672766976
+    m_Localized: Do a {emotionName} face!
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392262
+  - m_Id: 341188401815552
+    m_Localized: Sadly, it seems like we aren't able to read your expression...
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392262
+  - m_Id: 363273056542720
+    m_Localized: Anger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363337791430656
+    m_Localized: Happy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363422914830336
+    m_Localized: Neutral
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363800876146688
+    m_Localized: Sad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363926776569856
+    m_Localized: Surprise
+    m_Metadata:
+      m_Items: []
+  - m_Id: 456237854351360
+    m_Localized: Sadly, it seems like we aren't able to read the player 2  expression...
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392262
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 329554938455392262
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0060ef34f07300000060af477b75000000e0bd874f35010000e07d1d4f36010000e03d27f29e0100

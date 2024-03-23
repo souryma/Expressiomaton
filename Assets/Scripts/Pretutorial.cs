@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 public class Pretutorial : MonoBehaviour
@@ -21,6 +22,10 @@ public class Pretutorial : MonoBehaviour
     private bool _player2ready = false;
 
     [SerializeField] private string nextSceneName = "";
+    [SerializeField] private int countDownStart = 5;
+    [SerializeField] private LocalizedString countdownText;
+    [SerializeField] private LocalizedString waitingP1;
+    [SerializeField] private LocalizedString waitingP2;
 
     // Start is called before the first frame update
     void Start()
@@ -51,30 +56,11 @@ public class Pretutorial : MonoBehaviour
 
     private IEnumerator LaunchGame()
     {
-        string text = "The game will start in 5";
-        _launchText1.text = text;
-        _launchText2.text = text;
-        yield return new WaitForSecondsRealtime(1);
-
-        text = "The game will start in 4";
-        _launchText1.text = text;
-        _launchText2.text = text;
-        yield return new WaitForSecondsRealtime(1);
-
-        text = "The game will start in 3";
-        _launchText1.text = text;
-        _launchText2.text = text;
-        yield return new WaitForSecondsRealtime(1);
-
-        text = "The game will start in 2";
-        _launchText1.text = text;
-        _launchText2.text = text;
-        yield return new WaitForSecondsRealtime(1);
-
-        text = "The game will start in 1";
-        _launchText1.text = text;
-        _launchText2.text = text;
-        yield return new WaitForSecondsRealtime(1);
+        for (int i = 0; i < countDownStart; i++)
+        {
+            _launchText1.text = _launchText2.text = countdownText.GetLocalizedString() + " " + i;
+            yield return new WaitForSecondsRealtime(1);
+        }
 
         ScenesManager.instance.LoadScene(nextSceneName);
     }
@@ -87,7 +73,7 @@ public class Pretutorial : MonoBehaviour
 
         _player1Camera.gameObject.SetActive(false);
         _launchText1.gameObject.SetActive(true);
-        _launchText1.text = "Waiting for player 2";
+        _launchText1.text = waitingP2.GetLocalizedString();
 
         _player1ready = true;
     }
@@ -100,7 +86,7 @@ public class Pretutorial : MonoBehaviour
 
         _player2Camera.gameObject.SetActive(false);
         _launchText2.gameObject.SetActive(true);
-        _launchText2.text = "Waiting for player 1";
+        _launchText2.text = waitingP1.GetLocalizedString();
 
         _player2ready = true;
     }
