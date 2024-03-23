@@ -292,7 +292,7 @@ public class TutorialManager : MonoBehaviour
     {
         _launchText1.gameObject.SetActive(true);
         _launchText2.gameObject.SetActive(true);
-        for (int i = 0; i < countDownStart; i++)
+        for (int i = countDownStart; i >= 0 ; i--)
         {
             _launchText1.text = _launchText2.text = countDownText.GetLocalizedString() + " " + i;
             yield return new WaitForSecondsRealtime(1);

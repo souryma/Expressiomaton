@@ -39,16 +39,16 @@ public class VictoryScene : MonoBehaviour
         {
             winnerFace.material.mainTexture =  WebcamManager.instance.Face1Texture;
             loserFace.material.mainTexture =  WebcamManager.instance.Face2Texture;
-            victoryUIP1.InitUIMail(victoryPrompt.ToString(), timerBeforePicture.ToString());
-            victoryUIP2.InitUIMail(loserPrompt.ToString(), timerBeforePicture.ToString());
+            victoryUIP1.InitUIMail(victoryPrompt.GetLocalizedString(), timerBeforePicture.ToString());
+            victoryUIP2.InitUIMail(loserPrompt.GetLocalizedString(), timerBeforePicture.ToString());
 
         }
         else
         {
             winnerFace.material.mainTexture =  WebcamManager.instance.Face2Texture;
             loserFace.material.mainTexture =  WebcamManager.instance.Face1Texture;
-            victoryUIP1.InitUIMail(loserPrompt.ToString(), timerBeforePicture.ToString());
-            victoryUIP2.InitUIMail(victoryPrompt.ToString(), timerBeforePicture.ToString());
+            victoryUIP1.InitUIMail(loserPrompt.GetLocalizedString(), timerBeforePicture.ToString());
+            victoryUIP2.InitUIMail(victoryPrompt.GetLocalizedString(), timerBeforePicture.ToString());
         }
         victoryUIP1.ShowStartScreen();
         victoryUIP2.ShowStartScreen();
