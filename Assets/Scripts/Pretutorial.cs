@@ -56,7 +56,7 @@ public class Pretutorial : MonoBehaviour
 
     private IEnumerator LaunchGame()
     {
-        for (int i = countDownStart; i >= 0; i--)
+        for (int i = countDownStart; i > 0; i--)
         {
             _launchText1.text = _launchText2.text = countdownText.GetLocalizedString() + " " + i;
             yield return new WaitForSecondsRealtime(1);
