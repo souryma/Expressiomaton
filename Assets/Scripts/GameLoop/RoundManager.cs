@@ -46,6 +46,9 @@ public class RoundManager : MonoBehaviour
     [SerializeField]
     private Texture2D defaultTexture;
 
+    [SerializeField]
+    private Vector3 rewardInitPos;
+
     //============ Static
     public static RoundManager Instance { get; private set; }
 
@@ -74,6 +77,7 @@ public class RoundManager : MonoBehaviour
     private float startRoundTime = 0;
     private bool bPlayRoundOnceFlag = true;
 
+    private float rewardSpacing = 200f;
 
     //============ Events
 
@@ -102,6 +106,15 @@ public class RoundManager : MonoBehaviour
         bRoundPlaying = false;
 
         currentRoundCount = 1;
+
+/*        for (int i = 0; i < *//* playerCount= *//* 2; i++)
+        {
+            for (int j = 0; j < *//* rewardCount= *//* 3; j++)
+            {
+                starInitialPositions[3 * i + j] = playersHUD[i].rewardManager.transform.GetChild(i).position;
+                starInitialRotators[3 * i + j] = playersHUD[i].rewardManager.transform.GetChild(i).rotation;
+            }
+        }*/
     }
 
     void Update()
@@ -118,6 +131,8 @@ public class RoundManager : MonoBehaviour
             return;
 
         bAnnounceOnceFlag = true;
+
+        // Load Victory scene here with some params.
 
         if (player1winCount == player2winCount)
         {
@@ -241,8 +256,14 @@ public class RoundManager : MonoBehaviour
             case 0:
                 Debug.Log("Nobody win");
                 onPlayer1Loose?.Invoke();
+                player1winCount++;
                 playersHUD[1].roundResult.text = "You Loose";
                 playersHUD[0].roundResult.text = "You Win";
+
+                playersHUD[0].rewardManager.transform.GetChild(player1winCount - 1).DOScale(1f, animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.OutElastic).OnComplete(() =>
+                {
+                    playersHUD[0].rewardManager.transform.GetChild(player1winCount - 1).DOMove(new Vector3(rewardInitPos.x + (player1winCount - 1) * rewardSpacing, rewardInitPos.y, rewardInitPos.z), animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.InOutCubic);
+                });
                 break;
 
             case 1:
@@ -251,6 +272,12 @@ public class RoundManager : MonoBehaviour
                 onPlayer2Loose?.Invoke();
                 playersHUD[1].roundResult.text = "You Loose";
                 playersHUD[0].roundResult.text = "You Win";
+
+                // reward animation
+                playersHUD[0].rewardManager.transform.GetChild(player1winCount - 1).DOScale(1f, animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.OutElastic).OnComplete(() =>
+                {
+                    playersHUD[0].rewardManager.transform.GetChild(player1winCount - 1).DOMove(new Vector3(rewardInitPos.x + (player1winCount - 1) * rewardSpacing, rewardInitPos.y, rewardInitPos.z), animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.InOutCubic);
+                });
                 break;
 
             case 2:
@@ -259,6 +286,11 @@ public class RoundManager : MonoBehaviour
                 onPlayer1Loose?.Invoke();
                 playersHUD[1].roundResult.text = "You Loose";
                 playersHUD[0].roundResult.text = "You Win";
+
+                playersHUD[1].rewardManager.transform.GetChild(player2winCount - 1).DOScale(1f, animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.OutElastic).OnComplete(() =>
+                {
+                    playersHUD[1].rewardManager.transform.GetChild(player2winCount - 1).DOMove(new Vector3(rewardInitPos.x + (player2winCount - 1) * rewardSpacing, rewardInitPos.y, rewardInitPos.z), animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.InOutCubic);
+                });
                 break;
 
             case 3:
@@ -284,6 +316,8 @@ public class RoundManager : MonoBehaviour
         bContinueGame = currentRoundCount <= maxRoundCount;
         yield return new WaitForSeconds(4f);
 
+
+        // Reinit flags
         bNewRound = true;
         bRoundStarted = false;
         bCountdownOnceFlag = true;

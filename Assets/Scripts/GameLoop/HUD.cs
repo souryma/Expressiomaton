@@ -21,4 +21,6 @@ public struct HUD
     public RawImage emotionImage;
 
     public RawImage animHandler;
+
+    public GameObject rewardManager;
 }
