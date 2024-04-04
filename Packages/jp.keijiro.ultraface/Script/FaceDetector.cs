@@ -121,7 +121,7 @@ public sealed class FaceDetector : System.IDisposable
         using (var t = new Tensor(_config.InputShape, _buffers.preprocess))
         {
           _worker.Execute(t);
-          t.Dispose();
+          // t.Dispose();
         }
          
         

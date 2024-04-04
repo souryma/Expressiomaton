@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -25,7 +26,9 @@ public sealed class WebcamManager : MonoBehaviour
     private FaceDetector _detector;
     // private Material _material;
     private bool _face1Detected = false;
+    private Detection? _lastFace1Detection;
     private bool _face2Detected = false;
+    private Detection? _lastFace2Detection;
 
     private readonly float _roundingValue = 100f;
     
@@ -36,6 +39,9 @@ public sealed class WebcamManager : MonoBehaviour
 
     private RenderTexture _face1Texture;
     private RenderTexture _face2Texture;
+    
+    private const float ErrorMarginX = 0.02f;
+    private const float ErrorMarginY = 0.04f;
     
     private List<TMP_Dropdown.OptionData> _camerasNameList;
     #endregion
@@ -83,22 +89,21 @@ public sealed class WebcamManager : MonoBehaviour
             _camerasNameList.Add(data);
         }
 
-        bool hasPassed = false;
         foreach (var dropdown in FindObjectsOfType<TMP_Dropdown>(true))
         {
-            if (hasPassed)
+            if (dropdown.CompareTag("Player2"))
             {
+                
                 _camera2Choice = dropdown;
             }
             else
             {
                 _camera1Choice = dropdown;
-                hasPassed = true;
             }
         }
 
-        _camera2Choice.options = _camerasNameList;
         _camera1Choice.options = _camerasNameList;
+        _camera2Choice.options = _camerasNameList;
         FaceDetectorInitializer();
     }
 
@@ -143,7 +148,8 @@ public sealed class WebcamManager : MonoBehaviour
         Debug.Log("Destroy Face Detector");
     }
     
-    private void FaceDetectorDetectFace(WebCamTexture webCamTexture, RenderTexture renderTexture, ref bool faceDetected)
+    private void FaceDetectorDetectFace(WebCamTexture webCamTexture, RenderTexture renderTexture, ref bool 
+            faceDetected, ref Detection? lastDetection)
     {
         _detector.ProcessImage(webCamTexture, _threshold);
 
@@ -170,10 +176,32 @@ public sealed class WebcamManager : MonoBehaviour
                 }
             }
 
-            float myX2 = Mathf.Floor(savedDetection.x2 * _roundingValue) / _roundingValue;
-            float myX1 = Mathf.Floor(savedDetection.x1 * _roundingValue) / _roundingValue;
-            float myY2 = Mathf.Floor(savedDetection.y2 * _roundingValue) / _roundingValue;
-            float myY1 = Mathf.Floor(savedDetection.y1 * _roundingValue) / _roundingValue;
+            if (lastDetection != null)
+            {
+                var centerSavedX = savedDetection.GetCenterX();
+                var centerSavedY = savedDetection.GetCenterY();
+                var centerLastX = lastDetection?.GetCenterX();
+                var centerLastY = lastDetection?.GetCenterY();
+             
+                if ((centerLastX + ErrorMarginX > centerSavedX && centerLastX - ErrorMarginX < centerSavedX)
+                && (centerLastY + ErrorMarginY > centerSavedY  && centerLastY - ErrorMarginY < centerSavedY))
+                {
+                    savedDetection = (Detection)lastDetection;
+                }
+                else
+                {
+                    lastDetection = savedDetection;
+                }
+                
+            }
+            else
+            {
+                lastDetection = savedDetection;
+            }
+            float myX2 = savedDetection.x2;//Mathf.Floor(savedDetection.x2 * _roundingValue) / _roundingValue;
+            float myX1 = savedDetection.x1; //Mathf.Floor(savedDetection.x1 * _roundingValue) / _roundingValue;
+            float myY2 = savedDetection.y2;// Mathf.Floor(savedDetection.y2 * _roundingValue) / _roundingValue;
+            float myY1 = savedDetection.y1;// Mathf.Floor(savedDetection.y1 * _roundingValue) / _roundingValue;
             Vector2 scale = new Vector2(myX2 - myX1,
                 myY2 - myY1);
 
@@ -193,12 +221,12 @@ public sealed class WebcamManager : MonoBehaviour
         if (!isCameraSetup) return;
         if (_webcam1 is not null && _webcam1.didUpdateThisFrame)
         {
-            FaceDetectorDetectFace(_webcam1, _face1Texture, ref _face1Detected);
+            FaceDetectorDetectFace(_webcam1, _face1Texture, ref _face1Detected, ref _lastFace1Detection);
         }
 
         if (_webcam2 is not null && _webcam2.didUpdateThisFrame)
         {
-            FaceDetectorDetectFace(_webcam2, _face2Texture, ref _face2Detected);
+            FaceDetectorDetectFace(_webcam2, _face2Texture, ref _face2Detected, ref _lastFace2Detection);
 
         }
         

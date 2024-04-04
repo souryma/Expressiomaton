@@ -136,29 +136,24 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 125575413850112
-    m_Localized: Dans un Far West mythique, ou les duels sont regles autant avec
-      les colts qu'avec la forces des sentiments, Mushot offre une aventure immersive
-      ou 2 cowboys, chacun portant le poids de ses propres emotions, s'affrontent
-      pour l'honneur, l'amour et la redemption.
+    m_Localized: "Dans un Far West mythique, o\xF9 les duels sont r\xE9gl\xE9s autant
+      avec les colts qu'avec la force des sentiments, Mushot offre une aventure immersive
+      o\xF9 2 cowboys, chacun portant le poids de ses propres \xE9motions, s'affrontent
+      pour l'honneur, l'amour et la r\xE9demption."
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 329554938455392263
   - m_Id: 127475517448192
-    m_Localized: "\rVous prenez part dans un duel intense contre votre enemie ultime.\r\nVotre
-      but est d'etre le plus rapide a faire l'emotion demande sur l'ecran.\r\nLe
-      premier joueur realisant l'emotion demande sera le gagnant de la manche."
+    m_Localized: "\rVous prenez part \xE0 un duel intense contre votre ennemi ultime.\r\nVotre
+      but est d'\xEAtre le plus rapide \xE0 faire l'\xE9motion demand\xE9e sur l'\xE9cran.\r\nLe
+      premier joueur r\xE9alisant l'\xE9motion demand\xE9e est le gagnant de la manche."
     m_Metadata:
       m_Items:
       - rid: 329554938455392263
   - m_Id: 129172344102912
-    m_Localized: 'Le premier joueur qui gagne 3 manches remporte la partie.
-
-      A
-      la fin vous serez capable de recevoir l''ecran de victoire par courriel.
-
-
-
-      Bon
-      jeu !'
+    m_Localized: "Le premier joueur qui gagne 3 manches remporte la partie.\n\xC0
+      la fin, vous pourrez recevoir une capture de l'\xE9cran de victoire par courriel.\n\nBon
+      jeu !"
     m_Metadata:
       m_Items:
       - rid: 329554938455392263
@@ -171,15 +166,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 148344184725504
-    m_Localized: "Fais ta t\xEAte de vainqueur !"
+    m_Localized: Fais ta tete de vainqueur !
     m_Metadata:
       m_Items: []
   - m_Id: 148547189039104
-    m_Localized: "Fais ta t\xEAte de perdant !"
+    m_Localized: Fais ta tete de perdant !
     m_Metadata:
       m_Items: []
   - m_Id: 151140363624448
-    m_Localized: "Faites en sorte d'avoir votre t\xEAte en face de la camera."
+    m_Localized: Faites en sorte d'avoir votre tete en face de la camera.
     m_Metadata:
       m_Items: []
   - m_Id: 152916340989952
@@ -235,10 +230,36 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 329554938455392263
+  - m_Id: 4691893291966464
+    m_Localized: Gagne !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4691996098551808
+    m_Localized: Perdu !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4692158124515328
+    m_Localized: Egalite!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4692277133697024
+    m_Localized: Manche
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4692395853471744
+    m_Localized: Jeu !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4872337035747328
+    m_Localized: "Gardez une expression Neutre jusqu'\xE0 l'invite !\nOu vous perdrez
+      !"
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392263
   references:
     version: 2
     RefIds:
     - rid: 329554938455392263
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0060ef34f07300000060af477b75000000e0bd874f35010000e07d1d4f36010000e03d27f29e0100
+        m_Entries: 0060ef34f07300000060af477b75000000e0bd874f35010000e07d1d4f36010000e03d27f29e01000060efcd3572000000e03d5e5d4f1100

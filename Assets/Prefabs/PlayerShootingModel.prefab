@@ -232,6 +232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 110301571451925498}
+  - component: {fileID: 9161569932415498760}
   m_Layer: 0
   m_Name: PlayerShootingModel
   m_TagString: Untagged
@@ -258,6 +259,20 @@ Transform:
   - {fileID: 5375511214355203047}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9161569932415498760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778012355396069696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b57b9c682ecda494ca05cc7277734711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMaterial: {fileID: 4637514447277613869}
+  _cameras: 0
 --- !u!1 &1027559208658439215
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +653,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aecde363dce6dcc42b525e61a1dcfa13, type: 2}
+  - {fileID: 2100000, guid: d9433b56e74a07d4d929e5e659eab1d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

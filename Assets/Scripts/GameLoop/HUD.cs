@@ -13,14 +13,16 @@ public struct HUD
     public TextMeshProUGUI roundResult;
 
     public TextMeshProUGUI roundText;
+    public TextMeshProUGUI keepNeutralText;
 
     public RawImage background;
 
     public TextMeshProUGUI emotionText;
 
-    public RawImage emotionImage;
+    public Image emotionImage;
 
-    public RawImage animHandler;
+    public GameObject animHandler;
 
-    public GameObject rewardManager;
+    public GameObject scorePlayer;
+    public GameObject scoreOpponent;
 }

@@ -11,6 +11,17 @@ public readonly struct Detection
     public readonly float score;
     public readonly float pad1, pad2, pad3;
 
+    public float GetCenterX()
+    {
+        float centerX = x1 + ((x2 - x1) / 2);
+        return centerX;
+    }
+
+    public float GetCenterY()
+    {
+        float centerY = y1 + ((y2 - y1) / 2);
+        return centerY;
+    }
     // sizeof(Detection)
     public static int Size = 8 * sizeof(float);
 

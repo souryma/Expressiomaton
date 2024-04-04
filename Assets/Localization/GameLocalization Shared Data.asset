@@ -207,6 +207,30 @@ MonoBehaviour:
     m_Key: emotion_unreadable_player_2
     m_Metadata:
       m_Items: []
+  - m_Id: 4691893291966464
+    m_Key: you_win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4691996098551808
+    m_Key: you_lose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4692158124515328
+    m_Key: draw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4692277133697024
+    m_Key: round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4692395853471744
+    m_Key: go
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4872337035747328
+    m_Key: keepNeutral
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

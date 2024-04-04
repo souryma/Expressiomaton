@@ -2229,7 +2229,7 @@ MonoBehaviour:
   _returnToMenuButton1: {fileID: 1382092148}
   _returnToMenuButton2: {fileID: 735385967}
   _menuSceneName: MenuScene
-  _nextSceneName: VictoryScene
+  _nextSceneName: GameScene_Wilfried
   _launchText1: {fileID: 1980609084}
   _launchText2: {fileID: 432436593}
   emotionsNeededForGame:

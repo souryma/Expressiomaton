@@ -141,7 +141,8 @@ MonoBehaviour:
       two cowboys, each carrying the weight of his own emotions, clash for honor,
       love and redemption.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 329554938455392262
   - m_Id: 127475517448192
     m_Localized: 'You are part of an intense duel against your ultimate foe.
 
@@ -235,10 +236,37 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 329554938455392262
+  - m_Id: 4691893291966464
+    m_Localized: You win!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4691996098551808
+    m_Localized: You lose!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4692158124515328
+    m_Localized: Draw!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4692277133697024
+    m_Localized: Round
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4692395853471744
+    m_Localized: go!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4872337035747328
+    m_Localized: 'Stay Neutral until the emotion prompt!
+
+      Else you lose!'
+    m_Metadata:
+      m_Items:
+      - rid: 329554938455392262
   references:
     version: 2
     RefIds:
     - rid: 329554938455392262
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0060ef34f07300000060af477b75000000e0bd874f35010000e07d1d4f36010000e03d27f29e0100
+        m_Entries: 0060ef34f07300000060af477b75000000e0bd874f35010000e07d1d4f36010000e03d27f29e01000060efcd3572000000e03d5e5d4f1100

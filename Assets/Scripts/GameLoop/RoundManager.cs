@@ -5,8 +5,7 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 using DG.Tweening;
-
-
+using UnityEngine.Localization;
 using Random = UnityEngine.Random;
 using Emotion = EmotionManager.EMOTION;
 
@@ -44,11 +43,21 @@ public class RoundManager : MonoBehaviour
     private HUD[] playersHUD;
 
     [SerializeField]
-    private Texture2D defaultTexture;
+    private Sprite defaultTexture;
 
     [SerializeField]
     private Vector3 rewardInitPos;
 
+    
+    [Header("Translations")]
+    [SerializeField]
+    private LocalizedString youWin;
+    
+    [SerializeField]
+    private LocalizedString youLose;
+    
+    [SerializeField]
+    private LocalizedString round;
     //============ Static
     public static RoundManager Instance { get; private set; }
 
@@ -95,6 +104,10 @@ public class RoundManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        else
+        {
+            // Destroy(this);
+        }
     }
 
     void Start()
@@ -256,13 +269,13 @@ public class RoundManager : MonoBehaviour
             case 0:
                 Debug.Log("Nobody win");
                 onPlayer1Loose?.Invoke();
-                player1winCount++;
+                player2winCount++;
                 playersHUD[1].roundResult.text = "You Loose";
                 playersHUD[0].roundResult.text = "You Win";
 
-                playersHUD[0].rewardManager.transform.GetChild(player1winCount - 1).DOScale(1f, animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.OutElastic).OnComplete(() =>
+                playersHUD[0].scorePlayer.transform.GetChild(player2winCount - 1).DOScale(1f, animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.OutElastic).OnComplete(() =>
                 {
-                    playersHUD[0].rewardManager.transform.GetChild(player1winCount - 1).DOMove(new Vector3(rewardInitPos.x + (player1winCount - 1) * rewardSpacing, rewardInitPos.y, rewardInitPos.z), animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.InOutCubic);
+                    playersHUD[0].scorePlayer.transform.GetChild(player2winCount - 1).DOMove(new Vector3(rewardInitPos.x + (player1winCount - 1) * rewardSpacing, rewardInitPos.y, rewardInitPos.z), animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.InOutCubic);
                 });
                 break;
 
@@ -270,13 +283,13 @@ public class RoundManager : MonoBehaviour
                 Debug.Log("Player 1 win");
                 player1winCount++;
                 onPlayer2Loose?.Invoke();
-                playersHUD[1].roundResult.text = "You Loose";
-                playersHUD[0].roundResult.text = "You Win";
+                playersHUD[0].roundResult.text = "You Loose";
+                playersHUD[1].roundResult.text = "You Win";
 
                 // reward animation
-                playersHUD[0].rewardManager.transform.GetChild(player1winCount - 1).DOScale(1f, animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.OutElastic).OnComplete(() =>
+                playersHUD[1].scorePlayer.transform.GetChild(player1winCount - 1).DOScale(1f, animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.OutElastic).OnComplete(() =>
                 {
-                    playersHUD[0].rewardManager.transform.GetChild(player1winCount - 1).DOMove(new Vector3(rewardInitPos.x + (player1winCount - 1) * rewardSpacing, rewardInitPos.y, rewardInitPos.z), animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.InOutCubic);
+                    playersHUD[1].scorePlayer.transform.GetChild(player1winCount - 1).DOMove(new Vector3(rewardInitPos.x + (player1winCount - 1) * rewardSpacing, rewardInitPos.y, rewardInitPos.z), animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.InOutCubic);
                 });
                 break;
 
@@ -287,9 +300,9 @@ public class RoundManager : MonoBehaviour
                 playersHUD[1].roundResult.text = "You Loose";
                 playersHUD[0].roundResult.text = "You Win";
 
-                playersHUD[1].rewardManager.transform.GetChild(player2winCount - 1).DOScale(1f, animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.OutElastic).OnComplete(() =>
+                playersHUD[1].scorePlayer.transform.GetChild(player2winCount - 1).DOScale(1f, animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.OutElastic).OnComplete(() =>
                 {
-                    playersHUD[1].rewardManager.transform.GetChild(player2winCount - 1).DOMove(new Vector3(rewardInitPos.x + (player2winCount - 1) * rewardSpacing, rewardInitPos.y, rewardInitPos.z), animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.InOutCubic);
+                    playersHUD[1].scorePlayer.transform.GetChild(player2winCount - 1).DOMove(new Vector3(rewardInitPos.x + (player2winCount - 1) * rewardSpacing, rewardInitPos.y, rewardInitPos.z), animDuration).SetUpdate(true).SetDelay(animDuration).SetEase(Ease.InOutCubic);
                 });
                 break;
 
@@ -365,8 +378,8 @@ public class RoundManager : MonoBehaviour
     // Returns the emotion of a given player
     private Emotion _GetEmotionOfPlayer(int playerID)
     {
-        // return playerID == 1 ? EmotionManager.instance.GetPlayer1Emotion() : EmotionManager.instance.GetPlayer2Emotion();
-        return Emotion.Neutral;
+        return playerID == 1 ? EmotionManager.instance.GetPlayer1Emotion() : EmotionManager.instance.GetPlayer2Emotion();
+        // return Emotion.Neutral;
     }
 
     // Start the dolly zoom animation for adding suspense
@@ -380,13 +393,14 @@ public class RoundManager : MonoBehaviour
     // Display the current round on all the HUDs
     private void _AnnounceRound()
     {
+        float randomDelay = 10f +  Mathf.Clamp(Random.Range(-1, 1), -1,  1) * Random.Range(1, 6);
         // Animation
         foreach (HUD playerHUD in playersHUD)
         {
-            playerHUD.animHandler.DOFade(1f, animDuration).SetUpdate(true).SetDelay(/* duration= */0f).OnComplete(() =>
-            {
-                playerHUD.roundText.text = $"Round {currentRoundCount}";
-            });
+            // playerHUD.animHandler.DOFade(1f, animDuration).SetUpdate(true).SetDelay(/* duration= */0f).OnComplete(() =>
+            // {
+            //     playerHUD.roundText.text = $"Round {currentRoundCount}";
+            // });
 
             playerHUD.roundText.DOFade(1f, animDuration).SetUpdate(true).SetDelay(animDuration).OnComplete(() =>
             {
@@ -403,14 +417,13 @@ public class RoundManager : MonoBehaviour
                     bCountdownOnceFlag = true;
                 });
             });
-
-            float randomDelay = 10f +  Mathf.Clamp(Random.Range(-1, 1), -1,  1) * Random.Range(1, 6);
-
-            playerHUD.animHandler.DOFade(1f, randomDelay).SetUpdate(true).SetDelay(/* duration= */0f).OnComplete(() =>
-            {
-                playerHUD.emotionText.text = currentRoundEmotion.ToString();
-                playerHUD.emotionImage.texture = EmotionDataset.Instance.data[currentRoundEmotion].ImageEmotion.texture;
-            });
+            
+            //
+            // playerHUD.animHandler.DOFade(1f, randomDelay).SetUpdate(true).SetDelay(/* duration= */0f).OnComplete(() =>
+            // {
+            //     playerHUD.emotionText.text = currentRoundEmotion.ToString();
+            //     playerHUD.emotionImage.sprite = EmotionDataset.Instance.data[currentRoundEmotion].ImageEmotion;
+            // });
 
             playerHUD.emotionText.DOFade(1f, animDuration).SetUpdate(true).SetDelay(randomDelay).OnComplete(() =>
             {
@@ -429,7 +442,7 @@ public class RoundManager : MonoBehaviour
             {
                 playerHUD.emotionImage.DOFade(0f, animDuration * .3f).SetUpdate(true).OnComplete(() =>
                 {
-                    playerHUD.emotionImage.texture = defaultTexture;
+                    playerHUD.emotionImage.sprite = defaultTexture;
                 });
 
             });
