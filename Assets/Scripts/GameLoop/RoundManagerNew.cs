@@ -285,40 +285,34 @@ public class RoundManagerNew: MonoBehaviour
             if (p1_emotion == _currentRoundEmotionData.TypeEmotion && p2_emotion == _currentRoundEmotionData.TypeEmotion)
             {
                 //Egality
-                _isCurrentlySearchingForEmotion = false;
                 RoundWinner(Winner.BOTH);
             }
             else if(p1_emotion == _currentRoundEmotionData.TypeEmotion)
             {
                 //P1 gagne roundText
-                _isCurrentlySearchingForEmotion = false;
                 RoundWinner(Winner.PLAYER_1);
             }
             else if(p2_emotion == _currentRoundEmotionData.TypeEmotion)
             {
                 //P2 gagne roundText
-                _isCurrentlySearchingForEmotion = false;
                 RoundWinner(Winner.PLAYER_2);
             }
         }
         else
         {
-            if (p1_emotion != emotionForPass && p2_emotion == emotionForPass)
+            if (p1_emotion != emotionForPass && p2_emotion != emotionForPass)
             {
                 //Egality
-                _isCurrentlySearchingForEmotion = false;
                 RoundWinner(Winner.BOTH);
             }
             else if(p1_emotion != emotionForPass)
             {
-                //P1 gagne roundText
-                _isCurrentlySearchingForEmotion = false;
+                //P2 gagne roundText
                 RoundWinner(Winner.PLAYER_2);
             }
             else if(p2_emotion != emotionForPass)
             {
-                //P2 gagne roundText
-                _isCurrentlySearchingForEmotion = false;
+                //P1 gagne roundText
                 RoundWinner(Winner.PLAYER_1);
             }
         }
@@ -326,8 +320,10 @@ public class RoundManagerNew: MonoBehaviour
 
     private void RoundWinner(Winner winner)
     {
+        SoundManager.instance.PlayShotgunSound();
         StopCoroutine(_fastEndCoroutine);
         _gameIsLaunched = false;
+        _isCurrentlySearchingForEmotion = false;
         switch (winner)
         {
             case Winner.NONE:
