@@ -38,8 +38,11 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _player2Text;
     [SerializeField] private TextMeshProUGUI _player1FailText;
     [SerializeField] private TextMeshProUGUI _player2FailText;
+    [SerializeField] private TextMeshProUGUI _player1NeutralText;
+    [SerializeField] private TextMeshProUGUI _player2NeutralText;
     [SerializeField] private GameObject _returnToMenuButton1;
     [SerializeField] private GameObject _returnToMenuButton2;
+    [SerializeField] private GameObject _skipButton;
 
     [SerializeField] private string _menuSceneName;
     [SerializeField] private string _nextSceneName;
@@ -103,9 +106,12 @@ public class TutorialManager : MonoBehaviour
         _player2FailText.text = "";
         _returnToMenuButton1.SetActive(false);
         _returnToMenuButton2.SetActive(false);
-
+        _skipButton.SetActive(false);
         _launchText1.gameObject.SetActive(false);
         _launchText2.gameObject.SetActive(false);
+        
+        _player1NeutralText.gameObject.SetActive(false);
+        _player2NeutralText.gameObject.SetActive(false);
 
         spriteP1.texture = emotionsNeededForGame.First().ImageEmotion.texture;
         spriteP2.texture = emotionsNeededForGame.First().ImageEmotion.texture;
@@ -257,6 +263,7 @@ public class TutorialManager : MonoBehaviour
                 _player2FailText.text = txt;
                 _player1FailText.text = emotionUnreadableP2Text.GetLocalizedString();
                 _returnToMenuButton1.SetActive(true);
+                _skipButton.SetActive(true);
                 // _returnToMenuButton2.SetActive(true);
 
                 _bOnceFlagP2 = false;
@@ -288,10 +295,16 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    public void OutsideGameLauncher()
+    {
+        StartCoroutine(LaunchGame());
+    }
     private IEnumerator LaunchGame()
     {
         _launchText1.gameObject.SetActive(true);
         _launchText2.gameObject.SetActive(true);
+        _player1NeutralText.gameObject.SetActive(true);
+        _player2NeutralText.gameObject.SetActive(true);
         for (int i = countDownStart; i > 0 ; i--)
         {
             _launchText1.text = _launchText2.text = countDownText.GetLocalizedString() + " " + i;

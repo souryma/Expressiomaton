@@ -112,6 +112,7 @@ public class RoundManagerNew: MonoBehaviour
 
     private float rewardSpacing = 200f;
     private Coroutine _fastEndCoroutine;
+    private Coroutine _roundCoroutine;
     private bool _gameIsLaunched = false;
 
     //============ Events
@@ -120,6 +121,25 @@ public class RoundManagerNew: MonoBehaviour
     
     private void Start()
     {
+        ResetHUD();
+        foreach (var hud in playersHUD)
+        {
+            foreach (var child in hud.scorePlayer.GetComponentsInChildren<Image>())
+            {
+                child.DOFade(0F, 0F);
+            }
+
+            foreach (var child in hud.scoreOpponent.GetComponentsInChildren<Image>())
+            {
+                child.DOFade(0F, 0F);
+            }
+        }
+
+        LaunchGame();
+    }
+
+    private void ResetHUD()
+    {
         foreach (var hud in playersHUD)
         {
             hud.roundResult.DOFade(0f, 0f);
@@ -127,16 +147,8 @@ public class RoundManagerNew: MonoBehaviour
             hud.countDownText.DOFade(0f, 0f);
             hud.emotionText.DOFade(0f, 0f);
             hud.roundText.DOFade(0f, 0f);
-            foreach (var child in hud.scorePlayer.GetComponentsInChildren<Image>())
-            {
-                child.DOFade(0F, 0F);
-            }
-            foreach (var child in hud.scoreOpponent.GetComponentsInChildren<Image>())
-            {
-                child.DOFade(0F, 0F);
-            }
+            
         }
-        LaunchGame();
     }
 
     private void LaunchGame()
@@ -144,7 +156,7 @@ public class RoundManagerNew: MonoBehaviour
         _gameWinner = Winner.NONE;
 
         _currentRoundCount = 1;
-        StartCoroutine(StartOneRound());
+        _roundCoroutine = StartCoroutine(StartOneRound());
 
     }
 
@@ -157,18 +169,18 @@ public class RoundManagerNew: MonoBehaviour
     private IEnumerator StartOneRound()
     {
         // Hide everything from ui
-        
+        foreach (HUD playerHUD in playersHUD)
+        {
+            playerHUD.keepNeutralText.DOFade(1f, animDuration);
+        }
+
         //Engineer all roundText logic
         SetupRound();
         //Display Round and roundText Number
         RoundAnnouncement();
 
         yield return new WaitForSeconds(animDuration * 2.3f);
-        foreach (HUD playerHUD in playersHUD)
-        {
-            playerHUD.keepNeutralText.DOFade(1f, animDuration);
-        }
-
+     
         //Display Countdown until roundText start
         for (int i = countDownBeforeRoundStart; i > 0; i--)
         {
@@ -270,6 +282,12 @@ public class RoundManagerNew: MonoBehaviour
         SoundManager.instance.PlayWind();
     }
 
+    private void StopZoom()
+    {
+        dollyZoomer.doZoom = false;
+        SoundManager.instance.StopWind();
+    }
+
     private void SetCurrentRoundEmotionData()
     {
         int index = Random.Range(0, playableEmotions.Count);
@@ -300,6 +318,11 @@ public class RoundManagerNew: MonoBehaviour
         }
         else
         {
+            if (p1_emotion != emotionForPass || p2_emotion != emotionForPass)
+            {
+              StopCoroutine(_roundCoroutine);
+              ResetHUD();
+            }
             if (p1_emotion != emotionForPass && p2_emotion != emotionForPass)
             {
                 //Egality
@@ -321,6 +344,7 @@ public class RoundManagerNew: MonoBehaviour
     private void RoundWinner(Winner winner)
     {
         SoundManager.instance.PlayShotgunSound();
+        StopZoom();
         StopCoroutine(_fastEndCoroutine);
         _gameIsLaunched = false;
         _isCurrentlySearchingForEmotion = false;
@@ -450,7 +474,7 @@ public class RoundManagerNew: MonoBehaviour
             ScenesManager.instance.LoadScene(victoryScene);
             yield break;
         }
-        StartCoroutine(StartOneRound());
+        _roundCoroutine = StartCoroutine(StartOneRound());
         
     }
     private void Update()

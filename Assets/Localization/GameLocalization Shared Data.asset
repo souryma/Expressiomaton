@@ -231,6 +231,10 @@ MonoBehaviour:
     m_Key: keepNeutral
     m_Metadata:
       m_Items: []
+  - m_Id: 5058681413525504
+    m_Key: skip
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

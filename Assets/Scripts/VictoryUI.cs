@@ -40,6 +40,7 @@ public class VictoryUI : MonoBehaviour
         sendEmailButton.onClick.AddListener(OnSendEmail);
         passButton.onClick.AddListener(OnPass);
         startPictureScreen.onClick.AddListener(OnPictureStart);
+        StartCoroutine(StartScreen());
     }
 
     public void UpdateTimer(string number)
@@ -53,6 +54,13 @@ public class VictoryUI : MonoBehaviour
         ShowCanvas(startScreen);
         HideCanvas(takePictureScreen);
         HideCanvas(emailScreen);
+        
+    }
+
+    private IEnumerator StartScreen()
+    {
+        yield return new WaitForSeconds(3f);
+        OnPictureStart();
     }
 
     public void ShowPictureScreen()

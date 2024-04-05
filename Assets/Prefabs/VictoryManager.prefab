@@ -223,6 +223,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6374437320696636496}
     m_Modifications:
+    - target: {fileID: 719563456500036565, guid: 72e9be74795cf784ba1d4c1627323218, type: 3}
+      propertyPath: m_fontSize
+      value: 77.65
+      objectReference: {fileID: 0}
     - target: {fileID: 1066389629498540257, guid: 72e9be74795cf784ba1d4c1627323218, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -303,6 +307,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1293989247117911448, guid: 72e9be74795cf784ba1d4c1627323218, type: 3}
+      propertyPath: m_fontSize
+      value: 73.6
+      objectReference: {fileID: 0}
     - target: {fileID: 1617199731486403487, guid: 72e9be74795cf784ba1d4c1627323218, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.000015258789
@@ -310,6 +318,26 @@ PrefabInstance:
     - target: {fileID: 2266186665331990329, guid: 72e9be74795cf784ba1d4c1627323218, type: 3}
       propertyPath: m_Name
       value: VictoryUIP1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2314323693629024967, guid: 72e9be74795cf784ba1d4c1627323218, type: 3}
+      propertyPath: m_fontSize
+      value: 49.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341841577873296759, guid: 72e9be74795cf784ba1d4c1627323218, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8178379389983603488, guid: 72e9be74795cf784ba1d4c1627323218, type: 3}
+      propertyPath: m_fontSize
+      value: 18.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8680615334461839463, guid: 72e9be74795cf784ba1d4c1627323218, type: 3}
+      propertyPath: m_fontSize
+      value: 49.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007038116414095188, guid: 72e9be74795cf784ba1d4c1627323218, type: 3}
+      propertyPath: m_fontSize
+      value: 49.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

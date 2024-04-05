@@ -1090,6 +1090,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pierre-Baptiste
       objectReference: {fileID: 0}
+    - target: {fileID: 2563341072961688316, guid: aeaab31e44478cd468789ad0be8810aa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4637514447277613869, guid: aeaab31e44478cd468789ad0be8810aa, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2423,6 +2427,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2706900065773741572, guid: 53aad3ad0c53ed440b8face620deeb4e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3537864731594671444, guid: 53aad3ad0c53ed440b8face620deeb4e, type: 3}
       propertyPath: m_Name
       value: Ewen
@@ -4130,6 +4138,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wilfried
       objectReference: {fileID: 0}
+    - target: {fileID: 2563341072961688316, guid: aeaab31e44478cd468789ad0be8810aa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4637514447277613869, guid: aeaab31e44478cd468789ad0be8810aa, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -5424,6 +5436,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0234723957bbe144388b971c7cc26715, type: 2}
+    - target: {fileID: 9161569932415498760, guid: b301db9c91fc83c4788567551bae0653, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

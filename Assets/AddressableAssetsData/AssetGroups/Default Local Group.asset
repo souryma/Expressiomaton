@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 61c8a73971e4e6942942f02b307f78f7
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 2edf14951f05c324b8cddd84534f1504
+    m_Address: Assets/EmailSendingData/Senders/MugshotRealAddress.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4441ce612634f914497c10ce919a76bf, type: 2}
   m_SchemaSet:

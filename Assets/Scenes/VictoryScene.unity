@@ -2023,6 +2023,10 @@ PrefabInstance:
       propertyPath: winnerFace
       value: 
       objectReference: {fileID: 78288354}
+    - target: {fileID: 5269043151839450980, guid: 95a9a77d90deb2646809c0841d4ab81d, type: 3}
+      propertyPath: timerBeforePicture
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6374437320696636496, guid: 95a9a77d90deb2646809c0841d4ab81d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 306
