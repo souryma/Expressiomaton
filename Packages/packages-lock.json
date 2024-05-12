@@ -144,8 +144,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.scriptablebuildpipeline": {
-      "version": "1.21.20",
-      "depth": 2,
+      "version": "1.21.22",
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -209,7 +209,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.8.0",
+      "version": "1.9.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {
