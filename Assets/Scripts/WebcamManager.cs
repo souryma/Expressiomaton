@@ -67,6 +67,12 @@ public sealed class WebcamManager : MonoBehaviour
         {
             instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        FaceDetectorInitializer();
 
         if (ScenesManager.isSceneManagerLoaded)
         {
@@ -104,7 +110,6 @@ public sealed class WebcamManager : MonoBehaviour
 
         _camera1Choice.options = _camerasNameList;
         _camera2Choice.options = _camerasNameList;
-        FaceDetectorInitializer();
     }
 
     private void FaceDetectorInitializer()
@@ -145,7 +150,6 @@ public sealed class WebcamManager : MonoBehaviour
     private void DestroyFaceDetector()
     {
         _detector?.Dispose();
-        Debug.Log("Destroy Face Detector");
     }
     
     private void FaceDetectorDetectFace(WebCamTexture webCamTexture, RenderTexture renderTexture, ref bool 
