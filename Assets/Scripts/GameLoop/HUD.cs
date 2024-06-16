@@ -25,4 +25,5 @@ public struct HUD
 
     public GameObject scorePlayer;
     public GameObject scoreOpponent;
+    public CanvasGroup neutralityScore;
 }

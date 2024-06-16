@@ -187,8 +187,9 @@ public sealed class WebcamManager : MonoBehaviour
                 var centerLastX = lastDetection?.GetCenterX();
                 var centerLastY = lastDetection?.GetCenterY();
              
-                if ((centerLastX + ErrorMarginX > centerSavedX && centerLastX - ErrorMarginX < centerSavedX)
-                && (centerLastY + ErrorMarginY > centerSavedY  && centerLastY - ErrorMarginY < centerSavedY))
+                if (centerLastX + ErrorMarginX > centerSavedX && centerLastX - ErrorMarginX < centerSavedX
+                                                              && centerLastY + ErrorMarginY > centerSavedY 
+                                                              && centerLastY - ErrorMarginY < centerSavedY)
                 {
                     savedDetection = (Detection)lastDetection;
                 }

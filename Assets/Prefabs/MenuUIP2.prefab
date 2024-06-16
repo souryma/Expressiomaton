@@ -524,7 +524,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 149.05}
-  m_SizeDelta: {x: 313.6587, y: 72.3449}
+  m_SizeDelta: {x: 629.7, y: 72.3449}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8097867089239698174
 CanvasRenderer:
@@ -554,10 +554,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mugshot
+  m_text: Shot-o-maton
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c56123805d53817489263e4a57ace3eb, type: 2}
-  m_sharedMaterial: {fileID: -1889839660876092707, guid: c56123805d53817489263e4a57ace3eb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1f189283d9f4a2047bd36cda3c2c5a30, type: 2}
+  m_sharedMaterial: {fileID: -5337415117513931198, guid: 1f189283d9f4a2047bd36cda3c2c5a30, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -581,8 +581,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64.63
-  m_fontSizeBase: 86.8
+  m_fontSize: 103.4
+  m_fontSizeBase: 103.4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

@@ -194,7 +194,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 164735567650816
-    m_Localized: Now we will be calibrating the game
+    m_Localized: Warmup!
     m_Metadata:
       m_Items: []
   - m_Id: 339827664740352
@@ -265,6 +265,10 @@ MonoBehaviour:
       - rid: 329554938455392262
   - m_Id: 5058681413525504
     m_Localized: Skip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29105807104753664
+    m_Localized: Neutrality
     m_Metadata:
       m_Items: []
   references:

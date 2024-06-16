@@ -46,3 +46,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 5022602860645237092, guid: e05dde485886673419686dc8f9d27b65, type: 3}
   _preprocessor: {fileID: 7200000, guid: 99a5007fd4406ce4ab65c7e08bb95a88, type: 3}
+  neutralScoreLadder:
+  - minimum: 0.55
+    sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    color: {r: 1, g: 0, b: 0.018083096, a: 1}
+  - minimum: 0.75
+    sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    color: {r: 1, g: 0.4806357, b: 0, a: 1}
+  - minimum: 0.9
+    sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    color: {r: 1, g: 0.8071395, b: 0, a: 1}
+  - minimum: 1
+    sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    color: {r: 0.13934517, g: 1, b: 0, a: 1}

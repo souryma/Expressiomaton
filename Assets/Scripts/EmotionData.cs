@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Serialization;
 
-namespace DefaultNamespace
-{
+
     [CreateAssetMenu(fileName = "EmotionData", menuName = "EmotionData", order = 0)]
     public class EmotionData : ScriptableObject
     {
@@ -12,4 +11,3 @@ namespace DefaultNamespace
         [SerializeField] public LocalizedString TextEmotion;
 
     }
-}
