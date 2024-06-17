@@ -109,7 +109,7 @@ public class RoundManagerNew: MonoBehaviour
 
 
     private float rewardSpacing = 200f;
-    private Coroutine _fastEndCoroutine;
+    private Coroutine _roundTooLongCoroutine;
     private Coroutine _roundCoroutine;
     private bool _gameIsLaunched = false;
 
@@ -140,6 +140,7 @@ public class RoundManagerNew: MonoBehaviour
     {
         foreach (var hud in playersHUD)
         {
+            hud.neutralityScore.DOFade(0f, 0f);
             hud.roundResult.DOFade(0f, 0f);
             hud.emotionImage.DOFade(0f, 0f);
             hud.countDownText.DOFade(0f, 0f);
@@ -166,10 +167,10 @@ public class RoundManagerNew: MonoBehaviour
     private IEnumerator StartOneRound()
     {
         // Hide everything from ui
-        // foreach (HUD playerHUD in playersHUD)
-        // {
-        //     playerHUD.keepNeutralText.DOFade(1f, animDuration);
-        // }
+        foreach (HUD playerHUD in playersHUD)
+        {
+            playerHUD.keepNeutralText.DOFade(1f, animDuration);
+        }
 
         //Engineer all roundText logic
         SetupRound();
@@ -191,12 +192,14 @@ public class RoundManagerNew: MonoBehaviour
             p1Emotion = EmotionManager.instance.GetPlayer1Emotion();
             p2Emotion = EmotionManager.instance.GetPlayer2Emotion();
         }
+        yield return new WaitForSeconds(animDuration);
+        
         foreach (HUD playerHUD in playersHUD)
         {
             HideEmotionPrompt(playerHUD);
+            playerHUD.keepNeutralText.DOFade(0f, animDuration* 0.3f);
         }
-
-        yield return new WaitForSeconds(animDuration * 0.3f);
+        yield return new WaitForSeconds(animDuration* 0.3f);
         //Display Countdown until roundText start
         for (int i = countDownBeforeRoundStart; i > 0; i--)
         {
@@ -204,13 +207,13 @@ public class RoundManagerNew: MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
-        foreach (HUD playerHUD in playersHUD)
-        {
-            EmotionPromptPopup(playerHUD, emotionToKeepOnCountdown);
-        }
+        // foreach (HUD playerHUD in playersHUD)
+        // {
+        //     EmotionPromptPopup(playerHUD, emotionToKeepOnCountdown);
+        // }
         AnimateCountDownText(goText.GetLocalizedString());
        
-        _fastEndCoroutine = StartCoroutine(EndPlayerNotWork());
+        _roundTooLongCoroutine = StartCoroutine(EndPlayerNotWork());
         
  
         _gameIsLaunched = true;
@@ -232,38 +235,43 @@ public class RoundManagerNew: MonoBehaviour
 
     private void HideNeutralScore(HUD playerHUD)
     {
-        playerHUD.neutralityScore.DOKill();
+        // playerHUD.neutralityScore.DOKill();
         playerHUD.neutralityScore.DOFade(0f, animDuration * 0.3f);
     }
 
     private void ShowNeutralScore(HUD playerHUD)
     {
-        playerHUD.neutralityScore.DOKill();
+        // playerHUD.neutralityScore.DOKill();
         playerHUD.neutralityScore.DOFade(1f, animDuration * 0.3f);
     }
 
     private void EmotionPromptPopup(HUD playerHUD, EmotionData emotionToShow)
     {
-        playerHUD.emotionImage.DOKill();
-        playerHUD.emotionText.DOKill();
-        playerHUD.emotionImage.color = new Color(1,1,1, 0);
+        // playerHUD.emotionImage.DOKill();
+        // playerHUD.emotionText.DOKill();
+        // playerHUD.emotionImage.color = new Color(1,1,1, 0);
         playerHUD.emotionText.text = emotionToShow.TextEmotion.GetLocalizedString();
         playerHUD.emotionImage.sprite = emotionToShow.ImageEmotion;
         Sequence emotionTextSequence = DOTween.Sequence();
         emotionTextSequence.Append(playerHUD.emotionText.DOFade(1f, animDuration));
+        emotionTextSequence.AppendInterval(animDuration*0.5f);
         emotionTextSequence.Append(playerHUD.emotionText.DOFade(0f, animDuration*0.3f));
         Sequence emotionScaleSequence = DOTween.Sequence();
         emotionScaleSequence.AppendInterval(animDuration);
-        emotionScaleSequence.Append(  playerHUD.emotionText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f));
-        emotionScaleSequence.Append(playerHUD.emotionText.rectTransform.DOScale(Vector3.one, 0f));
+        emotionScaleSequence.AppendInterval(animDuration*0.5f);
+        emotionScaleSequence.Append(  playerHUD.emotionText.transform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f));
+        emotionScaleSequence.Append(playerHUD.emotionText.transform.DOScale(Vector3.one, 0f));
 
         Sequence emotionImageSequence = DOTween.Sequence();
         emotionImageSequence.Append(playerHUD.emotionImage.DOFade(1f, animDuration));
+        emotionImageSequence.AppendInterval(animDuration*0.5f);
         emotionImageSequence.Append(playerHUD.emotionImage.DOFade(0f, animDuration*0.3f));
         Sequence emotionImageScaleSequence = DOTween.Sequence();
         emotionImageScaleSequence.AppendInterval(animDuration);
-        emotionImageScaleSequence.Append(  playerHUD.emotionImage.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f));
-        emotionImageScaleSequence.Append(playerHUD.emotionImage.rectTransform.DOScale(Vector3.one, 0f));
+        emotionImageScaleSequence.AppendInterval(animDuration*0.5f);
+        emotionImageScaleSequence.Append( playerHUD.emotionImage.transform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), 
+            animDuration * .3f));
+        emotionImageScaleSequence.Append(playerHUD.emotionImage.transform.DOScale(Vector3.one, 0f));
         emotionTextSequence.Play();
         emotionScaleSequence.Play();
         emotionImageSequence.Play();
@@ -274,7 +282,7 @@ public class RoundManagerNew: MonoBehaviour
     {
         playerHUD.emotionImage.DOKill();
         playerHUD.emotionText.DOKill();
-        playerHUD.emotionImage.color = new Color(1,1,1, 0);
+        // playerHUD.emotionImage.color = new Color(1,1,1, 0);
         playerHUD.emotionText.text = emotionToShow.TextEmotion.GetLocalizedString();
         playerHUD.emotionImage.sprite = emotionToShow.ImageEmotion;
         Sequence emotionTextSequence = DOTween.Sequence();
@@ -289,20 +297,24 @@ public class RoundManagerNew: MonoBehaviour
     {
         playerHUD.emotionImage.DOKill();
         playerHUD.emotionText.DOKill();
-        Sequence emotionTextSequence = DOTween.Sequence();
-        emotionTextSequence.Append(playerHUD.emotionText.DOFade(0f, animDuration*0.3f));
-        Sequence emotionScaleSequence = DOTween.Sequence();
-        emotionScaleSequence.Append(  playerHUD.emotionText.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f));
-        emotionScaleSequence.Append(playerHUD.emotionText.rectTransform.DOScale(Vector3.one, 0f));
-        Sequence emotionImageSequence = DOTween.Sequence();
-        emotionImageSequence.Append(playerHUD.emotionImage.DOFade(0f, animDuration*0.3f));
-        Sequence emotionImageScaleSequence = DOTween.Sequence();
-        emotionImageScaleSequence.Append(  playerHUD.emotionImage.rectTransform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), animDuration * .3f));
-        emotionImageScaleSequence.Append(playerHUD.emotionImage.rectTransform.DOScale(Vector3.one, 0f));
-        emotionTextSequence.Play();
-        emotionScaleSequence.Play();
-        emotionImageSequence.Play();
-        emotionImageScaleSequence.Play();
+        Sequence emotionTextSequence1 = DOTween.Sequence();
+        emotionTextSequence1.Append(playerHUD.emotionText.DOFade(0f, animDuration*0.3f));
+        // emotionTextSequence.Append(playerHUD.emotionText.DOFade(0f, 0f));
+        Sequence emotionScaleSequence2 = DOTween.Sequence();
+        emotionScaleSequence2.Append(  playerHUD.emotionText.transform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), 
+            animDuration * .29f));
+        emotionScaleSequence2.Append(playerHUD.emotionText.transform.DOScale(Vector3.one, 0f));
+        Sequence emotionImageSequence3 = DOTween.Sequence();
+        emotionImageSequence3.Append(playerHUD.emotionImage.DOFade(0f, animDuration*0.3f));
+        emotionImageSequence3.Append(playerHUD.emotionText.DOFade(0f, 0f));
+        Sequence emotionImageScaleSequence4 = DOTween.Sequence();
+        emotionImageScaleSequence4.Append(  playerHUD.emotionImage.transform.DOScale(new Vector3(2.8675f, 2.8675f, 2.8675f), 
+            animDuration * .29f));
+        emotionImageScaleSequence4.Append(playerHUD.emotionImage.transform.DOScale(Vector3.one, 0f));
+        emotionTextSequence1.Play();
+        emotionScaleSequence2.Play();
+        emotionImageSequence3.Play();
+        emotionImageScaleSequence4.Play();
     }
     private IEnumerator EndPlayerNotWork()
     {
@@ -318,7 +330,7 @@ public class RoundManagerNew: MonoBehaviour
     {
         foreach (HUD playerHUD in playersHUD)
         {
-            playerHUD.roundText.DOKill();
+            // playerHUD.roundText.DOKill();
             playerHUD.roundText.text = roundText.GetLocalizedString() + " " + _currentRoundCount;
             Sequence roundSequence = DOTween.Sequence();
             roundSequence.Append(playerHUD.roundText.DOFade(1f, animDuration));
@@ -423,7 +435,7 @@ public class RoundManagerNew: MonoBehaviour
     {
         SoundManager.instance.PlayShotgunSound();
         StopZoom();
-        StopCoroutine(_fastEndCoroutine);
+        StopCoroutine(_roundTooLongCoroutine);
         _gameIsLaunched = false;
         _isCurrentlySearchingForEmotion = false;
         switch (winner)
@@ -519,6 +531,7 @@ public class RoundManagerNew: MonoBehaviour
         // Animation
         foreach (HUD playerHUD in playersHUD)
         {
+            HideNeutralScore(playerHUD);
             Sequence roundTextSequence = DOTween.Sequence();
             roundTextSequence.Append(playerHUD.roundResult.DOFade(1f, animDuration));
             roundTextSequence.Append(playerHUD.roundResult.DOFade(0f, animDuration * .3f));

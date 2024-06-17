@@ -268,7 +268,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 29105807104753664
-    m_Localized: Neutrality
+    m_Localized: 'Neutrality
+
+      Score'
     m_Metadata:
       m_Items: []
   references:
