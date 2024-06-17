@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -92,6 +93,16 @@ public class MenuButtons : MonoBehaviour
         _player2Rules2.SetActive(false);
         _player2Rules3.SetActive(false);
         player2WaitingText.gameObject.SetActive(true);
+    }
+
+    public void ChangeLanguageToFrench()
+    {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];
+    }
+
+    public void ChangeLanguageToEnglish()
+    {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
     }
 
     public void loadCreditScene()
