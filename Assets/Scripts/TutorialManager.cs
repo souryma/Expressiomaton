@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using TMPro;
+using UltraFace;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 using Emotion = EmotionManager.EMOTION;
@@ -29,24 +31,24 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private int countDownStart = 5;
     [SerializeField] private List<EmotionData> emotionsNeededForGame = new();
 
-    [Header("Player 1")]
-    [SerializeField] private RawImage _player1Camera;
-
-    [SerializeField] private TextMeshProUGUI _player1Text;
-    [SerializeField] private TextMeshProUGUI _player1FailText;
+    [SerializeField]
+    private RawImage _camera;
     [SerializeField] private TextMeshProUGUI _player1NeutralText;
     [SerializeField] private GameObject _returnToMenuButton1;
     [SerializeField] private GameObject _skipButton;
     [SerializeField] private TextMeshProUGUI _launchText1;
+
+    [Header("Player 1")] 
+    [SerializeField] private GameObject _player1Name;
+    [SerializeField] private TextMeshProUGUI _player1Text;
     [SerializeField] private Image spriteP1;
+    [SerializeField] private RectTransform _player1Target;
 
     [Header("Player 2")]
-    [SerializeField] private RawImage _player2Camera;
+    [SerializeField] private GameObject _player2Name;
     [SerializeField] private TextMeshProUGUI _player2Text;
-    [SerializeField] private TextMeshProUGUI _player2FailText;
-    [SerializeField] private TextMeshProUGUI _player2NeutralText;
-    [SerializeField] private TextMeshProUGUI _launchText2;
     [SerializeField] private Image spriteP2;
+    [SerializeField] private RectTransform _player2Target;
     
     [Header("Localization")] 
     [SerializeField] private LocalizedString prepareText;
@@ -67,8 +69,7 @@ public class TutorialManager : MonoBehaviour
         // _emotionsToTestP1 = new List<EmotionData>(emotionsNeededForGame);
         // _emotionsToTestP2 = new List<EmotionData>(emotionsNeededForGame);
         
-        _player1Camera.texture = WebcamManager.instance.Webcam1;
-        _player2Camera.texture = WebcamManager.instance.Webcam2;
+        _camera.texture = WebcamManager.instance.Webcam1;
 
         _currentEmotionIdxP1 = 0;
         _currentEmotionIdxP2 = 0;
@@ -83,13 +84,9 @@ public class TutorialManager : MonoBehaviour
         _player1Text.text = txt;
         _player2Text.text = txt;
 
-        _player1FailText.text = "";
-        _player2FailText.text = "";
         _launchText1.gameObject.SetActive(false);
-        _launchText2.gameObject.SetActive(false);
         
         _player1NeutralText.gameObject.SetActive(false);
-        _player2NeutralText.gameObject.SetActive(false);
         
         UpdateUiP2();
         UpdateUiP1();
@@ -99,12 +96,31 @@ public class TutorialManager : MonoBehaviour
     {
         _ProcessEmotionTestForPlayer1();
         _ProcessEmotionTestForPlayer2();
+        PositionTargetText(_player1Target, WebcamManager.instance.LastFace1Detection);
+        PositionTargetText(_player2Target, WebcamManager.instance.LastFace2Detection);
 
         if (_player1Ready && _player2Ready && _gameLaunched == false)
         {
             _gameLaunched = true;
             StartCoroutine(LaunchGame());
         }
+    }
+
+    private void PositionTargetText(RectTransform playerTarget, Detection? lastFaceDetection)
+    {
+        if (!lastFaceDetection.HasValue)
+        {
+            playerTarget.gameObject.transform.localScale = Vector3.zero;
+            return;
+        }
+        playerTarget.gameObject.transform.localScale = Vector3.one;
+        float minX = 1f - lastFaceDetection.Value.x2;//> 0f ? lastFaceDetection.Value.x1 : 0f;
+        float maxX =1f -lastFaceDetection.Value.x1 ;// < 1f ? lastFaceDetection.Value.x2 : 1f;
+        float minY = 1f-lastFaceDetection.Value.y2-0.075f;// > 0f ? lastFaceDetection.Value.y1-0.01f : 0f;
+        float maxY = 1f-lastFaceDetection.Value.y2;//-0.01f > 0f ? lastFaceDetection.Value.y1 : 0.01f;
+        
+        playerTarget.anchorMin = new Vector2(minX, minY);
+        playerTarget.anchorMax = new Vector2(maxX, maxY);
     }
 
     private void UpdateUiP1()
@@ -208,14 +224,14 @@ public class TutorialManager : MonoBehaviour
     private IEnumerator LaunchGame()
     {
         _launchText1.gameObject.SetActive(true);
-        _launchText2.gameObject.SetActive(true);
         _player1NeutralText.gameObject.SetActive(true);
-        _player2NeutralText.gameObject.SetActive(true);
         _player1Text.gameObject.SetActive(false);
         _player2Text.gameObject.SetActive(false);
+        _player2Name.SetActive(false);
+        _player1Name.SetActive(false);
         for (int i = countDownStart; i > 0 ; i--)
         {
-            _launchText1.text = _launchText2.text = countDownText.GetLocalizedString() + " " + i;
+            _launchText1.text = countDownText.GetLocalizedString() + " " + i;
             yield return new WaitForSecondsRealtime(1);
         }
 

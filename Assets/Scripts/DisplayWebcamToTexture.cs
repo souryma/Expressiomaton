@@ -16,7 +16,6 @@ public class DisplayWebcamToTexture : MonoBehaviour
         if (WebcamManager.instance.isCameraSetup && !_isActivated)
         {
             Image.texture = WebcamManager.instance.Webcam1;
-            Image2.texture = WebcamManager.instance.Webcam2;
 
             _isActivated = true;
         }

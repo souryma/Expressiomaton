@@ -8,8 +8,6 @@ public class MenuButtons : MonoBehaviour
 {
     public string TutorialScene = "";
     
-    public TextMeshProUGUI player2WaitingText;
-    public TextMeshProUGUI player2AboutToStartText;
     public LocalizedString waitingP1;
     public LocalizedString gameStarting;
     public GameObject _player2Rules1;
@@ -20,31 +18,14 @@ public class MenuButtons : MonoBehaviour
     {
         SoundManager.instance.PlayMenuSound();
 
-        player2AboutToStartText.gameObject.SetActive(false);
-        StartCoroutine(Player2TextAnimation(player2WaitingText, waitingP1.GetLocalizedString()));
     }
 
     public void GameAboutToStart()
     {
-        player2AboutToStartText.gameObject.SetActive(true);
-        player2WaitingText.gameObject.SetActive(false);
 
-        StartCoroutine(Player2TextAnimation(player2AboutToStartText, gameStarting.GetLocalizedString()));
     }
 
-    private IEnumerator Player2TextAnimation(TextMeshProUGUI textGui, string text)
-    {
-        textGui.text = text;
-        yield return new WaitForSeconds(1);
-        textGui.text = text + ".";
-        yield return new WaitForSeconds(1);
-        textGui.text = text + "..";
-        yield return new WaitForSeconds(1);
-        textGui.text = text + "...";
-        yield return new WaitForSeconds(1);
-
-        StartCoroutine(Player2TextAnimation(textGui, text));
-    }
+    
 
     public void ConfirmCameraSelection()
     {
@@ -67,7 +48,6 @@ public class MenuButtons : MonoBehaviour
     {
         SoundManager.instance.PlayShotgunSound();
         _player2Rules1.SetActive(true);
-        player2WaitingText.gameObject.SetActive(false);
     }
     
     public void DisplayRules2()
@@ -75,7 +55,6 @@ public class MenuButtons : MonoBehaviour
         SoundManager.instance.PlayShotgunSound();
         _player2Rules1.SetActive(false);
         _player2Rules2.SetActive(true);
-        player2WaitingText.gameObject.SetActive(false);
     }
     
     public void DisplayRules3()
@@ -83,7 +62,6 @@ public class MenuButtons : MonoBehaviour
         SoundManager.instance.PlayShotgunSound();
         _player2Rules2.SetActive(false);
         _player2Rules3.SetActive(true);
-        player2WaitingText.gameObject.SetActive(false);
     }
     
     public void BackToMenu()
@@ -92,7 +70,6 @@ public class MenuButtons : MonoBehaviour
         _player2Rules1.SetActive(false);
         _player2Rules2.SetActive(false);
         _player2Rules3.SetActive(false);
-        player2WaitingText.gameObject.SetActive(true);
     }
 
     public void ChangeLanguageToFrench()

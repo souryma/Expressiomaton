@@ -13,7 +13,7 @@ public sealed class WebcamManager : MonoBehaviour
     #region Private members
     
     [SerializeField] private TMP_Dropdown _camera1Choice;
-    [SerializeField] private TMP_Dropdown _camera2Choice;
+    // [SerializeField] private TMP_Dropdown _camera2Choice;
     
     // private FaceProcessorLive<Texture2D> _processorWebCam1;
     // private FaceProcessorLive<Texture2D> _processorWebCam2;
@@ -35,7 +35,6 @@ public sealed class WebcamManager : MonoBehaviour
     [SerializeField] private int2 _cameraTextureResolutions = new int2(512, 512);
 
     private WebCamTexture _webcam1;
-    private WebCamTexture _webcam2;
 
     private RenderTexture _face1Texture;
     private RenderTexture _face2Texture;
@@ -53,7 +52,9 @@ public sealed class WebcamManager : MonoBehaviour
 
     public WebCamTexture Webcam1 => _webcam1;
 
-    public WebCamTexture Webcam2 => _webcam2;
+    public Detection? LastFace1Detection => _lastFace1Detection;
+    public Detection? LastFace2Detection => _lastFace2Detection;
+
 
     #endregion
     
@@ -97,19 +98,19 @@ public sealed class WebcamManager : MonoBehaviour
 
         foreach (var dropdown in FindObjectsOfType<TMP_Dropdown>(true))
         {
-            if (dropdown.CompareTag("Player2"))
-            {
-                
-                _camera2Choice = dropdown;
-            }
-            else
-            {
+            // if (dropdown.CompareTag("Player2"))
+            // {
+            //     
+            //     _camera2Choice = dropdown;
+            // }
+            // else
+            // {
                 _camera1Choice = dropdown;
-            }
+            // }
         }
 
         _camera1Choice.options = _camerasNameList;
-        _camera2Choice.options = _camerasNameList;
+        // _camera2Choice.options = _camerasNameList;
     }
 
     private void FaceDetectorInitializer()
@@ -122,13 +123,13 @@ public sealed class WebcamManager : MonoBehaviour
     public void ConfirmCameraSelection()
     {
         _webcam1 = new WebCamTexture(_camerasNameList[_camera1Choice.value].text);
-        _webcam2 = new WebCamTexture(_camerasNameList[_camera2Choice.value].text);
+        // _webcam2 = new WebCamTexture(_camerasNameList[_camera2Choice.value].text);
         
         _face1Texture = new RenderTexture(_cameraTextureResolutions.x, _cameraTextureResolutions.y, 0);
         _face2Texture = new RenderTexture(_cameraTextureResolutions.x, _cameraTextureResolutions.y, 0);
         
         _webcam1.Play();
-        _webcam2.Play();
+        // _webcam2.Play();
 
         isCameraSetup = true;
     }
@@ -139,7 +140,6 @@ public sealed class WebcamManager : MonoBehaviour
             ScenesManager.instance.OnStartSceneLoaded -= SetupCameras;
         
         if (_webcam1 != null) Destroy(_webcam1);
-        if (_webcam2 != null) Destroy(_webcam2);
         
         if (_face1Texture != null) Destroy(_face1Texture);
         if (_face2Texture != null) Destroy(_face2Texture);
@@ -152,73 +152,135 @@ public sealed class WebcamManager : MonoBehaviour
         _detector?.Dispose();
     }
     
-    private void FaceDetectorDetectFace(WebCamTexture webCamTexture, RenderTexture renderTexture, ref bool 
-            faceDetected, ref Detection? lastDetection)
+    private void FaceDetectorDetectFace()
     {
-        _detector.ProcessImage(webCamTexture, _threshold);
+        _detector.ProcessImage(_webcam1, _threshold);
 
-
-        // Marker update
-        if (_detector.Detections.Any())
+        _face1Detected = false;
+        _face2Detected = false;
+        if (!_detector.Detections.Any())
         {
-            faceDetected = true;
-            Vector2 imageCenter = new Vector2(0.5f, 0.5f);
-            var savedDetection = _detector.Detections.First();
-            Vector2 vec2 = new Vector2(savedDetection.x1 + (savedDetection.x2 - savedDetection.x1) / 2,
-                savedDetection.y1 + (savedDetection.y2 - savedDetection.y1) / 2);
-            float smallestDistance = Vector2.Distance(imageCenter, vec2);
-            foreach (var detection in _detector.Detections)
-            {
-                if (detection.Equals(savedDetection)) continue;
-                Vector2 center = new Vector2(detection.x1 + (detection.x2 - detection.x1) / 2,
-                    detection.y1 + (detection.y2 - detection.y1) / 2);
-                float distance = Vector2.Distance(imageCenter, center);
-                if (distance < smallestDistance)
-                {
-                    smallestDistance = distance;
-                    savedDetection = detection;
-                }
-            }
+            _lastFace1Detection = null;
+            _lastFace2Detection = null;
+         
+            return;
+        }
+        
+       
+     
+        var centerP1 = new Vector2(0.4f, 0.5f);
+        var centerP2 = new Vector2(0.6f, 0.5f);
+        
+        Detection? currentDetectionP1 = null;
+        Detection? currentDetectionP2 = null;
+        
+        float smallestDistanceP1 = 1f;
+        float smallestDistanceP2 = 1f;
 
-            if (lastDetection != null)
+        foreach (var detection in _detector.Detections)
+        {
+            
+            Vector2 centerCurrentDetection = new Vector2(detection.GetCenterX(), detection.GetCenterY());
+            if (centerCurrentDetection.x > 0.5f)
             {
-                var centerSavedX = savedDetection.GetCenterX();
-                var centerSavedY = savedDetection.GetCenterY();
-                var centerLastX = lastDetection?.GetCenterX();
-                var centerLastY = lastDetection?.GetCenterY();
-             
-                if (centerLastX + ErrorMarginX > centerSavedX && centerLastX - ErrorMarginX < centerSavedX
-                                                              && centerLastY + ErrorMarginY > centerSavedY 
-                                                              && centerLastY - ErrorMarginY < centerSavedY)
+                float distance = Vector2.Distance(centerP1, centerCurrentDetection);
+                if (distance < smallestDistanceP1)
                 {
-                    savedDetection = (Detection)lastDetection;
+                    currentDetectionP1 = detection;
                 }
-                else
-                {
-                    lastDetection = savedDetection;
-                }
-                
             }
             else
             {
-                lastDetection = savedDetection;
+                float distance = Vector2.Distance(centerP2, centerCurrentDetection);
+                if (distance < smallestDistanceP2)
+                {
+                    currentDetectionP2 = detection;
+                }
             }
-            float myX2 = savedDetection.x2;//Mathf.Floor(savedDetection.x2 * _roundingValue) / _roundingValue;
-            float myX1 = savedDetection.x1; //Mathf.Floor(savedDetection.x1 * _roundingValue) / _roundingValue;
-            float myY2 = savedDetection.y2;// Mathf.Floor(savedDetection.y2 * _roundingValue) / _roundingValue;
-            float myY1 = savedDetection.y1;// Mathf.Floor(savedDetection.y1 * _roundingValue) / _roundingValue;
-            Vector2 scale = new Vector2(myX2 - myX1,
-                myY2 - myY1);
+        }
 
-            Graphics.Blit(webCamTexture, renderTexture, scale, new Vector2(myX1, 1 - myY2));
+        if (_lastFace1Detection != null && currentDetectionP1 != null)
+        {
+            var centerSavedX = currentDetectionP1.Value.GetCenterX();
+            var centerSavedY = currentDetectionP1.Value.GetCenterY();
+            var centerLastX = _lastFace1Detection?.GetCenterX();
+            var centerLastY = _lastFace1Detection?.GetCenterY();
+             
+            if ((centerLastX + ErrorMarginX > centerSavedX && centerLastX - ErrorMarginX < centerSavedX)
+                && (centerLastY + ErrorMarginY > centerSavedY  && centerLastY - ErrorMarginY < centerSavedY))
+            {
+                currentDetectionP1 = _lastFace1Detection;
+            }
+            else
+            {
+                _lastFace1Detection = currentDetectionP1;
+            }
+                
         }
         else
         {
-            faceDetected = false;
+            _lastFace1Detection = currentDetectionP1;
         }
         
-        webCamTexture = null;
-        renderTexture = null;
+        if (_lastFace2Detection != null && currentDetectionP2 != null)
+        {
+            var centerSavedX = currentDetectionP2.Value.GetCenterX();
+            var centerSavedY = currentDetectionP2.Value.GetCenterY();
+            var centerLastX = _lastFace2Detection?.GetCenterX();
+            var centerLastY = _lastFace2Detection?.GetCenterY();
+             
+            if ((centerLastX + ErrorMarginX > centerSavedX && centerLastX - ErrorMarginX < centerSavedX)
+                && (centerLastY + ErrorMarginY > centerSavedY  && centerLastY - ErrorMarginY < centerSavedY))
+            {
+                currentDetectionP2 = _lastFace2Detection;
+            }
+            else
+            {
+                _lastFace2Detection = currentDetectionP2;
+            }
+                
+        }
+        else
+        {
+            _lastFace2Detection = currentDetectionP2;
+        }
+        
+        
+        
+        if (currentDetectionP2 != null)
+        {
+            float myX22 = currentDetectionP2.Value.x2; //Mathf.Floor(savedDetection.x2 * _roundingValue) / _roundingValue;
+            float myX12 = currentDetectionP2.Value.x1; //Mathf.Floor(savedDetection.x1 * _roundingValue) / _roundingValue;
+            float myY22 = currentDetectionP2.Value.y2; // Mathf.Floor(savedDetection.y2 * _roundingValue) / _roundingValue;
+            float myY12 = currentDetectionP2.Value.y1; // Mathf.Floor(savedDetection.y1 * _roundingValue) / _roundingValue;
+            Vector2 scale2 = new Vector2(myX22 - myX12,
+                myY22 - myY12);
+
+            Graphics.Blit(_webcam1, _face2Texture, scale2, new Vector2(myX12, 1 - myY22));
+            _face2Detected = true;
+        }
+        else
+        {
+            _face2Detected = false;
+        }
+
+
+        if (currentDetectionP1 != null)
+        {
+            float myX2 = currentDetectionP1.Value.x2;
+            float myX1 = currentDetectionP1.Value.x1; 
+            float myY2 = currentDetectionP1.Value.y2; 
+            float myY1 = currentDetectionP1.Value.y1; 
+            Vector2 scale = new Vector2(myX2 - myX1,
+                myY2 - myY1);
+            Graphics.Blit(_webcam1, _face1Texture, scale, new Vector2(myX1, 1 - myY2));
+            _face1Detected = true;
+        }
+        else
+        {
+            _face1Detected = true;
+        }
+      
     }
 
     private void LateUpdate()
@@ -226,14 +288,10 @@ public sealed class WebcamManager : MonoBehaviour
         if (!isCameraSetup) return;
         if (_webcam1 is not null && _webcam1.didUpdateThisFrame)
         {
-            FaceDetectorDetectFace(_webcam1, _face1Texture, ref _face1Detected, ref _lastFace1Detection);
-        }
-
-        if (_webcam2 is not null && _webcam2.didUpdateThisFrame)
-        {
-            FaceDetectorDetectFace(_webcam2, _face2Texture, ref _face2Detected, ref _lastFace2Detection);
+            FaceDetectorDetectFace();
 
         }
+
         
     }
 

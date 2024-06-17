@@ -31,8 +31,6 @@ public class Pretutorial : MonoBehaviour
     void Start()
     {
         _player1Camera.texture = WebcamManager.instance.Webcam1;
-        _player2Camera.texture = WebcamManager.instance.Webcam2;
-
         _launchText1.gameObject.SetActive(false);
         _launchText2.gameObject.SetActive(false);
     }
