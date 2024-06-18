@@ -10,6 +10,9 @@ public class NeutralScoreInterpreter : MonoBehaviour
     [SerializeField] 
     private Image imageToSetup;
 
+    [SerializeField]
+    private Slider neutralSlider;
+    
     [SerializeField] 
     private bool isP1;
     
@@ -37,13 +40,21 @@ public class NeutralScoreInterpreter : MonoBehaviour
         float neutralScore = isP1 ? EmotionManager.instance.NeutralScoreP1 : EmotionManager.instance.NeutralScoreP2;
         if (neutralScore < 0.5f)
         {
-            imageToSetup.color = new Color(1f, 0f, 0f);
+            neutralSlider.value = 0f;
+            var l_block = neutralSlider.colors;
+            l_block.normalColor = ColorFromGradient(0f);
+            neutralSlider.colors = l_block;
+            // imageToSetup.color = ColorFromGradient(0f);
             return;
         }
 
         if (neutralScore > 0.9f)
         {
-            imageToSetup.color = new Color(0f, 1f, 0f);
+            neutralSlider.value = 1f;
+            var l_block2 = neutralSlider.colors;
+            l_block2.normalColor = ColorFromGradient(1f);
+            neutralSlider.colors = l_block2;
+            // imageToSetup.color = ColorFromGradient(1f);
             return;
         }
         
@@ -52,6 +63,11 @@ public class NeutralScoreInterpreter : MonoBehaviour
             neutralScore);
 
        lastInterpretedNeutralScore = expDecay(lastInterpretedNeutralScore, interpretedScore, decay, Time.deltaTime);
-       imageToSetup.color = ColorFromGradient(lastInterpretedNeutralScore);
+       // imageToSetup.color = ColorFromGradient(lastInterpretedNeutralScore);
+       
+       neutralSlider.value = lastInterpretedNeutralScore;
+       var l_block3 = neutralSlider.colors;
+       l_block3.normalColor = ColorFromGradient(lastInterpretedNeutralScore);
+       neutralSlider.colors = l_block3;
     }
 }
