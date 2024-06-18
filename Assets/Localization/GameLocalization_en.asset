@@ -72,7 +72,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 17487469961216
-    m_Localized: Select webcams
+    m_Localized: Select webcam
     m_Metadata:
       m_Items: []
   - m_Id: 17887887581184
@@ -198,7 +198,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 339827664740352
-    m_Localized: Prepare your emotions!
+    m_Localized: Prepare your expressions!
     m_Metadata:
       m_Items: []
   - m_Id: 340090672766976
@@ -271,6 +271,19 @@ MonoBehaviour:
     m_Localized: 'Your Neutrality
 
       Score'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32018625244250112
+    m_Localized: Your Pictures at CNAM!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32018799014264832
+    m_Localized: Here the picture of your Shot-o-maton Game ! Hoping you got a good
+      experience at CNAM!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32045633962500096
+    m_Localized: wins!
     m_Metadata:
       m_Items: []
   references:

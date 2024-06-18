@@ -17,7 +17,7 @@ public class EmailManager : MonoBehaviour
     {
         yield return null;
         GameScreenShotManager l_gameScreenShotManager = FindObjectOfType<GameScreenShotManager>();
-        Emailer.SendEmail(m_sender, m_data, p_emailreceiver, l_gameScreenShotManager.LastScreenShotName);
+        Emailer.SendEmail(m_sender, m_data, p_emailreceiver, l_gameScreenShotManager.sessionScreenShotNames);
         emailSent.Raise();
     }
 }

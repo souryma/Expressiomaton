@@ -12,7 +12,8 @@ public class NeutralScoreInterpreter : MonoBehaviour
 
     [SerializeField]
     private Slider neutralSlider;
-    
+    [SerializeField]
+    private Image sliderFill;
     [SerializeField] 
     private bool isP1;
     
@@ -27,10 +28,7 @@ public class NeutralScoreInterpreter : MonoBehaviour
     {
         return b + (a - b) * math.exp(-decay * dt);
     }
-    // private void Start()
-    // {
-    //     throw new NotImplementedException();
-    // }
+
     Color ColorFromGradient (float value)  // float between 0-1
     {
         return gradient.Evaluate(value);
@@ -40,21 +38,16 @@ public class NeutralScoreInterpreter : MonoBehaviour
         float neutralScore = isP1 ? EmotionManager.instance.NeutralScoreP1 : EmotionManager.instance.NeutralScoreP2;
         if (neutralScore < 0.5f)
         {
-            neutralSlider.value = 0f;
-            var l_block = neutralSlider.colors;
-            l_block.normalColor = ColorFromGradient(0f);
-            neutralSlider.colors = l_block;
-            // imageToSetup.color = ColorFromGradient(0f);
+            SetupUI(0f);
+            
             return;
         }
 
         if (neutralScore > 0.9f)
         {
-            neutralSlider.value = 1f;
-            var l_block2 = neutralSlider.colors;
-            l_block2.normalColor = ColorFromGradient(1f);
-            neutralSlider.colors = l_block2;
-            // imageToSetup.color = ColorFromGradient(1f);
+            
+            SetupUI(1f);
+         
             return;
         }
         
@@ -64,10 +57,13 @@ public class NeutralScoreInterpreter : MonoBehaviour
 
        lastInterpretedNeutralScore = expDecay(lastInterpretedNeutralScore, interpretedScore, decay, Time.deltaTime);
        // imageToSetup.color = ColorFromGradient(lastInterpretedNeutralScore);
-       
-       neutralSlider.value = lastInterpretedNeutralScore;
-       var l_block3 = neutralSlider.colors;
-       l_block3.normalColor = ColorFromGradient(lastInterpretedNeutralScore);
-       neutralSlider.colors = l_block3;
+
+       SetupUI(lastInterpretedNeutralScore);
+    }
+
+    private void SetupUI(float neutralScore)
+    {
+        neutralSlider.value = neutralScore;
+        sliderFill.color = ColorFromGradient(neutralScore);
     }
 }

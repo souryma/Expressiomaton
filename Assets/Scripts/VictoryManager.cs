@@ -14,12 +14,15 @@ public class VictoryScene : MonoBehaviour
     [SerializeField] private MeshRenderer winnerFace;
     [SerializeField] private MeshRenderer loserFace;
     
+    [FormerlySerializedAs("victoryPrompt")]
     [Header("Parameters")]
-    [SerializeField] private LocalizedString victoryPrompt;
-    [SerializeField] private LocalizedString loserPrompt;
+    [SerializeField] private LocalizedString victorPrompt;
+    [SerializeField] private LocalizedString player1Prompt;
+    [SerializeField] private LocalizedString player2Prompt;
 
     [FormerlySerializedAs("timerBeforeScreen")] [SerializeField] private int timerBeforePicture = 3;
     [SerializeField] private GameEvent screenShotEvent;
+    [SerializeField] private GameEvent webcamScreenShotEvent;
     
     private bool _pictureCountDownEngaged = false;
     private float _startTime;
@@ -39,16 +42,16 @@ public class VictoryScene : MonoBehaviour
         {
             winnerFace.material.mainTexture =  WebcamManager.instance.Face1Texture;
             loserFace.material.mainTexture =  WebcamManager.instance.Face2Texture;
-            victoryUIP1.InitUIMail(victoryPrompt.GetLocalizedString(), timerBeforePicture.ToString());
-            victoryUIP2.InitUIMail(loserPrompt.GetLocalizedString(), timerBeforePicture.ToString());
+            victoryUIP1.InitUIMail(player1Prompt.GetLocalizedString() + " " +victorPrompt.GetLocalizedString(), timerBeforePicture.ToString());
+            // victoryUIP2.InitUIMail(loserPrompt.GetLocalizedString(), timerBeforePicture.ToString());
 
         }
         else
         {
             winnerFace.material.mainTexture =  WebcamManager.instance.Face2Texture;
             loserFace.material.mainTexture =  WebcamManager.instance.Face1Texture;
-            victoryUIP1.InitUIMail(loserPrompt.GetLocalizedString(), timerBeforePicture.ToString());
-            victoryUIP2.InitUIMail(victoryPrompt.GetLocalizedString(), timerBeforePicture.ToString());
+            victoryUIP1.InitUIMail(player2Prompt.GetLocalizedString() + " " +victorPrompt.GetLocalizedString(), timerBeforePicture.ToString());
+            // victoryUIP2.InitUIMail(victorPrompt.GetLocalizedString(), timerBeforePicture.ToString());
         }
         victoryUIP1.ShowStartScreen();
         victoryUIP2.ShowStartScreen();
@@ -77,6 +80,7 @@ public class VictoryScene : MonoBehaviour
             victoryUIP1.ShowCommonScreen();
             victoryUIP2.ShowCommonScreen();
             screenShotEvent.Raise();
+            webcamScreenShotEvent.Raise();
             StartCoroutine(PictureTaken());
         }
     }

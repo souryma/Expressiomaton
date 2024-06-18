@@ -239,6 +239,18 @@ MonoBehaviour:
     m_Key: Neutrality Score
     m_Metadata:
       m_Items: []
+  - m_Id: 32018625244250112
+    m_Key: emailSubject
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32018799014264832
+    m_Key: emailText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32045633962500096
+    m_Key: victor text
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

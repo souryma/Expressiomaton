@@ -23,25 +23,12 @@ public class EmotionManager : MonoBehaviour
         Surprise = 2,
         Sadness = 3,
         Anger = 4,
-        //Disgust = 5,
-        //Fear = 6,
-        //Contempt = 7
-    }
-    [Serializable]
-    public struct NeutralLevel
-    {
-        public float minimum;
-        public Sprite sprite;
-        public Color color;
     }
 
     [SerializeField] private NNModel _model = null;
     [SerializeField] private ComputeShader _preprocessor = null;
 
     [Header("Neutral Score")] 
-    [SerializeField]
-    private List<NeutralLevel> neutralScoreLadder = new List<NeutralLevel>();
-
     [SerializeField] 
     public float neutralScoreMax = 0.9f; 
     
@@ -60,7 +47,6 @@ public class EmotionManager : MonoBehaviour
 
     public float NeutralScoreP1 => neutralScoreP1;
     public float NeutralScoreP2 => neutralScoreP2;
-    public List<NeutralLevel> NeutralLevels => neutralScoreLadder;
     
     void Start()
     {
@@ -159,15 +145,6 @@ public class EmotionManager : MonoBehaviour
             case EmotionManager.EMOTION.Anger:
                 emotionText = "Anger";
                 break;
-            // case EmotionManager.EMOTION.Contempt:
-            //     emotionText = "Contempt";
-            //     break;
-            // case EmotionManager.EMOTION.Disgust:
-            //     emotionText = "Disgust";
-            //     break;
-            // case EmotionManager.EMOTION.Fear:
-            //     emotionText = "Fear";
-            //     break;
             case EmotionManager.EMOTION.Happy:
                 emotionText = "Happy";
                 break;

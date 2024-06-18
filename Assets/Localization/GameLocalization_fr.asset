@@ -47,7 +47,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 7004163629056
-    m_Localized: Voulez vous recevoir la photo ?
+    m_Localized: Voulez-vous recevoir la photo ?
     m_Metadata:
       m_Items: []
   - m_Id: 7400365973504
@@ -59,12 +59,12 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 8600050163712
-    m_Localized: Email envoye !
+    m_Localized: "Email envoy\xE9 !"
     m_Metadata:
       m_Items: []
   - m_Id: 8783035064320
-    m_Localized: En choisissant de recevoir la photo, vous acceptez que nous utilisions
-      vos donnees afin de vous envoyer un mail.
+    m_Localized: "En choisissant de recevoir la photo, vous acceptez que nous utilisions
+      vos donn\xE9es afin de vous envoyer un mail."
     m_Metadata:
       m_Items: []
   - m_Id: 9386821902336
@@ -72,7 +72,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 17487469961216
-    m_Localized: Selectionner les webcams
+    m_Localized: Selectionner la webcam
     m_Metadata:
       m_Items: []
   - m_Id: 17887887581184
@@ -84,7 +84,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 20126131773440
-    m_Localized: Le jeu va bientot commencer...
+    m_Localized: "Le jeu va bient\xF4t commencer..."
     m_Metadata:
       m_Items: []
   - m_Id: 21210334191616
@@ -100,11 +100,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 114336587538432
-    m_Localized: REGLES
+    m_Localized: "R\xC8GLES"
     m_Metadata:
       m_Items: []
   - m_Id: 115530416480256
-    m_Localized: Credits
+    m_Localized: "Cr\xE9dits"
     m_Metadata:
       m_Items: []
   - m_Id: 116006193160192
@@ -116,7 +116,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 116440752414720
-    m_Localized: Voulez vous voir le tutoriel ?
+    m_Localized: Voulez-vous voir le tutoriel ?
     m_Metadata:
       m_Items: []
   - m_Id: 116651138703360
@@ -128,7 +128,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 117376195452928
-    m_Localized: 'Regles du jeu:'
+    m_Localized: "R\xE8gles du jeu:"
     m_Metadata:
       m_Items: []
   - m_Id: 122513534181376
@@ -166,15 +166,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 148344184725504
-    m_Localized: Fais ta tete de vainqueur !
+    m_Localized: "Fais ta t\xEAte de vainqueur !"
     m_Metadata:
       m_Items: []
   - m_Id: 148547189039104
-    m_Localized: Fais ta tete de perdant !
+    m_Localized: "Fais ta t\xEAte de perdant !"
     m_Metadata:
       m_Items: []
   - m_Id: 151140363624448
-    m_Localized: Faites en sorte d'avoir votre tete en face de la camera.
+    m_Localized: "Faites en sorte d'avoir votre t\xEAte en face de la camera."
     m_Metadata:
       m_Items: []
   - m_Id: 152916340989952
@@ -186,11 +186,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 164735567650816
-    m_Localized: Echauffement !
+    m_Localized: "\xC9chauffement !"
     m_Metadata:
       m_Items: []
   - m_Id: 339827664740352
-    m_Localized: Preparez vos emotions !
+    m_Localized: "Pr\xE9parez vos expressions !"
     m_Metadata:
       m_Items: []
   - m_Id: 340090672766976
@@ -199,13 +199,13 @@ MonoBehaviour:
       m_Items:
       - rid: 329554938455392263
   - m_Id: 341188401815552
-    m_Localized: Malheureusement, il semblerait que nous ne parvenons pas a lire
-      votre expression..
+    m_Localized: "Malheureusement, il semblerait que nous ne parvenons pas \xE0 lire
+      votre expression.."
     m_Metadata:
       m_Items:
       - rid: 329554938455392263
   - m_Id: 363273056542720
-    m_Localized: Colere
+    m_Localized: "Col\xE8re"
     m_Metadata:
       m_Items: []
   - m_Id: 363337791430656
@@ -225,13 +225,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 456237854351360
-    m_Localized: Malheureusement, il semblerait que nous ne parvenons pas a lire
-      l'expression du joueur 2...
+    m_Localized: "Malheureusement, il semblerait que nous ne parvenons pas \xE0 lire
+      l'expression du joueur 2..."
     m_Metadata:
       m_Items:
       - rid: 329554938455392263
   - m_Id: 4691893291966464
-    m_Localized: Gagne !
+    m_Localized: "Gagn\xE9 !"
     m_Metadata:
       m_Items: []
   - m_Id: 4691996098551808
@@ -264,6 +264,19 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 29105807104753664
     m_Localized: "Score de\nNeutralit\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32018625244250112
+    m_Localized: Vos photos au CNAM !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32018799014264832
+    m_Localized: "Voici les photos de votre exp\xE9rience dans Shot-o-maton ! En
+      esp\xE9rant que vous avez eu une bonne exp\xE9rience au CNAM!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32045633962500096
+    m_Localized: "a gagn\xE9 !"
     m_Metadata:
       m_Items: []
   references:

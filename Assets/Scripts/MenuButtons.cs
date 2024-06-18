@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.UI;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -14,16 +16,32 @@ public class MenuButtons : MonoBehaviour
     public GameObject _player2Rules2;
     public GameObject _player2Rules3;
 
+    [SerializeField] private Button frenchButton;
+    [SerializeField]private Button englishButton;
     private void Start()
     {
         SoundManager.instance.PlayMenuSound();
-
+        if (LocalizationSettings.Instance.GetSelectedLocale() == LocalizationSettings.AvailableLocales.Locales[0])
+        {
+            englishButton.interactable = false;
+            frenchButton.interactable = true;
+        }
+        else
+        {
+            englishButton.interactable = true;
+            frenchButton.interactable = false;
+        }
+        frenchButton.onClick.AddListener(ChangeLanguageToFrench);
+        englishButton.onClick.AddListener(ChangeLanguageToEnglish);
     }
 
-    public void GameAboutToStart()
+    private void OnDestroy()
     {
-
+        frenchButton.onClick.RemoveListener(ChangeLanguageToFrench);
+        englishButton.onClick.RemoveListener(ChangeLanguageToEnglish);
     }
+
+ 
 
     
 
@@ -74,11 +92,15 @@ public class MenuButtons : MonoBehaviour
 
     public void ChangeLanguageToFrench()
     {
+        englishButton.interactable = true;
+        frenchButton.interactable = false;
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];
     }
 
     public void ChangeLanguageToEnglish()
     {
+        englishButton.interactable = false;
+        frenchButton.interactable = true;
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
     }
 

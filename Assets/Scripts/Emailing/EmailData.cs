@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Localization;
 
-    [CreateAssetMenu]
+[CreateAssetMenu]
     public class EmailData : ScriptableObject
     {
-        public string emailSubject;
-        public string emailText;
+        public LocalizedString emailSubject;
+        public LocalizedString emailText;
     }

@@ -9,34 +9,38 @@ using MailKit.Security;
 
 public static class Emailer
 {
-    public static bool SendEmail(EmailSender p_sender, EmailData p_data, string p_emailReceiver, string p_picture)
+    public static bool SendEmail(EmailSender p_sender, EmailData p_data, string p_emailReceiver, List<string> p_pictures)
     {
-        if (string.IsNullOrWhiteSpace(p_picture) || p_picture.Length == 0)
+        if (p_pictures.Count == 0)
         {
             return false;
         }
         var message = new MimeMessage();
         message.From.Add( new MailboxAddress( p_sender.nameSender, p_sender.address) );
         message.To.Add( new MailboxAddress( "HH - Email Receiver", p_emailReceiver ) );
-        message.Subject = p_data.emailSubject;
+        message.Subject = p_data.emailSubject.GetLocalizedString();
 
         var multipartBody = new Multipart( "mixed" );
         {
             var textPart = new TextPart( "plain" )
             {
-                Text = p_data.emailText
+                Text = p_data.emailText.GetLocalizedString()
             };
             multipartBody.Add( textPart );
 
-            string attachmentPath = p_picture;
-            var attachmentPart = new MimePart( "image/png" )
+            foreach (var l_picture in p_pictures)
             {
-                Content = new MimeContent( File.OpenRead( attachmentPath ), ContentEncoding.Default ),
-                ContentDisposition = new ContentDisposition( ContentDisposition.Attachment ),
-                ContentTransferEncoding = ContentEncoding.Base64,
-                FileName = Path.GetFileName( attachmentPath )
-            };
-            multipartBody.Add( attachmentPart );
+                string attachmentPath = l_picture;
+                var attachmentPart = new MimePart( "image/png" )
+                {
+                    Content = new MimeContent( File.OpenRead( attachmentPath ), ContentEncoding.Default ),
+                    ContentDisposition = new ContentDisposition( ContentDisposition.Attachment ),
+                    ContentTransferEncoding = ContentEncoding.Base64,
+                    FileName = Path.GetFileName( attachmentPath )
+                };
+                multipartBody.Add( attachmentPart );
+            }
+          
             
         }
         message.Body = multipartBody;
@@ -55,7 +59,8 @@ public static class Emailer
             client.Disconnect( true );
             Debug.Log( "Sent email" );
         }
-
+        multipartBody.Dispose();
+        message.Dispose();
         return true;
     }
 }

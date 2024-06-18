@@ -80,6 +80,9 @@ public class RoundManagerNew: MonoBehaviour
     [SerializeField]
     private GameEvent drawWinRound;
     
+    [SerializeField]
+    private GameEvent takeWebCamScreenShot;
+    
     
     //============ Logic
 
@@ -112,6 +115,8 @@ public class RoundManagerNew: MonoBehaviour
     private Coroutine _roundTooLongCoroutine;
     private Coroutine _roundCoroutine;
     private bool _gameIsLaunched = false;
+    private Emotion p1Emotion;
+    private Emotion p2Emotion;
 
     //============ Events
 
@@ -183,14 +188,10 @@ public class RoundManagerNew: MonoBehaviour
             ShowEmotionPrompt(playerHUD, emotionToKeepOnCountdown);
             ShowNeutralScore(playerHUD);
         }
-        var p1Emotion = EmotionManager.instance.GetPlayer1Emotion();
-        var p2Emotion = EmotionManager.instance.GetPlayer2Emotion();
         while ((p1Emotion != emotionToKeepOnCountdown.TypeEmotion || p2Emotion != emotionToKeepOnCountdown.TypeEmotion)
                                                                  && !Application.isEditor)
         {
             yield return new WaitForEndOfFrame();
-            p1Emotion = EmotionManager.instance.GetPlayer1Emotion();
-            p2Emotion = EmotionManager.instance.GetPlayer2Emotion();
         }
         yield return new WaitForSeconds(animDuration);
         
@@ -382,8 +383,7 @@ public class RoundManagerNew: MonoBehaviour
 
     private void TestRoundWinner()
     {
-        var p1Emotion = EmotionManager.instance.GetPlayer1Emotion();
-        var p2Emotion = EmotionManager.instance.GetPlayer2Emotion();
+       
         if (_isCurrentlySearchingForEmotion)
         {
             if (p1Emotion == _currentRoundEmotionData.TypeEmotion && p2Emotion == _currentRoundEmotionData.TypeEmotion)
@@ -410,13 +410,13 @@ public class RoundManagerNew: MonoBehaviour
               StopCoroutine(_roundCoroutine);
               ResetHUD();
             }
-            //If 2 players win, none wins
+            //If 2 players not neutrals, none wins
             if (p1Emotion != emotionToKeepOnCountdown.TypeEmotion  && p2Emotion != emotionToKeepOnCountdown.TypeEmotion )
             {
                 //Egality
                 RoundWinner(Winner.BOTH);
             }
-            // if p1 is note neutral
+            // if p1 is not neutral
             else if(p1Emotion != emotionToKeepOnCountdown.TypeEmotion )
             {
                 //P2 gagne roundText
@@ -434,6 +434,7 @@ public class RoundManagerNew: MonoBehaviour
     private void RoundWinner(Winner winner)
     {
         SoundManager.instance.PlayShotgunSound();
+        takeWebCamScreenShot.Raise();
         StopZoom();
         StopCoroutine(_roundTooLongCoroutine);
         _gameIsLaunched = false;
@@ -570,6 +571,8 @@ public class RoundManagerNew: MonoBehaviour
     }
     private void Update()
     {
+        p1Emotion = EmotionManager.instance.GetPlayer1Emotion();
+        p2Emotion = EmotionManager.instance.GetPlayer2Emotion();
         if (_gameIsLaunched)
         {
             TestRoundWinner();

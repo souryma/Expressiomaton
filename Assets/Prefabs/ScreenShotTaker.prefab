@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 972087852323189813}
   - component: {fileID: 4071235374737859721}
+  - component: {fileID: -5582574853050018345}
+  - component: {fileID: 7945976758785749957}
   - component: {fileID: 2682926352048435267}
   m_Layer: 0
   m_Name: ScreenShotTaker
@@ -61,6 +63,62 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-5582574853050018345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6397096428366355992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d67bbcfd089d24e9851eadaf058414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  event: {fileID: 11400000, guid: 8543c4d0fe3328245a9f92efe28981f3, type: 2}
+  m_response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2682926352048435267}
+        m_TargetAssemblyTypeName: GameScreenShotManager, Assembly-CSharp
+        m_MethodName: TakeWebCamScreenShot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7945976758785749957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6397096428366355992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d67bbcfd089d24e9851eadaf058414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  event: {fileID: 11400000, guid: efe4cda5dd7ae3846a9a0c3f8d5e152b, type: 2}
+  m_response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2682926352048435267}
+        m_TargetAssemblyTypeName: GameScreenShotManager, Assembly-CSharp
+        m_MethodName: CleaningScreens
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2682926352048435267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,4 +132,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_screenshotFolder: /screens/
-  timeBeforeScreenShotIsInvalid: 60
+  timeBeforeScreenShotIsInvalid: 90

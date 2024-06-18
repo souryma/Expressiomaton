@@ -1905,9 +1905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97662a29cb44ec04ebf07778a1c53236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TutorialScene: PreTutoScene
-  player2WaitingText: {fileID: 0}
-  player2AboutToStartText: {fileID: 0}
+  TutorialScene: TutoScene
   waitingP1:
     m_TableReference:
       m_TableCollectionName: GUID:3f9d6cde9c936dc4fb12b5f0221c8d59
@@ -1929,6 +1927,8 @@ MonoBehaviour:
   _player2Rules1: {fileID: 0}
   _player2Rules2: {fileID: 0}
   _player2Rules3: {fileID: 0}
+  frenchButton: {fileID: 120999856794243992}
+  englishButton: {fileID: 5792019575659792977}
   references:
     version: 2
     RefIds: []
@@ -3247,10 +3247,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 0.69411767, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.745283, g: 0.52677697, b: 0.030936243, a: 1}
+    m_PressedColor: {r: 0.6415094, g: 0.45342827, b: 0.026628664, a: 1}
+    m_SelectedColor: {r: 0.6431373, g: 0.45490196, b: 0.02745098, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

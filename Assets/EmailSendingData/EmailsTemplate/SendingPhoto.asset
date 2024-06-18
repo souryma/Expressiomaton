@@ -12,6 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18150a1ea8cc4c4dac060f21f03b2042, type: 3}
   m_Name: SendingPhoto
   m_EditorClassIdentifier: 
-  emailSubject: Vos photos au CNAM !
-  emailText: "Voici la photo de votre exp\xE9rience dans MugShot! En esp\xE9rant
-    que vous avez eu une bonne exp\xE9rience au CNAM!"
+  emailSubject:
+    m_TableReference:
+      m_TableCollectionName: GUID:3f9d6cde9c936dc4fb12b5f0221c8d59
+    m_TableEntryReference:
+      m_KeyId: 32018625244250112
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  emailText:
+    m_TableReference:
+      m_TableCollectionName: GUID:3f9d6cde9c936dc4fb12b5f0221c8d59
+    m_TableEntryReference:
+      m_KeyId: 32018799014264832
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
