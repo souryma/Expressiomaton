@@ -138,7 +138,7 @@ public class RoundManagerNew: MonoBehaviour
             }
         }
 
-        LaunchGame();
+        // LaunchGame();
     }
 
     private void ResetHUD()
@@ -155,7 +155,7 @@ public class RoundManagerNew: MonoBehaviour
         }
     }
 
-    private void LaunchGame()
+    public void LaunchGame()
     { 
 
         _currentRoundCount = 1;
