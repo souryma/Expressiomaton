@@ -52,6 +52,9 @@ public sealed class WebcamManager : MonoBehaviour
 
     public WebCamTexture Webcam1 => _webcam1;
 
+    public bool Face1Detected => _face1Detected;
+    public bool Face2Detected => _face2Detected;
+
     public Detection? LastFace1Detection => _lastFace1Detection;
     public Detection? LastFace2Detection => _lastFace2Detection;
 

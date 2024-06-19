@@ -22,6 +22,7 @@ public class TutorialManager : MonoBehaviour
     private float _currentTestTimeP2 = 0;
     private float _endTestTimeP1 = 0;
     private float _endTestTimeP2 = 0;
+    private float _screenEnd = 0;
 
 
     [SerializeField] private string _menuSceneName;
@@ -29,6 +30,7 @@ public class TutorialManager : MonoBehaviour
     
     [SerializeField] private float maxEmotionTestDuration = 10.0f;
     [SerializeField] private int countDownStart = 5;
+    [SerializeField] private int timeBeforeScreenStart = 5;
     [SerializeField] private List<EmotionData> emotionsNeededForGame = new();
 
     [SerializeField]
@@ -65,10 +67,11 @@ public class TutorialManager : MonoBehaviour
     
     private void Start()
     {
-
+        _screenEnd = Time.time + timeBeforeScreenStart;
         // _emotionsToTestP1 = new List<EmotionData>(emotionsNeededForGame);
         // _emotionsToTestP2 = new List<EmotionData>(emotionsNeededForGame);
-        
+        _player1Target.gameObject.transform.localScale = Vector3.zero;
+        _player2Target.gameObject.transform.localScale = Vector3.zero;
         _camera.texture = WebcamManager.instance.Webcam1;
 
         _currentEmotionIdxP1 = 0;
@@ -94,10 +97,12 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        _ProcessEmotionTestForPlayer1();
-        _ProcessEmotionTestForPlayer2();
         PositionTargetText(_player1Target, WebcamManager.instance.LastFace1Detection);
         PositionTargetText(_player2Target, WebcamManager.instance.LastFace2Detection);
+        var currentTime = Time.time;
+        if(currentTime < _screenEnd) return;
+        _ProcessEmotionTestForPlayer1();
+        _ProcessEmotionTestForPlayer2();
 
         if (_player1Ready && _player2Ready && _gameLaunched == false)
         {
@@ -156,7 +161,7 @@ public class TutorialManager : MonoBehaviour
 
     private void _ProcessEmotionTestForPlayer1()
     {
-        if(_player1Ready || _currentEmotionIdxP1 >= emotionsNeededForGame.Count)
+        if(_player1Ready || _currentEmotionIdxP1 >= emotionsNeededForGame.Count || !WebcamManager.instance.Face1Detected)
             return;
         
         _currentTestTimeP1 = Time.time;
@@ -188,11 +193,13 @@ public class TutorialManager : MonoBehaviour
 
     private void _ProcessEmotionTestForPlayer2()
     {
+        
+
+        if(_player2Ready || _currentEmotionIdxP2 >= emotionsNeededForGame.Count || !WebcamManager.instance.Face2Detected)
+            return;
+        
         _currentTestTimeP2 = Time.time;
         int remainingTime = (int) Mathf.Round(_endTestTimeP2 - _currentTestTimeP2);
-
-        if(_player2Ready || _currentEmotionIdxP2 >= emotionsNeededForGame.Count)
-            return;
         
         EmotionData currentEmotionToTest = emotionsNeededForGame[_currentEmotionIdxP2];
 

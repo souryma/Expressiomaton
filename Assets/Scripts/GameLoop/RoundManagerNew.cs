@@ -188,8 +188,8 @@ public class RoundManagerNew: MonoBehaviour
             ShowEmotionPrompt(playerHUD, emotionToKeepOnCountdown);
             ShowNeutralScore(playerHUD);
         }
-        while ((p1Emotion != emotionToKeepOnCountdown.TypeEmotion || p2Emotion != emotionToKeepOnCountdown.TypeEmotion)
-                                                                 && !Application.isEditor)
+        while ((p1Emotion != emotionToKeepOnCountdown.TypeEmotion || p2Emotion != emotionToKeepOnCountdown.TypeEmotion) 
+               || !WebcamManager.instance.Face1Detected || !WebcamManager.instance.Face2Detected)
         {
             yield return new WaitForEndOfFrame();
         }

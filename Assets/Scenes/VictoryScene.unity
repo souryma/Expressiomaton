@@ -2019,9 +2019,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1952383569621917006, guid: 95a9a77d90deb2646809c0841d4ab81d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 44e9e774634dea64aadbbc84712ff986, type: 3}
+    - target: {fileID: 1952383569621917006, guid: 95a9a77d90deb2646809c0841d4ab81d, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2596899042171798713, guid: 95a9a77d90deb2646809c0841d4ab81d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 211.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2596899042171798713, guid: 95a9a77d90deb2646809c0841d4ab81d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 178.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2596899042171798713, guid: 95a9a77d90deb2646809c0841d4ab81d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2596899042171798713, guid: 95a9a77d90deb2646809c0841d4ab81d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5094428886677353284, guid: 95a9a77d90deb2646809c0841d4ab81d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5269043151839450980, guid: 95a9a77d90deb2646809c0841d4ab81d, type: 3}
       propertyPath: loserFace
