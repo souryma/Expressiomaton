@@ -30,7 +30,7 @@ public class TutorialManager : MonoBehaviour
     
     [SerializeField] private float maxEmotionTestDuration = 10.0f;
     [SerializeField] private int countDownStart = 5;
-    [SerializeField] private int timeBeforeScreenStart = 5;
+    [SerializeField] private int timeBeforeScreenStart = 3;
     [SerializeField] private List<EmotionData> emotionsNeededForGame = new();
 
     [SerializeField]
