@@ -32,31 +32,7 @@ public class GameScreenShotManager : MonoBehaviour
       // }
       // set => m_sessionScreenShots = value;
   }
-  
-  public void TakeScreenShot()
-  {
-    StartCoroutine(ScreenShotTaker());
-  }
-  public void TakeWebCamScreenShot()
-  {
-      if (WebcamManager.instance.isCameraSetup)
-      {
-          StartCoroutine(WebcamScreenShotTaker(WebcamManager.instance.Webcam1));
-      }
-  }
 
-  public void CleaningScreens()
-  {
-      foreach (var path in m_sessionScreenShots)
-      {
-          if(File.Exists(path))
-            File.Delete(path);
-      }
-#if UNITY_EDITOR
-      UnityEditor.AssetDatabase.Refresh();
-#endif
-      m_sessionScreenShots = new List<string>();
-  }
 
   private IEnumerator ScreenShotTaker()
   {
@@ -99,40 +75,11 @@ public class GameScreenShotManager : MonoBehaviour
       string path = Path.Combine(pathToFolder, filename );
       return path;
   }
-  // private void SavePictureToGallery( Texture2D texture2D )
-  // {
-  //     
-  //     byte[] bytes = texture2D.EncodeToPNG();
-  //    
-  //       
-  //     
-  //     if( !filename.EndsWith( ".png" ) )
-  //         path += ".png";
-  //     
-  //  
-  //     // Debug.Log( "Saving to: " + path );
-  //     SaveImage(path, bytes);
-  //
-  // }
-  //
-  // private void SaveImage(string path, byte[] bytes)
-  // {
-  //     File.WriteAllBytes( path, bytes );
-  //     // yield return 0;
-  // }
 
   private string GetFolderPath()
   {
-      // if (Application.isEditor)
-      // {
-      //     return System.Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory)
-      //            + m_screenshotFolder;
-      // }
-      // else
-      // {
+   
           return Application.dataPath + m_screenshotFolder;
-
-      // }
   }
 
   private void Start()
@@ -157,6 +104,32 @@ public class GameScreenShotManager : MonoBehaviour
   {
       CleaningScreens();
       Directory.Delete(GetFolderPath());
+  }
+  
+    
+  public void TakeScreenShot()
+  {
+      StartCoroutine(ScreenShotTaker());
+  }
+  public void TakeWebCamScreenShot()
+  {
+      if (WebcamManager.instance.isCameraSetup)
+      {
+          StartCoroutine(WebcamScreenShotTaker(WebcamManager.instance.Webcam1));
+      }
+  }
+
+  public void CleaningScreens()
+  {
+      foreach (var path in m_sessionScreenShots)
+      {
+          if(File.Exists(path))
+              File.Delete(path);
+      }
+#if UNITY_EDITOR
+      UnityEditor.AssetDatabase.Refresh();
+#endif
+      m_sessionScreenShots = new List<string>();
   }
   
   
