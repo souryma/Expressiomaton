@@ -149,5 +149,15 @@ public class GameScreenShotManager : MonoBehaviour
       {
           Debug.Log(ex.ToString());
       }
+
+      Application.quitting += OnApplicationQuit;
   }
+  
+  private void OnApplicationQuit()
+  {
+      CleaningScreens();
+      Directory.Delete(GetFolderPath());
+  }
+  
+  
 }
