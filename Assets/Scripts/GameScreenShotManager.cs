@@ -10,6 +10,7 @@ public class GameScreenShotManager : MonoBehaviour
 {
   [SerializeField] private string m_screenshotFolder;
   [SerializeField] private int timeBeforeScreenShotIsInvalid;
+  [SerializeField] private GameEvent showExplorer;
   private List<string> m_sessionScreenShots = new List<string>();
 
   private DateTime timeLastScreenTaken;
@@ -97,14 +98,9 @@ public class GameScreenShotManager : MonoBehaviour
           Debug.Log(ex.ToString());
       }
 
-      Application.quitting += OnApplicationQuit;
   }
   
-  private void OnApplicationQuit()
-  {
-      CleaningScreens();
-      Directory.Delete(GetFolderPath());
-  }
+
   
     
   public void TakeScreenShot()
@@ -119,17 +115,10 @@ public class GameScreenShotManager : MonoBehaviour
       }
   }
 
-  public void CleaningScreens()
+  public void ShowScreens()
   {
-      foreach (var path in m_sessionScreenShots)
-      {
-          if(File.Exists(path))
-              File.Delete(path);
-      }
-#if UNITY_EDITOR
-      UnityEditor.AssetDatabase.Refresh();
-#endif
-      m_sessionScreenShots = new List<string>();
+      var path = GetFolderPath();   
+      Application.OpenURL("file://" + path);
   }
   
   

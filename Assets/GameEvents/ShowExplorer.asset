@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c12d0dc589214919aa70c668d284bfe2, type: 3}
-  m_Name: Dud
+  m_Script: {fileID: 11500000, guid: d58f334f81590764da23302beac6193e, type: 3}
+  m_Name: ShowExplorer
   m_EditorClassIdentifier: 
-  address: mugshot-cnam@outlook.com
-  nameSender: Mugshot Game
-  password: 
-  service: smtp-mail.outlook.com
-  port: 587

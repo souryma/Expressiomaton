@@ -236,6 +236,8 @@ public class TutorialManager : MonoBehaviour
         _player2Text.gameObject.SetActive(false);
         _player2Name.SetActive(false);
         _player1Name.SetActive(false);
+        spriteP1.gameObject.SetActive(false);
+        spriteP2.gameObject.SetActive(false);
         for (int i = countDownStart; i > 0 ; i--)
         {
             _launchText1.text = countDownText.GetLocalizedString() + " " + i;

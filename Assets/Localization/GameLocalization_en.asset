@@ -286,6 +286,14 @@ MonoBehaviour:
     m_Localized: wins!
     m_Metadata:
       m_Items: []
+  - m_Id: 34147959857823744
+    m_Localized: Do you want to see the pictures ?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34148533646999552
+    m_Localized: Open folder
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
