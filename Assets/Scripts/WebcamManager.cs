@@ -29,8 +29,6 @@ public sealed class WebcamManager : MonoBehaviour
     private Detection? _lastFace1Detection;
     private bool _face2Detected = false;
     private Detection? _lastFace2Detection;
-
-    private readonly float _roundingValue = 100f;
     
     [SerializeField] private int2 _cameraTextureResolutions = new int2(512, 512);
 

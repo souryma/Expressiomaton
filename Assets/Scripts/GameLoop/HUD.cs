@@ -13,7 +13,7 @@ public struct HUD
     public TextMeshProUGUI roundResult;
 
     public TextMeshProUGUI roundText;
-    public TextMeshProUGUI keepNeutralText;
+    public CanvasGroup keepNeutralText;
 
     public RawImage background;
 
@@ -26,4 +26,5 @@ public struct HUD
     public GameObject scorePlayer;
     public GameObject scoreOpponent;
     public CanvasGroup neutralityScore;
+    public CanvasGroup cameraReturn;
 }

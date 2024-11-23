@@ -1952,9 +1952,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuSceneName: MenuScene
-  _nextSceneName: GameScene_Wilfried
+  _nextSceneName: GameScene
   maxEmotionTestDuration: 10
   countDownStart: 5
+  timeBeforeScreenStart: 3
   emotionsNeededForGame:
   - {fileID: 11400000, guid: 0a6f7e5c24b780646bdd8af2167685f3, type: 2}
   - {fileID: 11400000, guid: c29f8f27b0971b3479fb784caa161aef, type: 2}

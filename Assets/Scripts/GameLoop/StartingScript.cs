@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using GameLoop;
 using UnityEngine;
 
 public class StartingScript : MonoBehaviour
@@ -20,6 +21,7 @@ public class StartingScript : MonoBehaviour
         startCamera.gameObject.SetActive(false);
         p1Ui.DOFade(1f, 1f);
         p2Ui.DOFade(1f, 1f);
+        roundManagerNew.ShowCameraReturn();
         yield return new WaitForSeconds(1f);
         roundManagerNew.LaunchGame();
     }

@@ -259,6 +259,10 @@ MonoBehaviour:
     m_Key: folder_open
     m_Metadata:
       m_Items: []
+  - m_Id: 89179580303413248
+    m_Key: NotNeutral
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
