@@ -578,6 +578,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: MenuButtons, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 4289815501359865206, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4289815501359865206, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4289815501359865206, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4640816106446920296, guid: 91ef6c077f6863c4f9f04c2366036aa5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 3
