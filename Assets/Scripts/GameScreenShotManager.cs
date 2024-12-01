@@ -98,8 +98,15 @@ public class GameScreenShotManager : MonoBehaviour
           Debug.Log(ex.ToString());
       }
 
+      Application.quitting += OnApplicationQuit;
   }
   
+  private void OnApplicationQuit()
+  {
+      CleaningScreens();
+      Directory.Delete(GetFolderPath());
+  }
+
 
   
     
@@ -120,6 +127,17 @@ public class GameScreenShotManager : MonoBehaviour
       var path = GetFolderPath();   
       Application.OpenURL("file://" + path);
   }
-  
+  public void CleaningScreens()
+  {
+      foreach (var path in m_sessionScreenShots)
+      {
+          if(File.Exists(path))
+              File.Delete(path);
+      }
+    #if UNITY_EDITOR
+      UnityEditor.AssetDatabase.Refresh();
+    #endif
+      m_sessionScreenShots = new List<string>();
+  }
   
 }

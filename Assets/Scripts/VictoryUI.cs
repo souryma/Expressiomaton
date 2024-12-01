@@ -30,13 +30,14 @@ public class VictoryUI : MonoBehaviour
     [SerializeField] private TMP_Text emailSentField;
     [SerializeField] private Button sendEmailButton;
     [SerializeField] private Button passButton;
-
+    [SerializeField] private EmailGameEvent emailGameEvent;
+    
     private bool _emailIsSending = false;
     private void Start()
     {
         if (!hasInput) return;
         HideOverlay();
-        // sendEmailButton.onClick.AddListener(OnSendEmail);
+        sendEmailButton.onClick.AddListener(OnSendEmail);
         passButton.onClick.AddListener(OnPass);
         startPictureScreen.onClick.AddListener(OnPictureStart);
         StartCoroutine(StartScreen());
@@ -104,19 +105,20 @@ public class VictoryUI : MonoBehaviour
     {
         onStartPictureScreen.Raise();
     }
-    // private void OnSendEmail()
-    // {
-    //     if (!_emailIsSending && EmailGameEvent.IsValid(emailInput.text))
-    //     {
-    //         _emailIsSending = true;
-    //         ShowEmailSending();
-    //         emailGameEvent.RaiseEvent(emailInput.text);
-    //     }
-    //     else
-    //     {
-    //         ShowWarning();
-    //     }
-    // }
+    
+    private void OnSendEmail()
+    {
+        if (!_emailIsSending && EmailGameEvent.IsValid(emailInput.text))
+        {
+            _emailIsSending = true;
+            ShowEmailSending();
+            emailGameEvent.RaiseEvent(emailInput.text);
+        }
+        else
+        {
+            ShowWarning();
+        }
+    }
 
     private void HideCanvas(CanvasGroup canvas)
     {
