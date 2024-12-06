@@ -169,8 +169,8 @@ public sealed class WebcamManager : MonoBehaviour
         
        
      
-        var centerP1 = new Vector2(0.4f, 0.5f);
-        var centerP2 = new Vector2(0.6f, 0.5f);
+        var centerP1 = new Vector2(0.45f, 0.5f);
+        var centerP2 = new Vector2(0.55f, 0.5f);
         
         Detection? currentDetectionP1 = null;
         Detection? currentDetectionP2 = null;
@@ -182,12 +182,14 @@ public sealed class WebcamManager : MonoBehaviour
         {
             
             Vector2 centerCurrentDetection = new Vector2(detection.GetCenterX(), detection.GetCenterY());
+            if(centerCurrentDetection.x is < 0.3f or > 0.7f || centerCurrentDetection.y is < 0.2f or > 0.8f) continue;
             if (centerCurrentDetection.x > 0.5f)
             {
                 float distance = Vector2.Distance(centerP1, centerCurrentDetection);
                 if (distance < smallestDistanceP1)
                 {
                     currentDetectionP1 = detection;
+                    smallestDistanceP1 = distance;
                 }
             }
             else
@@ -196,6 +198,7 @@ public sealed class WebcamManager : MonoBehaviour
                 if (distance < smallestDistanceP2)
                 {
                     currentDetectionP2 = detection;
+                    smallestDistanceP2 = distance;
                 }
             }
         }
