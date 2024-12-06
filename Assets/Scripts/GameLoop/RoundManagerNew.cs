@@ -197,8 +197,8 @@ namespace GameLoop
             {
                 ShowEmotionPrompt(playerHUD, emotionToKeepOnCountdown);
             }
-            while (WaitForPlayersBeforeStart() )
-                   // || !WebcamManager.instance.Face1Detected || !WebcamManager.instance.Face2Detected)
+            while (WaitForPlayersBeforeStart() 
+                   || !WebcamManager.instance.Face1Detected || !WebcamManager.instance.Face2Detected)
             {
                 yield return new WaitForEndOfFrame();
             }
