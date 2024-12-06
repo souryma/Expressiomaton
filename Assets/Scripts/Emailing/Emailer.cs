@@ -49,7 +49,6 @@ public static class Emailer
         {
             client.Connect( p_sender.service, p_sender.port, false );
 
-            client.AuthenticationMechanisms.Remove( "XOAUTH2" );
             client.Authenticate( p_sender.address, p_sender.password);
             client.Send( message );
             client.Disconnect( true );
