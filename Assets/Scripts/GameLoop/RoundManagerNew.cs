@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -81,7 +82,19 @@ namespace GameLoop
     
         [SerializeField]
         private GameEvent takeWebCamScreenShot;
-    
+
+        [SerializeField] 
+        private int timeToDetectWrongEmotion = 300;
+        [SerializeField] 
+        private int timeToWaitNeutral = 1000;
+        
+        private DateTime player1SaveTimeStart = DateTime.Now;
+        private bool player1WrongEmotionDetected = false;
+        private bool player1NeutralDetected = false;
+        private DateTime player2SaveTimeStart;
+        private bool player2WrongEmotionDetected = false;
+        private bool player2NeutralDetected = false;
+
     
         //============ Logic
 
@@ -159,6 +172,10 @@ namespace GameLoop
         {
             SetCurrentRoundEmotionData();
             _currentRoundTimeBeforeEmotionDisplay = Random.Range(minTimeBeforeEmotionDisplay, maxTimeBeforeEmotionDisplay);
+            player1WrongEmotionDetected = false;
+            player2WrongEmotionDetected = false;
+            player1NeutralDetected = false;
+            player2NeutralDetected = false;
         }
 
         private IEnumerator StartOneRound()
@@ -180,11 +197,12 @@ namespace GameLoop
             {
                 ShowEmotionPrompt(playerHUD, emotionToKeepOnCountdown);
             }
-            while ((p1Emotion != emotionToKeepOnCountdown.TypeEmotion || p2Emotion != emotionToKeepOnCountdown.TypeEmotion) 
-                   || !WebcamManager.instance.Face1Detected || !WebcamManager.instance.Face2Detected)
+            while (WaitForPlayersBeforeStart() )
+                   // || !WebcamManager.instance.Face1Detected || !WebcamManager.instance.Face2Detected)
             {
                 yield return new WaitForEndOfFrame();
             }
+            
             yield return new WaitForSeconds(animDuration);
         
             foreach (HUD playerHUD in playersHUD)
@@ -224,6 +242,34 @@ namespace GameLoop
             //start expression recognition
             _isCurrentlySearchingForEmotion = true;
 
+        }
+
+        private bool WaitForPlayersBeforeStart()
+        {
+            if (!player1NeutralDetected && p1Emotion == emotionToKeepOnCountdown.TypeEmotion)
+            {
+                player1SaveTimeStart = DateTime.Now;
+                player1NeutralDetected = true;
+            }
+            else if(p1Emotion != emotionToKeepOnCountdown.TypeEmotion)
+            {
+                player1NeutralDetected = false;
+            }
+
+            if (!player2NeutralDetected && p2Emotion == emotionToKeepOnCountdown.TypeEmotion)
+            {
+                player2SaveTimeStart = DateTime.Now;
+                player2NeutralDetected = true;
+            }
+            else if(p2Emotion != emotionToKeepOnCountdown.TypeEmotion)
+            {
+                player2NeutralDetected = false;
+            }
+
+            return !((player1NeutralDetected && DateTime.Now.Subtract(player1SaveTimeStart).TotalMilliseconds >=
+                         timeToWaitNeutral) &&
+                   (player2NeutralDetected && DateTime.Now.Subtract(player2SaveTimeStart).TotalMilliseconds >=
+                       timeToWaitNeutral));
         }
 
         private void HideNeutralScore(HUD playerHUD)
@@ -402,30 +448,54 @@ namespace GameLoop
             }
             else
             {
+                if (!player1WrongEmotionDetected && p1Emotion != emotionToKeepOnCountdown.TypeEmotion)
+                {
+                    player1WrongEmotionDetected = true;
+                    player1SaveTimeStart = DateTime.Now;
+                }
+                else if(p1Emotion == emotionToKeepOnCountdown.TypeEmotion)
+                {
+                    player1WrongEmotionDetected = false;
+                }
+
+                if (!player2WrongEmotionDetected && p2Emotion != emotionToKeepOnCountdown.TypeEmotion)
+                {
+                    player2WrongEmotionDetected = true;
+                    player2SaveTimeStart = DateTime.Now;
+                }  
+                else if(p2Emotion == emotionToKeepOnCountdown.TypeEmotion)
+                {
+                    player2WrongEmotionDetected = false;
+                }
+
+                
                 // First, stopping round and resetting
-                if (p1Emotion != emotionToKeepOnCountdown.TypeEmotion || p2Emotion != emotionToKeepOnCountdown.TypeEmotion )
+                if (( player1WrongEmotionDetected && DateTime.Now.Subtract(player1SaveTimeStart).TotalMilliseconds >= timeToDetectWrongEmotion ) || 
+                    ( player2WrongEmotionDetected && DateTime.Now.Subtract(player2SaveTimeStart).TotalMilliseconds >= timeToDetectWrongEmotion))
                 {
                     StopCoroutine(_roundCoroutine);
                     ResetHUD();
+                    
+                    if (player1WrongEmotionDetected && player2WrongEmotionDetected )
+                    {
+                        //Egality
+                        RoundWinner(Winner.BOTH);
+                    }
+                    // if p1 is not neutral
+                    else if(player1WrongEmotionDetected )
+                    {
+                        //P2 gagne roundText
+                        RoundWinner(Winner.PLAYER_2);
+                    }
+                    // if p2 is not neutral
+                    else if(player2WrongEmotionDetected )
+                    {
+                        //P1 gagne roundText
+                        RoundWinner(Winner.PLAYER_1);
+                    }
                 }
                 //If 2 players not neutrals, none wins
-                if (p1Emotion != emotionToKeepOnCountdown.TypeEmotion  && p2Emotion != emotionToKeepOnCountdown.TypeEmotion )
-                {
-                    //Egality
-                    RoundWinner(Winner.BOTH);
-                }
-                // if p1 is not neutral
-                else if(p1Emotion != emotionToKeepOnCountdown.TypeEmotion )
-                {
-                    //P2 gagne roundText
-                    RoundWinner(Winner.PLAYER_2);
-                }
-                // if p2 is not neutral
-                else if(p2Emotion != emotionToKeepOnCountdown.TypeEmotion )
-                {
-                    //P1 gagne roundText
-                    RoundWinner(Winner.PLAYER_1);
-                }
+                
             }
         }
 
